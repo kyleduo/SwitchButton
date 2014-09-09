@@ -1,4 +1,6 @@
-package com.kyleduo.togglebutton;
+package com.kyleduo.switchbutton;
+
+import com.kyleduo.switchbutton.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

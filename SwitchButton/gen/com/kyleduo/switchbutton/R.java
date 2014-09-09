@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.kyleduo.togglebutton;
+package com.kyleduo.switchbutton;
 
 public final class R {
     public static final class attr {
