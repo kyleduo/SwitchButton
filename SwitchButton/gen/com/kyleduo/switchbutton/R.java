@@ -9,38 +9,105 @@ package com.kyleduo.switchbutton;
 
 public final class R {
     public static final class attr {
-    }
-    public static final class dimen {
-        /**  Default screen margins, per the Android Design guidelines. 
-
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static int animationVelocity=0x7f01000e;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static int offColor=0x7f01000b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int offDrawable=0x7f010001;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static int onColor=0x7f01000a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int onDrawable=0x7f010000;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static int thumbColor=0x7f01000c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int thumbDrawable=0x7f010002;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static int thumbPressedColor=0x7f01000d;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_height=0x7f010009;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_margin=0x7f010003;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_marginBottom=0x7f010005;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_marginLeft=0x7f010006;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_marginRight=0x7f010007;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_marginTop=0x7f010004;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int thumb_width=0x7f010008;
     }
     public static final class drawable {
-        public static final int do_switch_thumb=0x7f020000;
-        public static final int drawer_group_bg_red_normal=0x7f020001;
-        public static final int drawer_group_bg_red_pressed=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int togglebutton_bg_off=0x7f020004;
-        public static final int togglebutton_bg_on=0x7f020005;
-        public static final int togglebutton_thumb_normal=0x7f020006;
-        public static final int togglebutton_thumb_pressed=0x7f020007;
-    }
-    public static final class id {
-        public static final int container=0x7f070000;
-        public static final int toggle=0x7f070001;
-    }
-    public static final class layout {
-        public static final int activity_main=0x7f030000;
+        public static int ic_launcher=0x7f020000;
     }
     public static final class string {
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050001;
+        public static int app_name=0x7f030000;
     }
     public static final class style {
         /** 
@@ -53,10 +120,239 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static int AppBaseTheme=0x7f040000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static int AppTheme=0x7f040001;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a SwitchButton.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SwitchButton_animationVelocity com.kyleduo.switchbutton:animationVelocity}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_offColor com.kyleduo.switchbutton:offColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_offDrawable com.kyleduo.switchbutton:offDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_onColor com.kyleduo.switchbutton:onColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_onDrawable com.kyleduo.switchbutton:onDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumbColor com.kyleduo.switchbutton:thumbColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumbDrawable com.kyleduo.switchbutton:thumbDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumbPressedColor com.kyleduo.switchbutton:thumbPressedColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_height com.kyleduo.switchbutton:thumb_height}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_margin com.kyleduo.switchbutton:thumb_margin}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_marginBottom com.kyleduo.switchbutton:thumb_marginBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_marginLeft com.kyleduo.switchbutton:thumb_marginLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_marginRight com.kyleduo.switchbutton:thumb_marginRight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_marginTop com.kyleduo.switchbutton:thumb_marginTop}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_thumb_width com.kyleduo.switchbutton:thumb_width}</code></td><td></td></tr>
+           </table>
+           @see #SwitchButton_animationVelocity
+           @see #SwitchButton_offColor
+           @see #SwitchButton_offDrawable
+           @see #SwitchButton_onColor
+           @see #SwitchButton_onDrawable
+           @see #SwitchButton_thumbColor
+           @see #SwitchButton_thumbDrawable
+           @see #SwitchButton_thumbPressedColor
+           @see #SwitchButton_thumb_height
+           @see #SwitchButton_thumb_margin
+           @see #SwitchButton_thumb_marginBottom
+           @see #SwitchButton_thumb_marginLeft
+           @see #SwitchButton_thumb_marginRight
+           @see #SwitchButton_thumb_marginTop
+           @see #SwitchButton_thumb_width
+         */
+        public static final int[] SwitchButton = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
+            0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
+            0x7f01000c, 0x7f01000d, 0x7f01000e
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#animationVelocity}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kyleduo.switchbutton:animationVelocity
+        */
+        public static final int SwitchButton_animationVelocity = 14;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#offColor}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.kyleduo.switchbutton:offColor
+        */
+        public static final int SwitchButton_offColor = 11;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#offDrawable}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.kyleduo.switchbutton:offDrawable
+        */
+        public static final int SwitchButton_offDrawable = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#onColor}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.kyleduo.switchbutton:onColor
+        */
+        public static final int SwitchButton_onColor = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#onDrawable}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.kyleduo.switchbutton:onDrawable
+        */
+        public static final int SwitchButton_onDrawable = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumbColor}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.kyleduo.switchbutton:thumbColor
+        */
+        public static final int SwitchButton_thumbColor = 12;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumbDrawable}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.kyleduo.switchbutton:thumbDrawable
+        */
+        public static final int SwitchButton_thumbDrawable = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumbPressedColor}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.kyleduo.switchbutton:thumbPressedColor
+        */
+        public static final int SwitchButton_thumbPressedColor = 13;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_height}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_height
+        */
+        public static final int SwitchButton_thumb_height = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_margin}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_margin
+        */
+        public static final int SwitchButton_thumb_margin = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_marginBottom}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_marginBottom
+        */
+        public static final int SwitchButton_thumb_marginBottom = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_marginLeft}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_marginLeft
+        */
+        public static final int SwitchButton_thumb_marginLeft = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_marginRight}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_marginRight
+        */
+        public static final int SwitchButton_thumb_marginRight = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_marginTop}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_marginTop
+        */
+        public static final int SwitchButton_thumb_marginTop = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumb_width}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:thumb_width
+        */
+        public static final int SwitchButton_thumb_width = 8;
+    };
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SwitchButtonDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- style title -->
+    <string name="style_default">Default Style</string>
+    <string name="style_image">Using Image</string>
+    <string name="style_custom">Custom Style</string>
+    <string name="style_change">Change Style In Code</string>
+    <string name="changeface">Change Face</string>
+    <string name="enable_title">enable/disable</string>
+
+</resources>
