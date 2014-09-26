@@ -4,3 +4,8 @@ After a few days before, I have updated this project completely. To finish this 
 
 Now, SwitchButton can used more easily to present a switch of flat style using color. The default looking is like this:
 
+![default_on](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_on.png) ![default_on](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_off.png)
+
+To offer a convient way to configuration the looking, I designed a series of interface. You can use them to change the style. In demo, you can find how to use them. The demo looks like this:
+
+![default_on](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/all_on.png)
