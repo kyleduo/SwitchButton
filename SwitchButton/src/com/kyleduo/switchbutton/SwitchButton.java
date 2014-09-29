@@ -70,6 +70,7 @@ public class SwitchButton extends CompoundButton {
 				ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginBottom, mConf.getThumbMarginBottom()),
 				ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginLeft, mConf.getThumbMarginLeft()),
 				ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginRight, mConf.getThumbMarginRight()));
+		mConf.setRadius(ta.getInt(R.styleable.SwitchButton_radius, Configuration.Default.DEFAULT_RADIUS));
 
 		mConf.setThumbWidthAndHeightInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_width, -1), ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_height, -1));
 
@@ -120,7 +121,7 @@ public class SwitchButton extends CompoundButton {
 		if (tempDrawable == null) {
 			int tempColor = ta.getColor(alterColorId, defaultColor);
 			tempDrawable = new GradientDrawable();
-			((GradientDrawable) tempDrawable).setCornerRadius(999f);
+			((GradientDrawable) tempDrawable).setCornerRadius(this.mConf.getRadius());
 			((GradientDrawable) tempDrawable).setColor(tempColor);
 		}
 		return tempDrawable;

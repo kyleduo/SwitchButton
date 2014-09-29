@@ -3,6 +3,7 @@ int attr offColor 0x7f01000b
 int attr offDrawable 0x7f010001
 int attr onColor 0x7f01000a
 int attr onDrawable 0x7f010000
+int attr radius 0x7f01000f
 int attr thumbColor 0x7f01000c
 int attr thumbDrawable 0x7f010002
 int attr thumbPressedColor 0x7f01000d
@@ -17,12 +18,13 @@ int drawable ic_launcher 0x7f020000
 int string app_name 0x7f030000
 int style AppBaseTheme 0x7f040000
 int style AppTheme 0x7f040001
-int[] styleable SwitchButton { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e }
+int[] styleable SwitchButton { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f }
 int styleable SwitchButton_animationVelocity 14
 int styleable SwitchButton_offColor 11
 int styleable SwitchButton_offDrawable 1
 int styleable SwitchButton_onColor 10
 int styleable SwitchButton_onDrawable 0
+int styleable SwitchButton_radius 15
 int styleable SwitchButton_thumbColor 12
 int styleable SwitchButton_thumbDrawable 2
 int styleable SwitchButton_thumbPressedColor 13

@@ -25,9 +25,10 @@
         style="@style/SwitchButtonStyle"
         app:animationVelocity="8"
         app:thumbColor="#ee4b71"
-        app:thumb_height="16dp"
-        app:thumb_margin="3dp"
-        app:thumb_width="26dp" />
+        app:radius="4"
+        app:thumb_height="18dp"
+        app:thumb_margin="2dp"
+        app:thumb_width="24dp" />
 
     <TextView
         style="@style/StyleTitleText"
@@ -60,6 +61,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/changeface" />
+        
+   		<com.kyleduo.switchbutton.SwitchButton style="@style/SwitchButtonStyle" />
+        
     </LinearLayout>
 
     <TextView

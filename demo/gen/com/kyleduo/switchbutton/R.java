@@ -13,6 +13,7 @@ public final class R {
 		public static final int offDrawable = 0x7f010001;
 		public static final int onColor = 0x7f01000a;
 		public static final int onDrawable = 0x7f010000;
+		public static final int radius = 0x7f01000f;
 		public static final int thumbColor = 0x7f01000c;
 		public static final int thumbDrawable = 0x7f010002;
 		public static final int thumbPressedColor = 0x7f01000d;
@@ -35,12 +36,13 @@ public final class R {
 		public static final int AppTheme = 0x7f050001;
 	}
 	public static final class styleable {
-		public static final int[] SwitchButton = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e };
+		public static final int[] SwitchButton = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f };
 		public static final int SwitchButton_animationVelocity = 14;
 		public static final int SwitchButton_offColor = 11;
 		public static final int SwitchButton_offDrawable = 1;
 		public static final int SwitchButton_onColor = 10;
 		public static final int SwitchButton_onDrawable = 0;
+		public static final int SwitchButton_radius = 15;
 		public static final int SwitchButton_thumbColor = 12;
 		public static final int SwitchButton_thumbDrawable = 2;
 		public static final int SwitchButton_thumbPressedColor = 13;

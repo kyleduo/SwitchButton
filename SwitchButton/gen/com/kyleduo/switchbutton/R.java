@@ -39,6 +39,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int onDrawable=0x7f010000;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int radius=0x7f01000f;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
@@ -138,6 +145,7 @@ in (inches), mm (millimeters).
            <tr><td><code>{@link #SwitchButton_offDrawable com.kyleduo.switchbutton:offDrawable}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_onColor com.kyleduo.switchbutton:onColor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_onDrawable com.kyleduo.switchbutton:onDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_radius com.kyleduo.switchbutton:radius}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_thumbColor com.kyleduo.switchbutton:thumbColor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_thumbDrawable com.kyleduo.switchbutton:thumbDrawable}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_thumbPressedColor com.kyleduo.switchbutton:thumbPressedColor}</code></td><td></td></tr>
@@ -154,6 +162,7 @@ in (inches), mm (millimeters).
            @see #SwitchButton_offDrawable
            @see #SwitchButton_onColor
            @see #SwitchButton_onDrawable
+           @see #SwitchButton_radius
            @see #SwitchButton_thumbColor
            @see #SwitchButton_thumbDrawable
            @see #SwitchButton_thumbPressedColor
@@ -169,7 +178,7 @@ in (inches), mm (millimeters).
             0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
             0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
             0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
-            0x7f01000c, 0x7f01000d, 0x7f01000e
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f
         };
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#animationVelocity}
@@ -229,6 +238,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name com.kyleduo.switchbutton:onDrawable
         */
         public static final int SwitchButton_onDrawable = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#radius}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:radius
+        */
+        public static final int SwitchButton_radius = 15;
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#thumbColor}
           attribute's value can be found in the {@link #SwitchButton} array.

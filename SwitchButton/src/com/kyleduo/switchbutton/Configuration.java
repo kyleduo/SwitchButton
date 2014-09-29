@@ -19,6 +19,7 @@ public class Configuration implements Cloneable {
 		static int DEFAULT_THUMB_COLOR = Color.parseColor("#2cbddc");
 		static int DEFAULT_THUMB_PRESSED_COLOR = Color.parseColor("#0090EE");
 		static int DEFAULT_THUMB_MARGIN = 2;
+		static int DEFAULT_RADIUS = 999;
 	}
 
 	static class Limit {
@@ -46,6 +47,8 @@ public class Configuration implements Cloneable {
 	private float density;
 
 	private int mVelocity = -1;
+
+	private float mRadius;
 
 	private Configuration() {
 	};
@@ -162,6 +165,17 @@ public class Configuration implements Cloneable {
 		return density;
 	}
 
+	public void setRadius(float radius) {
+		this.mRadius = radius;
+	}
+
+	public float getRadius() {
+		if (this.mRadius < 0) {
+			return Default.DEFAULT_RADIUS;
+		}
+		return this.mRadius;
+	}
+
 	/**
 	 * set velocity of animation
 	 * @param velocity pixel moved per frame (in linear)
@@ -244,7 +258,7 @@ public class Configuration implements Cloneable {
 	 */
 	private Drawable getDrawableFromColor(int color) {
 		GradientDrawable tempDrawable = new GradientDrawable();
-		tempDrawable.setCornerRadius(999f);
+		tempDrawable.setCornerRadius(this.getRadius());
 		tempDrawable.setColor(color);
 		return tempDrawable;
 	}
