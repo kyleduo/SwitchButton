@@ -5,6 +5,25 @@ Update
 ----
 Add an attr of radius, now you can change the radius when configure the button's face!
 ***
+Usage
+---
+In xml layout file, you can configure the face of switch button using these attrs.
+
+*   __onDrawable__: drawable of background for status ON
+*   __offDrawable__: drawable of background for status OFF
+*   __thumbDrawable__: drawable of thumb
+*   __thumb_margin__: set inner margin between thumb and edges
+*   __thumb_marginLeft/Top/Bottom/Right__: set margin for specific edge
+*   __thumb_width__: set the width of thumb, probably used for gradient drawable
+*   __thumb_height__: set the height of thumb
+*   __onColor__: set the color of status ON, usd for flat version, the priority is below of onDrawable
+*   __offColor__: like the onColor
+*   __thumbColor__: like the onColor
+*   __thumbPressedColor__: like the thumbColor, but for pressed status
+*   __animationVelocity__: distance of animation per frame
+*   __radius__: used for color version, radius of corner of background and thumb.
+
+***
 Original
 ----
 
