@@ -1,8 +1,27 @@
 SwitchButton
 ============
 
+update 1.1
+---
+(10/08/2014)
+
+* Fix lots of bugs.
+* Change the __default style__
+* Add iOS7 style, you can just use like how the demo did
+* Update demo, it becomes more convient, effective and beautiful
+* Add new attribute: measureFactor, you can custom the factor between width and height now. It is convenient to config the rest space of background. Learn more in the demo.
+* Update the logic of thumbMargin, it can work well with negative margins now (iOS style just using this trick).
+
+new default style and demo apk looks like this:
+
+![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
+
+![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/demo_preview.png)
+
+***
+
 Update
-----
+---
 Add an attr of radius, now you can change the radius when configure the button's face!
 ***
 Usage
@@ -22,6 +41,9 @@ In xml layout file, you can configure the face of switch button using these attr
 *   __thumbPressedColor__: like the thumbColor, but for pressed status
 *   __animationVelocity__: distance of animation per frame
 *   __radius__: used for color version, radius of corner of background and thumb.
+*   __measureFactor__: factor limit the minimum width equals almost (the height of thumb * measureFactor)
+
+In code 
 
 ***
 Original
@@ -31,8 +53,8 @@ After a few days before, I have updated this project completely. To finish this 
 
 Now, SwitchButton can used more easily to present a switch of flat style using color. The default looking is like this:
 
-![default_on](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_on.png) ![default_on](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_off.png)
+(find the latest version upside)
 
 To offer a convient way to configuration the looking, I designed a series of interface. You can use them to change the style. In demo, you can find how to use them. The demo looks like this:
 
-![default_on](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/all_on.png)
+(find the latest version upside)
