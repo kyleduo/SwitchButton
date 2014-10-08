@@ -10,7 +10,7 @@
     <string name="style_image">Using Image</string>
     <string name="style_ios">iOS7 style</string>
     <string name="style_custom">Custom Style</string>
-    <string name="style_change">Change Style In Code (use 1st to change 2st)</string>
+    <string name="style_change">Change Style In Code \n(use the 1st to change the 2st one)</string>
     <string name="changeface">Change Face</string>
     <string name="enable_title">enable/disable other SwitchButtons</string>
     

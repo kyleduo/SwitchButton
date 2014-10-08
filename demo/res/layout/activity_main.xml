@@ -57,7 +57,7 @@
         android:id="@+id/sb_ios"
         style="@style/SwitchButtonStyle"
         app:animationVelocity="8"
-        app:measureFactor="1.4"
+        app:measureFactor="1.5"
         app:offDrawable="@drawable/ios_off"
         app:onColor="#43d95d"
         app:thumbDrawable="@drawable/ios_thumb"
