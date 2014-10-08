@@ -3,6 +3,7 @@ package com.kyleduo.switchbutton;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 
 /**
  * class for configuring the Switchbutton
@@ -14,12 +15,13 @@ import android.graphics.drawable.GradientDrawable;
 public class Configuration implements Cloneable {
 
 	static class Default {
-		static int DEFAULT_OFF_COLOR = Color.parseColor("#DDDDDD");
-		static int DEFAULT_ON_COLOR = Color.parseColor("#444444");
-		static int DEFAULT_THUMB_COLOR = Color.parseColor("#2cbddc");
+		static int DEFAULT_OFF_COLOR = Color.parseColor("#E3E3E3");
+		static int DEFAULT_ON_COLOR = Color.parseColor("#02BFE7");
+		static int DEFAULT_THUMB_COLOR = Color.parseColor("#FFFFFF");
 		static int DEFAULT_THUMB_PRESSED_COLOR = Color.parseColor("#0090EE");
 		static int DEFAULT_THUMB_MARGIN = 2;
 		static int DEFAULT_RADIUS = 999;
+		static float DEFAULT_MEASURE_FACTOR = 2f;
 	}
 
 	static class Limit {
@@ -48,7 +50,12 @@ public class Configuration implements Cloneable {
 
 	private int mVelocity = -1;
 
-	private float mRadius;
+	private float mRadius = -1;
+
+	/**
+	 * factor limit the minimum width equals almost (the height of thumb * measureFactor)
+	 */
+	private float mMeasureFactor = 0;
 
 	private Configuration() {
 	};
@@ -248,6 +255,21 @@ public class Configuration implements Cloneable {
 		} else {
 			return getDrawableFromColor(mThumbColor);
 		}
+	}
+
+	public float getMeasureFactor() {
+		if (mMeasureFactor <= 0) {
+			mMeasureFactor = Default.DEFAULT_MEASURE_FACTOR;
+		}
+		return mMeasureFactor;
+	}
+
+	public void setMeasureFactor(float measureFactor) {
+		if (measureFactor <= 0) {
+			this.mMeasureFactor = Default.DEFAULT_MEASURE_FACTOR;
+			Log.e("com.kyleduo.switchbutton", "measure factor should be positive number");
+		}
+		this.mMeasureFactor = measureFactor;
 	}
 
 	/**

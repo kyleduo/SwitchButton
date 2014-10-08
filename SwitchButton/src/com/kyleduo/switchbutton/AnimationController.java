@@ -13,7 +13,7 @@ import android.os.Message;
 class AnimationController {
 
 	private static int ANI_WHAT = 0x100;
-	private static int DEFAULT_VELOCITY = 6;
+	private static int DEFAULT_VELOCITY = 7;
 	private static int DEFAULT_FRAME_DURATION = 1000 / 60;
 
 	private AnimationHandler mHandler;

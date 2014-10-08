@@ -17,6 +17,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int animationVelocity=0x7f01000e;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int measureFactor=0x7f010010;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -37,11 +45,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int onDrawable=0x7f010000;
-        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
-Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
-in (inches), mm (millimeters).
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
          */
         public static final int radius=0x7f01000f;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -123,18 +132,26 @@ in (inches), mm (millimeters).
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
-        public static final int img_back_off=0x7f020001;
-        public static final int img_back_on=0x7f020002;
-        public static final int img_thumb=0x7f020003;
-        public static final int img_thumb_pressed=0x7f020004;
-        public static final int selector_thumb=0x7f020005;
+        public static final int icon_blog=0x7f020001;
+        public static final int icon_github=0x7f020002;
+        public static final int img_back_off=0x7f020003;
+        public static final int img_back_on=0x7f020004;
+        public static final int img_thumb=0x7f020005;
+        public static final int img_thumb_pressed=0x7f020006;
+        public static final int ios_off=0x7f020007;
+        public static final int ios_thumb=0x7f020008;
+        public static final int selector_thumb=0x7f020009;
     }
     public static final class id {
-        public static final int action_settings=0x7f080004;
-        public static final int bt_enable=0x7f080002;
-        public static final int change_face=0x7f080001;
-        public static final int incode_container=0x7f080000;
-        public static final int sb_enable=0x7f080003;
+        public static final int action_blog=0x7f080008;
+        public static final int action_github=0x7f080007;
+        public static final int incode_container=0x7f080004;
+        public static final int sb_changeface_control=0x7f080005;
+        public static final int sb_custom=0x7f080001;
+        public static final int sb_default=0x7f080000;
+        public static final int sb_enable=0x7f080006;
+        public static final int sb_image=0x7f080002;
+        public static final int sb_ios=0x7f080003;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -143,17 +160,22 @@ in (inches), mm (millimeters).
         public static final int main=0x7f070000;
     }
     public static final class string {
+        public static final int action_blog=0x7f04000b;
+        /**  menu 
+         */
+        public static final int action_github=0x7f04000a;
         public static final int action_settings=0x7f040002;
         public static final int app_name=0x7f040000;
-        public static final int changeface=0x7f040007;
-        public static final int enable_title=0x7f040008;
+        public static final int changeface=0x7f040008;
+        public static final int enable_title=0x7f040009;
         public static final int hello_world=0x7f040001;
-        public static final int style_change=0x7f040006;
-        public static final int style_custom=0x7f040005;
+        public static final int style_change=0x7f040007;
+        public static final int style_custom=0x7f040006;
         /**  style title 
          */
         public static final int style_default=0x7f040003;
         public static final int style_image=0x7f040004;
+        public static final int style_ios=0x7f040005;
     }
     public static final class style {
         /** 
@@ -206,6 +228,7 @@ in (inches), mm (millimeters).
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #SwitchButton_animationVelocity com.kyleduo.switchbuttondemo:animationVelocity}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_measureFactor com.kyleduo.switchbuttondemo:measureFactor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_offColor com.kyleduo.switchbuttondemo:offColor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_offDrawable com.kyleduo.switchbuttondemo:offDrawable}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_onColor com.kyleduo.switchbuttondemo:onColor}</code></td><td></td></tr>
@@ -223,6 +246,7 @@ in (inches), mm (millimeters).
            <tr><td><code>{@link #SwitchButton_thumb_width com.kyleduo.switchbuttondemo:thumb_width}</code></td><td></td></tr>
            </table>
            @see #SwitchButton_animationVelocity
+           @see #SwitchButton_measureFactor
            @see #SwitchButton_offColor
            @see #SwitchButton_offDrawable
            @see #SwitchButton_onColor
@@ -243,7 +267,8 @@ in (inches), mm (millimeters).
             0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
             0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
             0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
-            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
+            0x7f010010
         };
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#animationVelocity}
@@ -259,6 +284,20 @@ containing a value of this type.
           @attr name com.kyleduo.switchbuttondemo:animationVelocity
         */
         public static final int SwitchButton_animationVelocity = 14;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#measureFactor}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kyleduo.switchbuttondemo:measureFactor
+        */
+        public static final int SwitchButton_measureFactor = 16;
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#offColor}
           attribute's value can be found in the {@link #SwitchButton} array.
@@ -308,11 +347,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #SwitchButton} array.
 
 
-          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
-Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
-in (inches), mm (millimeters).
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
           @attr name com.kyleduo.switchbuttondemo:radius
         */
         public static final int SwitchButton_radius = 15;

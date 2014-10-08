@@ -8,9 +8,14 @@
     <!-- style title -->
     <string name="style_default">Default Style</string>
     <string name="style_image">Using Image</string>
+    <string name="style_ios">iOS7 style</string>
     <string name="style_custom">Custom Style</string>
-    <string name="style_change">Change Style In Code</string>
+    <string name="style_change">Change Style In Code (use 1st to change 2st)</string>
     <string name="changeface">Change Face</string>
-    <string name="enable_title">enable/disable</string>
+    <string name="enable_title">enable/disable other SwitchButtons</string>
+    
+    <!-- menu -->
+    <string name="action_github">view in github</string>
+    <string name="action_blog">my blog</string>
 
 </resources>

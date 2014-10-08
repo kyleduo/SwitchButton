@@ -15,17 +15,20 @@
         style="@style/StyleTitleText"
         android:text="@string/style_default" />
 
-    <com.kyleduo.switchbutton.SwitchButton style="@style/SwitchButtonStyle" />
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sb_default"
+        style="@style/SwitchButtonStyle" />
 
     <TextView
         style="@style/StyleTitleText"
         android:text="@string/style_custom" />
 
     <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sb_custom"
         style="@style/SwitchButtonStyle"
         app:animationVelocity="8"
-        app:thumbColor="#ee4b71"
         app:radius="4"
+        app:thumbColor="#ff84a7"
         app:thumb_height="18dp"
         app:thumb_margin="2dp"
         app:thumb_width="24dp" />
@@ -35,15 +38,33 @@
         android:text="@string/style_image" />
 
     <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sb_image"
         style="@style/SwitchButtonStyle"
         app:animationVelocity="8"
         app:offDrawable="@drawable/img_back_off"
         app:onDrawable="@drawable/img_back_on"
         app:thumbDrawable="@drawable/selector_thumb"
-        app:thumb_marginBottom="2dp"
-        app:thumb_marginLeft="3dp"
-        app:thumb_marginRight="3dp"
+        app:thumb_marginBottom="1dp"
+        app:thumb_marginLeft="2dp"
+        app:thumb_marginRight="2dp"
         app:thumb_marginTop="3dp" />
+
+    <TextView
+        style="@style/StyleTitleText"
+        android:text="@string/style_ios" />
+
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sb_ios"
+        style="@style/SwitchButtonStyle"
+        app:animationVelocity="8"
+        app:measureFactor="1.4"
+        app:offDrawable="@drawable/ios_off"
+        app:onColor="#43d95d"
+        app:thumbDrawable="@drawable/ios_thumb"
+        app:thumb_marginBottom="-8dp"
+        app:thumb_marginLeft="-5dp"
+        app:thumb_marginRight="-5dp"
+        app:thumb_marginTop="-2.5dp" />
 
     <TextView
         style="@style/StyleTitleText"
@@ -56,31 +77,20 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/change_face"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/changeface" />
-        
-   		<com.kyleduo.switchbutton.SwitchButton style="@style/SwitchButtonStyle" />
-        
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/sb_changeface_control"
+            style="@style/SwitchButtonStyle" />
     </LinearLayout>
 
     <TextView
         style="@style/StyleTitleText"
-        android:text="@string/style_image" />
+        android:text="@string/enable_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/bt_enable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enable_title" />
 
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/sb_enable"

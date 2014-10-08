@@ -74,6 +74,8 @@ public class SwitchButton extends CompoundButton {
 
 		mConf.setThumbWidthAndHeightInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_width, -1), ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_height, -1));
 
+		mConf.setMeasureFactor(ta.getFloat(R.styleable.SwitchButton_measureFactor, -1));
+
 		int velocity = ta.getInteger(R.styleable.SwitchButton_animationVelocity, -1);
 		mAnimationController.setVelocity(velocity);
 
@@ -113,7 +115,6 @@ public class SwitchButton extends CompoundButton {
 		mConf.setOffDrawable(fetchDrawable(ta, R.styleable.SwitchButton_offDrawable, R.styleable.SwitchButton_offColor, Configuration.Default.DEFAULT_OFF_COLOR));
 		mConf.setOnDrawable(fetchDrawable(ta, R.styleable.SwitchButton_onDrawable, R.styleable.SwitchButton_onColor, Configuration.Default.DEFAULT_ON_COLOR));
 		mConf.setThumbDrawable(fetchDrawable(ta, R.styleable.SwitchButton_thumbDrawable, R.styleable.SwitchButton_thumbColor, Configuration.Default.DEFAULT_THUMB_COLOR));
-
 	}
 
 	private Drawable fetchDrawable(TypedArray ta, int attrId, int alterColorId, int defaultColor) {
@@ -137,6 +138,7 @@ public class SwitchButton extends CompoundButton {
 		mConf.setThumbMarginInPixel(conf.getThumbMarginTop(), conf.getThumbMarginBottom(), conf.getThumbMarginLeft(), conf.getThumbMarginRight());
 		mConf.setThumbWidthAndHeightInPixel(conf.getThumbWidth(), conf.getThumbHeight());
 		mConf.setVelocity(conf.getVelocity());
+		mConf.setMeasureFactor(conf.getMeasureFactor());
 		mAnimationController.setVelocity(mConf.getVelocity());
 		this.requestLayout();
 		setup();
@@ -169,6 +171,9 @@ public class SwitchButton extends CompoundButton {
 		setupThumbZone();
 
 		setupDrawableBounds();
+		if (this.getMeasuredWidth() > 0 && this.getMeasuredHeight() > 0) {
+			mSaveLayerZone = new RectF(0, 0, this.getMeasuredWidth(), this.getMeasuredHeight());
+		}
 	}
 
 	/**
@@ -205,12 +210,11 @@ public class SwitchButton extends CompoundButton {
 				mBackZone = new Rect();
 			}
 			int left, right, top, bottom;
-			left = getPaddingLeft();
-			right = w - getPaddingRight();
-			top = getPaddingTop();
-			bottom = h - getPaddingBottom();
+			left = getPaddingLeft() + (mConf.getThumbMarginLeft() > 0 ? 0 : -mConf.getThumbMarginLeft());
+			right = w - getPaddingRight() - (mConf.getThumbMarginRight() > 0 ? 0 : -mConf.getThumbMarginRight());
+			top = getPaddingTop() + (mConf.getThumbMarginTop() > 0 ? 0 : -mConf.getThumbMarginTop());
+			bottom = h - getPaddingBottom() - (mConf.getThumbMarginBottom() > 0 ? 0 : -mConf.getThumbMarginBottom());
 			mBackZone.set(left, top, right, bottom);
-			mSaveLayerZone = new RectF(mBackZone);
 		} else {
 			mBackZone = null;
 		}
@@ -250,7 +254,7 @@ public class SwitchButton extends CompoundButton {
 		int specMode = MeasureSpec.getMode(measureSpec);
 		int specSize = MeasureSpec.getSize(measureSpec);
 
-		int minWidth = (int) (mConf.getThumbWidth() * 2.2f + getPaddingLeft() + getPaddingRight());
+		int minWidth = (int) (mConf.getThumbWidth() * mConf.getMeasureFactor() + getPaddingLeft() + getPaddingRight());
 		int innerMarginWidth = mConf.getThumbMarginLeft() + mConf.getThumbMarginRight();
 		if (innerMarginWidth > 0) {
 			minWidth += innerMarginWidth;
@@ -308,16 +312,16 @@ public class SwitchButton extends CompoundButton {
 		mConf.getOnDrawable().draw(canvas);
 		mConf.getThumbDrawable().draw(canvas);
 
-		if (enabled) {
+		if (!enabled) {
 			canvas.restore();
 		}
 
 		if (SHOW_RECT) {
-			mRectPaint.setColor(Color.parseColor("#AA0080"));
+			mRectPaint.setColor(Color.parseColor("#AA0000"));
 			canvas.drawRect(mBackZone, mRectPaint);
-			mRectPaint.setColor(Color.parseColor("#2089aa"));
+			mRectPaint.setColor(Color.parseColor("#00FF00"));
 			canvas.drawRect(mSafeZone, mRectPaint);
-			mRectPaint.setColor(Color.parseColor("#450089"));
+			mRectPaint.setColor(Color.parseColor("#0000FF"));
 			canvas.drawRect(mThumbZone, mRectPaint);
 		}
 	}
@@ -331,7 +335,7 @@ public class SwitchButton extends CompoundButton {
 		if (mSafeZone == null || mSafeZone.right == mSafeZone.left) {
 
 		} else {
-			alpha = (mThumbZone.left - mSafeZone.left) * 255 / (mSafeZone.right - mSafeZone.left);
+			alpha = (mThumbZone.left - mSafeZone.left) * 255 / (mSafeZone.right - mConf.getThumbWidth() - mSafeZone.left);
 		}
 
 		return alpha;

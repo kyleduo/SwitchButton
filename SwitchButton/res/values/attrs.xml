@@ -18,6 +18,7 @@
         <attr name="thumbPressedColor" format="color|reference" />
         <attr name="animationVelocity" format="integer" />
         <attr name="radius" format="integer" />
+        <attr name="measureFactor" format="float" />
     </declare-styleable>
 
 </resources>
