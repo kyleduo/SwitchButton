@@ -37,6 +37,7 @@ new default style and demo apk looks like this:
 
 ![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
 
+![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/demo_preview.png)
 
 ***
 
