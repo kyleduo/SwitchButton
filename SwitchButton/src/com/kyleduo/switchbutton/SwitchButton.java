@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -20,9 +21,9 @@ import android.widget.CompoundButton;
 import com.kyleduo.switchbutton.AnimationController.OnAnimateListener;
 
 /**
+ * SwitchButton widget which is easy to use
  * 
- * 
- * @version 1.0
+ * @version 1.2
  * @author kyleduo
  * @since 2014-09-24
  */
@@ -57,6 +58,8 @@ public class SwitchButton extends CompoundButton {
 	private static boolean SHOW_RECT = false;
 	private Paint mRectPaint;
 
+	private Rect mBounds = null;
+
 	private OnCheckedChangeListener mOnCheckedChangeListener;
 
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
@@ -75,6 +78,9 @@ public class SwitchButton extends CompoundButton {
 		mConf.setThumbWidthAndHeightInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_width, -1), ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_height, -1));
 
 		mConf.setMeasureFactor(ta.getFloat(R.styleable.SwitchButton_measureFactor, -1));
+
+		mConf.setInsetBounds(ta.getDimensionPixelSize(R.styleable.SwitchButton_insetLeft, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_insetTop, 0),
+				ta.getDimensionPixelSize(R.styleable.SwitchButton_insetRight, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_insetBottom, 0));
 
 		int velocity = ta.getInteger(R.styleable.SwitchButton_animationVelocity, -1);
 		mAnimationController.setVelocity(velocity);
@@ -96,6 +102,7 @@ public class SwitchButton extends CompoundButton {
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 		mClickTimeout = ViewConfiguration.getPressedStateDuration() + ViewConfiguration.getTapTimeout();
 		mAnimationController = AnimationController.getDefault().init(mOnAnimateListener);
+		mBounds = new Rect();
 		if (SHOW_RECT) {
 			mRectPaint = new Paint();
 			mRectPaint.setStyle(Style.STROKE);
@@ -191,9 +198,9 @@ public class SwitchButton extends CompoundButton {
 			}
 			int left, right, top, bottom;
 			left = getPaddingLeft() + (mConf.getThumbMarginLeft() > 0 ? mConf.getThumbMarginLeft() : 0);
-			right = w - getPaddingRight() - (mConf.getThumbMarginRight() > 0 ? mConf.getThumbMarginRight() : 0);
+			right = w - getPaddingRight() - (mConf.getThumbMarginRight() > 0 ? mConf.getThumbMarginRight() : 0) + (-mConf.getShrinkX());
 			top = getPaddingTop() + (mConf.getThumbMarginTop() > 0 ? mConf.getThumbMarginTop() : 0);
-			bottom = h - getPaddingBottom() - (mConf.getThumbMarginBottom() > 0 ? mConf.getThumbMarginBottom() : 0);
+			bottom = h - getPaddingBottom() - (mConf.getThumbMarginBottom() > 0 ? mConf.getThumbMarginBottom() : 0) + (-mConf.getShrinkY());
 			mSafeZone.set(left, top, right, bottom);
 
 			mCenterPos = mSafeZone.left + (mSafeZone.right - mSafeZone.left - mConf.getThumbWidth()) / 2;
@@ -211,9 +218,9 @@ public class SwitchButton extends CompoundButton {
 			}
 			int left, right, top, bottom;
 			left = getPaddingLeft() + (mConf.getThumbMarginLeft() > 0 ? 0 : -mConf.getThumbMarginLeft());
-			right = w - getPaddingRight() - (mConf.getThumbMarginRight() > 0 ? 0 : -mConf.getThumbMarginRight());
+			right = w - getPaddingRight() - (mConf.getThumbMarginRight() > 0 ? 0 : -mConf.getThumbMarginRight()) + (-mConf.getShrinkX());
 			top = getPaddingTop() + (mConf.getThumbMarginTop() > 0 ? 0 : -mConf.getThumbMarginTop());
-			bottom = h - getPaddingBottom() - (mConf.getThumbMarginBottom() > 0 ? 0 : -mConf.getThumbMarginBottom());
+			bottom = h - getPaddingBottom() - (mConf.getThumbMarginBottom() > 0 ? 0 : -mConf.getThumbMarginBottom()) + (-mConf.getShrinkY());
 			mBackZone.set(left, top, right, bottom);
 		} else {
 			mBackZone = null;
@@ -269,6 +276,9 @@ public class SwitchButton extends CompoundButton {
 			}
 		}
 
+		// bounds are negative numbers
+		measuredWidth += (mConf.getInsetBounds().left + mConf.getInsetBounds().right);
+
 		return measuredWidth;
 	}
 
@@ -294,6 +304,8 @@ public class SwitchButton extends CompoundButton {
 			}
 		}
 
+		measuredHeight += (mConf.getInsetBounds().top + mConf.getInsetBounds().bottom);
+
 		return measuredHeight;
 	}
 
@@ -301,8 +313,15 @@ public class SwitchButton extends CompoundButton {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		boolean enabled = isEnabled();
-		if (!enabled) {
+		canvas.getClipBounds(mBounds);
+		if (mBounds != null && mConf.needShrink()) {
+			mBounds.inset(mConf.getInsetX(), mConf.getInsetY());
+			canvas.clipRect(mBounds, Region.Op.REPLACE);
+			canvas.translate(mConf.getInsetBounds().left, mConf.getInsetBounds().top);
+		}
+
+		boolean useGeneralDisableEffect = !isEnabled() && this.notStatableDrawable();
+		if (useGeneralDisableEffect) {
 			canvas.saveLayerAlpha(mSaveLayerZone, 255 / 2, Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG | Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG
 					| Canvas.CLIP_TO_LAYER_SAVE_FLAG);
 		}
@@ -312,7 +331,7 @@ public class SwitchButton extends CompoundButton {
 		mConf.getOnDrawable().draw(canvas);
 		mConf.getThumbDrawable().draw(canvas);
 
-		if (!enabled) {
+		if (useGeneralDisableEffect) {
 			canvas.restore();
 		}
 
@@ -326,6 +345,13 @@ public class SwitchButton extends CompoundButton {
 		}
 	}
 
+	private boolean notStatableDrawable() {
+		boolean thumbStatable = (mConf.getThumbDrawable() instanceof StateListDrawable);
+		boolean onStatable = (mConf.getOnDrawable() instanceof StateListDrawable);
+		boolean offStatable = (mConf.getOffDrawable() instanceof StateListDrawable);
+		return !thumbStatable || !onStatable || !offStatable;
+	}
+
 	/**
 	 * calculate the alpha value for on layer
 	 * @return 0 ~ 255
@@ -335,7 +361,10 @@ public class SwitchButton extends CompoundButton {
 		if (mSafeZone == null || mSafeZone.right == mSafeZone.left) {
 
 		} else {
-			alpha = (mThumbZone.left - mSafeZone.left) * 255 / (mSafeZone.right - mConf.getThumbWidth() - mSafeZone.left);
+			int backWidth = mSafeZone.right - mConf.getThumbWidth() - mSafeZone.left;
+			if (backWidth > 0) {
+				alpha = (mThumbZone.left - mSafeZone.left) * 255 / backWidth;
+			}
 		}
 
 		return alpha;
@@ -343,6 +372,7 @@ public class SwitchButton extends CompoundButton {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+
 		if (isAnimating || !isEnabled()) {
 			return false;
 		}
@@ -360,9 +390,7 @@ public class SwitchButton extends CompoundButton {
 			mStartX = event.getX();
 			mStartY = event.getY();
 			mLastX = mStartX;
-			if (mConf.getThumbDrawable() instanceof StateListDrawable) {
-				((StateListDrawable) mConf.getThumbDrawable()).setState(new int[] { android.R.attr.state_pressed });
-			}
+			setPressed(true);
 			break;
 
 		case MotionEvent.ACTION_MOVE:
@@ -372,9 +400,7 @@ public class SwitchButton extends CompoundButton {
 			break;
 
 		case MotionEvent.ACTION_UP:
-			if (mConf.getThumbDrawable() instanceof StateListDrawable) {
-				((StateListDrawable) mConf.getThumbDrawable()).setState(new int[] {});
-			}
+			setPressed(false);
 
 			nextStatus = getStatusBasedOnPos();
 
@@ -431,6 +457,22 @@ public class SwitchButton extends CompoundButton {
 		slideToChecked(!mIsChecked);
 	}
 
+	@Override
+	protected void drawableStateChanged() {
+		super.drawableStateChanged();
+		setDrawableState(mConf.getThumbDrawable());
+		setDrawableState(mConf.getOnDrawable());
+		setDrawableState(mConf.getOffDrawable());
+	}
+
+	private void setDrawableState(Drawable drawable) {
+		if (drawable != null) {
+			int[] myDrawableState = getDrawableState();
+			drawable.setState(myDrawableState);
+			invalidate();
+		}
+	}
+
 	public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
 		if (onCheckedChangeListener == null) {
 			throw new IllegalArgumentException("onCheckedChangeListener can not be null");
@@ -446,6 +488,7 @@ public class SwitchButton extends CompoundButton {
 		if (mOnCheckedChangeListener != null) {
 			mOnCheckedChangeListener.onCheckedChanged(this, mIsChecked);
 		}
+		refreshDrawableState();
 	}
 
 	public void slideToChecked(boolean checked) {

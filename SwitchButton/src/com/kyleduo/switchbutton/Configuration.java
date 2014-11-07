@@ -1,9 +1,9 @@
 package com.kyleduo.switchbutton;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 
 /**
  * class for configuring the Switchbutton
@@ -22,6 +22,7 @@ public class Configuration implements Cloneable {
 		static int DEFAULT_THUMB_MARGIN = 2;
 		static int DEFAULT_RADIUS = 999;
 		static float DEFAULT_MEASURE_FACTOR = 2f;
+		static int DEFAULT_INNER_BOUNDS = 0;
 	}
 
 	static class Limit {
@@ -57,6 +58,11 @@ public class Configuration implements Cloneable {
 	 */
 	private float mMeasureFactor = 0;
 
+	/**
+	 * inner bounds
+	 */
+	private Rect mInsetBounds;
+
 	private Configuration() {
 	};
 
@@ -64,6 +70,9 @@ public class Configuration implements Cloneable {
 		Configuration defaultConfiguration = new Configuration();
 		defaultConfiguration.density = density;
 		defaultConfiguration.setThumbMarginInPixel(defaultConfiguration.getDefaultThumbMarginInPixel());
+
+		defaultConfiguration.mInsetBounds = new Rect(Default.DEFAULT_INNER_BOUNDS, Default.DEFAULT_INNER_BOUNDS, Default.DEFAULT_INNER_BOUNDS, Default.DEFAULT_INNER_BOUNDS);
+
 		return defaultConfiguration;
 	}
 
@@ -267,9 +276,67 @@ public class Configuration implements Cloneable {
 	public void setMeasureFactor(float measureFactor) {
 		if (measureFactor <= 0) {
 			this.mMeasureFactor = Default.DEFAULT_MEASURE_FACTOR;
-			Log.e("com.kyleduo.switchbutton", "measure factor should be positive number");
 		}
 		this.mMeasureFactor = measureFactor;
+	}
+
+	public Rect getInsetBounds() {
+		return this.mInsetBounds;
+	}
+
+	public void setInsetBounds(int left, int top, int right, int bottom) {
+		setInsetLeft(left);
+		setInsetTop(top);
+		setInsetRight(right);
+		setInsetBottom(bottom);
+	}
+
+	public void setInsetLeft(int left) {
+		if (left > 0) {
+			left = -left;
+		}
+		this.mInsetBounds.left = left;
+	}
+
+	public void setInsetTop(int top) {
+		if (top > 0) {
+			top = -top;
+		}
+		this.mInsetBounds.top = top;
+	}
+
+	public void setInsetRight(int right) {
+		if (right > 0) {
+			right = -right;
+		}
+		this.mInsetBounds.right = right;
+	}
+
+	public void setInsetBottom(int bottom) {
+		if (bottom > 0) {
+			bottom = -bottom;
+		}
+		this.mInsetBounds.bottom = bottom;
+	}
+
+	public int getInsetX() {
+		return getShrinkX() / 2;
+	}
+
+	public int getInsetY() {
+		return getShrinkY() / 2;
+	}
+
+	public int getShrinkX() {
+		return this.mInsetBounds.left + this.mInsetBounds.right;
+	}
+
+	public int getShrinkY() {
+		return this.mInsetBounds.top + this.mInsetBounds.bottom;
+	}
+
+	public boolean needShrink() {
+		return this.mInsetBounds.left + this.mInsetBounds.right + this.mInsetBounds.top + this.mInsetBounds.bottom != 0;
 	}
 
 	/**

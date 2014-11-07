@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f7f7"
+    android:background="#eeeeee"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -21,33 +21,21 @@
 
     <TextView
         style="@style/StyleTitleText"
-        android:text="@string/style_custom" />
+        android:text="@string/style_md" />
 
     <com.kyleduo.switchbutton.SwitchButton
-        android:id="@+id/sb_custom"
+        android:id="@+id/sb_md"
         style="@style/SwitchButtonStyle"
-        app:animationVelocity="8"
-        app:radius="4"
-        app:thumbColor="#ff84a7"
-        app:thumb_height="18dp"
-        app:thumb_margin="2dp"
-        app:thumb_width="24dp" />
-
-    <TextView
-        style="@style/StyleTitleText"
-        android:text="@string/style_image" />
-
-    <com.kyleduo.switchbutton.SwitchButton
-        android:id="@+id/sb_image"
-        style="@style/SwitchButtonStyle"
-        app:animationVelocity="8"
-        app:offDrawable="@drawable/img_back_off"
-        app:onDrawable="@drawable/img_back_on"
-        app:thumbDrawable="@drawable/selector_thumb"
-        app:thumb_marginBottom="1dp"
-        app:thumb_marginLeft="2dp"
-        app:thumb_marginRight="2dp"
-        app:thumb_marginTop="3dp" />
+        app:animationVelocity="6"
+        app:insetBottom="10dp"
+        app:insetLeft="20dp"
+        app:insetRight="10dp"
+        app:insetTop="5dp"
+        app:measureFactor="1.4"
+        app:offDrawable="@drawable/md_back_off"
+        app:onDrawable="@drawable/md_back_on"
+        app:thumbDrawable="@drawable/md_thumb"
+        app:thumb_margin="-17dp" />
 
     <TextView
         style="@style/StyleTitleText"
@@ -104,5 +92,10 @@
             app:thumb_marginRight="3dp"
             app:thumb_marginTop="3dp" />
     </LinearLayout>
+
+    <TextView
+        style="@style/StyleTitleText"
+        android:layout_marginTop="30dp"
+        android:text="@string/version" />
 
 </LinearLayout>

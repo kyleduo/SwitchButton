@@ -19,6 +19,10 @@
         <attr name="animationVelocity" format="integer" />
         <attr name="radius" format="integer" />
         <attr name="measureFactor" format="float" />
+        <attr name="insetLeft" format="dimension|reference" />
+        <attr name="insetRight" format="dimension|reference" />
+        <attr name="insetTop" format="dimension|reference" />
+        <attr name="insetBottom" format="dimension|reference" />
     </declare-styleable>
 
 </resources>

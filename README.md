@@ -1,6 +1,27 @@
 SwitchButton
 ============
 
+update 1.2
+---
+(11/08/2014)
+
+* Add StateList support for all resources and enable/disable, pressed has been tested in Demo.
+* New Style with __Material Design__, preview below.
+* Add "shrink" feature. This makes you can draw your image resources out size the view bounds, in the other word, shrink the size of view and make the experience stay the same.
+
+New Style with Material Disign:
+
+![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
+
+To use shrink feature, you can easily add these attributes in your xml file. It is recommended that set these values positive.
+
+*   __insetLeft__: left size for shrinking
+*   __insetRight__: right size for shrinking
+*   __insetTop__: top size for shrinking
+*   __insetBottom__: bottom size for shrinking
+
+
+***
 update 1.1
 ---
 (10/08/2014)
@@ -16,7 +37,6 @@ new default style and demo apk looks like this:
 
 ![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
 
-![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/demo_preview.png)
 
 ***
 

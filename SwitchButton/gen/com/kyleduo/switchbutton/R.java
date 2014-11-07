@@ -17,6 +17,34 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static int animationVelocity=0x7f01000e;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int insetBottom=0x7f010014;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int insetLeft=0x7f010011;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int insetRight=0x7f010012;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static int insetTop=0x7f010013;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -150,6 +178,10 @@ in (inches), mm (millimeters).
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #SwitchButton_animationVelocity com.kyleduo.switchbutton:animationVelocity}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetBottom com.kyleduo.switchbutton:insetBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetLeft com.kyleduo.switchbutton:insetLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetRight com.kyleduo.switchbutton:insetRight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetTop com.kyleduo.switchbutton:insetTop}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_measureFactor com.kyleduo.switchbutton:measureFactor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_offColor com.kyleduo.switchbutton:offColor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_offDrawable com.kyleduo.switchbutton:offDrawable}</code></td><td></td></tr>
@@ -168,6 +200,10 @@ in (inches), mm (millimeters).
            <tr><td><code>{@link #SwitchButton_thumb_width com.kyleduo.switchbutton:thumb_width}</code></td><td></td></tr>
            </table>
            @see #SwitchButton_animationVelocity
+           @see #SwitchButton_insetBottom
+           @see #SwitchButton_insetLeft
+           @see #SwitchButton_insetRight
+           @see #SwitchButton_insetTop
            @see #SwitchButton_measureFactor
            @see #SwitchButton_offColor
            @see #SwitchButton_offDrawable
@@ -190,7 +226,8 @@ in (inches), mm (millimeters).
             0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
             0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
             0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
-            0x7f010010
+            0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013,
+            0x7f010014
         };
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#animationVelocity}
@@ -206,6 +243,58 @@ containing a value of this type.
           @attr name com.kyleduo.switchbutton:animationVelocity
         */
         public static final int SwitchButton_animationVelocity = 14;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#insetBottom}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:insetBottom
+        */
+        public static final int SwitchButton_insetBottom = 20;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#insetLeft}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:insetLeft
+        */
+        public static final int SwitchButton_insetLeft = 17;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#insetRight}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:insetRight
+        */
+        public static final int SwitchButton_insetRight = 18;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#insetTop}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbutton:insetTop
+        */
+        public static final int SwitchButton_insetTop = 19;
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbutton.R.attr#measureFactor}
           attribute's value can be found in the {@link #SwitchButton} array.

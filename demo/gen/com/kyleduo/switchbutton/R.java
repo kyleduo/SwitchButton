@@ -9,6 +9,10 @@ package com.kyleduo.switchbutton;
 public final class R {
 	public static final class attr {
 		public static final int animationVelocity = 0x7f01000e;
+		public static final int insetBottom = 0x7f010014;
+		public static final int insetLeft = 0x7f010011;
+		public static final int insetRight = 0x7f010012;
+		public static final int insetTop = 0x7f010013;
 		public static final int measureFactor = 0x7f010010;
 		public static final int offColor = 0x7f01000b;
 		public static final int offDrawable = 0x7f010001;
@@ -37,8 +41,12 @@ public final class R {
 		public static final int AppTheme = 0x7f050001;
 	}
 	public static final class styleable {
-		public static final int[] SwitchButton = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f, 0x7f010010 };
+		public static final int[] SwitchButton = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f, 0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013, 0x7f010014 };
 		public static final int SwitchButton_animationVelocity = 14;
+		public static final int SwitchButton_insetBottom = 20;
+		public static final int SwitchButton_insetLeft = 17;
+		public static final int SwitchButton_insetRight = 18;
+		public static final int SwitchButton_insetTop = 19;
 		public static final int SwitchButton_measureFactor = 16;
 		public static final int SwitchButton_offColor = 11;
 		public static final int SwitchButton_offDrawable = 1;

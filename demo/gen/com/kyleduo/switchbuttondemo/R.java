@@ -17,6 +17,34 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int animationVelocity=0x7f01000e;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static final int insetBottom=0x7f010014;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static final int insetLeft=0x7f010011;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static final int insetRight=0x7f010012;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+         */
+        public static final int insetTop=0x7f010013;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -140,18 +168,25 @@ in (inches), mm (millimeters).
         public static final int img_thumb_pressed=0x7f020006;
         public static final int ios_off=0x7f020007;
         public static final int ios_thumb=0x7f020008;
-        public static final int selector_thumb=0x7f020009;
+        public static final int md_back_off=0x7f020009;
+        public static final int md_back_on=0x7f02000a;
+        public static final int md_switch_thumb_disable=0x7f02000b;
+        public static final int md_switch_thumb_off_normal=0x7f02000c;
+        public static final int md_switch_thumb_off_pressed=0x7f02000d;
+        public static final int md_switch_thumb_on_normal=0x7f02000e;
+        public static final int md_switch_thumb_on_pressed=0x7f02000f;
+        public static final int md_thumb=0x7f020010;
+        public static final int selector_thumb=0x7f020011;
     }
     public static final class id {
-        public static final int action_blog=0x7f080008;
-        public static final int action_github=0x7f080007;
-        public static final int incode_container=0x7f080004;
-        public static final int sb_changeface_control=0x7f080005;
-        public static final int sb_custom=0x7f080001;
+        public static final int action_blog=0x7f080007;
+        public static final int action_github=0x7f080006;
+        public static final int incode_container=0x7f080003;
+        public static final int sb_changeface_control=0x7f080004;
         public static final int sb_default=0x7f080000;
-        public static final int sb_enable=0x7f080006;
-        public static final int sb_image=0x7f080002;
-        public static final int sb_ios=0x7f080003;
+        public static final int sb_enable=0x7f080005;
+        public static final int sb_ios=0x7f080002;
+        public static final int sb_md=0x7f080001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -160,22 +195,24 @@ in (inches), mm (millimeters).
         public static final int main=0x7f070000;
     }
     public static final class string {
-        public static final int action_blog=0x7f04000b;
+        public static final int action_blog=0x7f04000d;
         /**  menu 
          */
-        public static final int action_github=0x7f04000a;
+        public static final int action_github=0x7f04000c;
         public static final int action_settings=0x7f040002;
         public static final int app_name=0x7f040000;
-        public static final int changeface=0x7f040008;
-        public static final int enable_title=0x7f040009;
+        public static final int changeface=0x7f04000a;
+        public static final int enable_title=0x7f04000b;
         public static final int hello_world=0x7f040001;
-        public static final int style_change=0x7f040007;
-        public static final int style_custom=0x7f040006;
+        public static final int style_change=0x7f040009;
+        public static final int style_custom=0x7f040007;
         /**  style title 
          */
-        public static final int style_default=0x7f040003;
-        public static final int style_image=0x7f040004;
-        public static final int style_ios=0x7f040005;
+        public static final int style_default=0x7f040004;
+        public static final int style_image=0x7f040005;
+        public static final int style_ios=0x7f040006;
+        public static final int style_md=0x7f040008;
+        public static final int version=0x7f040003;
     }
     public static final class style {
         /** 
@@ -228,6 +265,10 @@ in (inches), mm (millimeters).
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #SwitchButton_animationVelocity com.kyleduo.switchbuttondemo:animationVelocity}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetBottom com.kyleduo.switchbuttondemo:insetBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetLeft com.kyleduo.switchbuttondemo:insetLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetRight com.kyleduo.switchbuttondemo:insetRight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwitchButton_insetTop com.kyleduo.switchbuttondemo:insetTop}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_measureFactor com.kyleduo.switchbuttondemo:measureFactor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_offColor com.kyleduo.switchbuttondemo:offColor}</code></td><td></td></tr>
            <tr><td><code>{@link #SwitchButton_offDrawable com.kyleduo.switchbuttondemo:offDrawable}</code></td><td></td></tr>
@@ -246,6 +287,10 @@ in (inches), mm (millimeters).
            <tr><td><code>{@link #SwitchButton_thumb_width com.kyleduo.switchbuttondemo:thumb_width}</code></td><td></td></tr>
            </table>
            @see #SwitchButton_animationVelocity
+           @see #SwitchButton_insetBottom
+           @see #SwitchButton_insetLeft
+           @see #SwitchButton_insetRight
+           @see #SwitchButton_insetTop
            @see #SwitchButton_measureFactor
            @see #SwitchButton_offColor
            @see #SwitchButton_offDrawable
@@ -268,7 +313,8 @@ in (inches), mm (millimeters).
             0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
             0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
             0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
-            0x7f010010
+            0x7f010010, 0x7f010011, 0x7f010012, 0x7f010013,
+            0x7f010014
         };
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#animationVelocity}
@@ -284,6 +330,58 @@ containing a value of this type.
           @attr name com.kyleduo.switchbuttondemo:animationVelocity
         */
         public static final int SwitchButton_animationVelocity = 14;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#insetBottom}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbuttondemo:insetBottom
+        */
+        public static final int SwitchButton_insetBottom = 20;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#insetLeft}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbuttondemo:insetLeft
+        */
+        public static final int SwitchButton_insetLeft = 17;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#insetRight}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbuttondemo:insetRight
+        */
+        public static final int SwitchButton_insetRight = 18;
+        /**
+          <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#insetTop}
+          attribute's value can be found in the {@link #SwitchButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+          @attr name com.kyleduo.switchbuttondemo:insetTop
+        */
+        public static final int SwitchButton_insetTop = 19;
         /**
           <p>This symbol is the offset where the {@link com.kyleduo.switchbuttondemo.R.attr#measureFactor}
           attribute's value can be found in the {@link #SwitchButton} array.

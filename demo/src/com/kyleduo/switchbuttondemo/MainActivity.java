@@ -16,8 +16,8 @@ import com.kyleduo.switchbutton.SwitchButton;
 
 public class MainActivity extends Activity {
 
-	private SwitchButton sbDefault, sbCustom, sbImage, sbChangeFaceControl, sbIOS, sbInCode, sbEnable;
-	private SwitchButton[] sbs = new SwitchButton[6];
+	private SwitchButton sbDefault, sbChangeFaceControl, sbIOS, sbInCode, sbEnable, sbMd;
+	private SwitchButton[] sbs = new SwitchButton[5];
 	private ViewGroup container;
 	private boolean newConf = false;
 
@@ -29,21 +29,19 @@ public class MainActivity extends Activity {
 		container = (ViewGroup) findViewById(R.id.incode_container);
 
 		sbDefault = (SwitchButton) findViewById(R.id.sb_default);
-		sbCustom = (SwitchButton) findViewById(R.id.sb_custom);
-		sbImage = (SwitchButton) findViewById(R.id.sb_image);
 		sbIOS = (SwitchButton) findViewById(R.id.sb_ios);
 		sbChangeFaceControl = (SwitchButton) findViewById(R.id.sb_changeface_control);
 		sbEnable = (SwitchButton) findViewById(R.id.sb_enable);
+		sbMd = (SwitchButton) findViewById(R.id.sb_md);
 
 		sbInCode = new SwitchButton(this);
 		container.addView(sbInCode, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		sbs[0] = sbDefault;
-		sbs[1] = sbCustom;
-		sbs[2] = sbImage;
-		sbs[3] = sbIOS;
-		sbs[4] = sbChangeFaceControl;
-		sbs[5] = sbInCode;
+		sbs[1] = sbIOS;
+		sbs[2] = sbChangeFaceControl;
+		sbs[3] = sbInCode;
+		sbs[4] = sbMd;
 
 		sbDefault.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
