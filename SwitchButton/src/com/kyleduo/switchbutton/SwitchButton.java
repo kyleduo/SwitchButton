@@ -29,6 +29,7 @@ import com.kyleduo.switchbutton.AnimationController.OnAnimateListener;
  */
 
 public class SwitchButton extends CompoundButton {
+	private static boolean SHOW_RECT = false;
 
 	private boolean mIsChecked = false;
 
@@ -55,7 +56,6 @@ public class SwitchButton extends CompoundButton {
 	private int mTouchSlop;
 	private int mClickTimeout;
 
-	private static boolean SHOW_RECT = false;
 	private Paint mRectPaint;
 
 	private Rect mBounds = null;
@@ -444,7 +444,11 @@ public class SwitchButton extends CompoundButton {
 
 	@Override
 	public void setChecked(final boolean checked) {
-		setCheckedInClass(checked);
+		if (mThumbZone == null) {
+			setCheckedInClass(checked);
+		} else {
+			slideToChecked(checked);
+		}
 	}
 
 	@Override
@@ -454,7 +458,7 @@ public class SwitchButton extends CompoundButton {
 
 	@Override
 	public void toggle() {
-		slideToChecked(!mIsChecked);
+		setChecked(!mIsChecked);
 	}
 
 	@Override
