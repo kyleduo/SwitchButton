@@ -399,6 +399,7 @@ public class SwitchButton extends CompoundButton {
 			mLastX = x;
 			break;
 
+		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_UP:
 			setPressed(false);
 

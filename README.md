@@ -1,7 +1,7 @@
 SwitchButton
 ============
 
-update 1.2.2
+update 1.2.3
 ---
 *   bug fix
 *   upgrade demo apk

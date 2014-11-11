@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kyleduo.switchbutton"
-    android:versionCode="5"
-    android:versionName="1.2.2" >
+    android:versionCode="6"
+    android:versionName="1.2.3" >
 
     <uses-sdk
         android:minSdkVersion="8"
