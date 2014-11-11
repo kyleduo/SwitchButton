@@ -1,6 +1,23 @@
 SwitchButton
 ============
 
+update 1.2.2
+---
+*   bug fix
+*   upgrade demo apk
+*   more clear way to use
+
+Since the animation ran on sub thread, "toggle" and "setChecked" methods may mot excute as you wish what cause the checked status change immediately.
+
+This problem may be solved, but I declared 2 methods to deal with the situation wheather you want it happen immediately.
+
+If you want to set the checked status immediately, just call ___setChecked(boolean checked);___ method like CheckBox. And ___slideToChecked(boolean checked);___ method for slow one with slide animation.
+
+When toggle, call ___toggle();___ with change the status immediately and ___toggle(false);___ for slow one.
+
+
+![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use.png)
+***
 update 1.2
 ---
 (11/08/2014)
@@ -11,7 +28,7 @@ update 1.2
 
 New Style with Material Disign:
 
-![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
+![materialdesign_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
 
 To use shrink feature, you can easily add these attributes in your xml file. It is recommended that set these values positive.
 
@@ -37,7 +54,7 @@ new default style and demo apk looks like this:
 
 ![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
 
-![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/demo_preview.png)
+![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_style.png)
 
 ***
 

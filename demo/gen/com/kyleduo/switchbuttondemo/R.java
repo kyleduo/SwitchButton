@@ -8,6 +8,11 @@
 package com.kyleduo.switchbuttondemo;
 
 public final class R {
+    public static final class array {
+        /**  contents 
+         */
+        public static final int contents=0x7f070000;
+    }
     public static final class attr {
         /** <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
@@ -179,29 +184,50 @@ in (inches), mm (millimeters).
         public static final int selector_thumb=0x7f020011;
     }
     public static final class id {
-        public static final int action_blog=0x7f080007;
-        public static final int action_github=0x7f080006;
-        public static final int incode_container=0x7f080003;
-        public static final int sb_changeface_control=0x7f080004;
-        public static final int sb_default=0x7f080000;
-        public static final int sb_enable=0x7f080005;
-        public static final int sb_ios=0x7f080002;
-        public static final int sb_md=0x7f080001;
+        public static final int action_blog=0x7f090013;
+        public static final int action_github=0x7f090012;
+        public static final int action_settings=0x7f090014;
+        public static final int checked_ani=0x7f090010;
+        public static final int checked_not_ani=0x7f090011;
+        public static final int incode_container=0x7f090004;
+        public static final int list=0x7f090000;
+        public static final int listener_finish=0x7f090008;
+        public static final int long_start=0x7f090009;
+        public static final int pb=0x7f09000b;
+        public static final int sb_changeface_control=0x7f090005;
+        public static final int sb_default=0x7f090001;
+        public static final int sb_enable=0x7f090006;
+        public static final int sb_ios=0x7f090003;
+        public static final int sb_md=0x7f090002;
+        public static final int sb_use_checked=0x7f09000f;
+        public static final int sb_use_listener=0x7f090007;
+        public static final int sb_use_long=0x7f09000a;
+        public static final int sb_use_toggle=0x7f09000c;
+        public static final int toggle_ani=0x7f09000d;
+        public static final int toggle_not_ani=0x7f09000e;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int activity_style=0x7f030001;
+        public static final int activity_use=0x7f030002;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int main=0x7f080000;
+        public static final int style=0x7f080001;
+        public static final int use=0x7f080002;
     }
     public static final class string {
-        public static final int action_blog=0x7f04000d;
+        public static final int action_blog=0x7f040019;
         /**  menu 
          */
-        public static final int action_github=0x7f04000c;
+        public static final int action_github=0x7f040018;
         public static final int action_settings=0x7f040002;
         public static final int app_name=0x7f040000;
+        public static final int bt_start=0x7f040017;
         public static final int changeface=0x7f04000a;
+        public static final int checked_animated=0x7f040015;
+        public static final int checked_not_animated=0x7f040016;
+        public static final int copyright=0x7f040003;
         public static final int enable_title=0x7f04000b;
         public static final int hello_world=0x7f040001;
         public static final int style_change=0x7f040009;
@@ -212,7 +238,19 @@ in (inches), mm (millimeters).
         public static final int style_image=0x7f040005;
         public static final int style_ios=0x7f040006;
         public static final int style_md=0x7f040008;
-        public static final int version=0x7f040003;
+        public static final int title_activity_style=0x7f04001a;
+        public static final int title_activity_use=0x7f04001b;
+        public static final int toggle_animated=0x7f040013;
+        public static final int toggle_not_animated=0x7f040014;
+        public static final int use_checked=0x7f040012;
+        /**  use title 
+         */
+        public static final int use_listener=0x7f04000c;
+        public static final int use_listener_finish=0x7f04000d;
+        public static final int use_long=0x7f04000e;
+        public static final int use_long_finish=0x7f040010;
+        public static final int use_long_hint=0x7f04000f;
+        public static final int use_toggle=0x7f040011;
     }
     public static final class style {
         /** 
@@ -233,17 +271,6 @@ in (inches), mm (millimeters).
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
@@ -252,6 +279,7 @@ in (inches), mm (millimeters).
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050001;
+        public static final int MaterialDesignStyle=0x7f050004;
         /**  style title 
          */
         public static final int StyleTitleText=0x7f050002;
