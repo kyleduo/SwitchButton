@@ -7,9 +7,9 @@ update 1.2.3
 *   upgrade demo apk
 *   more clear way to use
 
-Since the animation ran on sub thread, "toggle" and "setChecked" methods may mot excute as you wish what cause the checked status change immediately.
+Since the animation ran on sub thread, "toggle" and "setChecked" methods may mot execute as you wish what cause the checked status change immediately.
 
-This problem may be solved, but I declared 2 methods to deal with the situation wheather you want it happen immediately.
+This problem may be solved, but I declared 2 methods to deal with the situation whether you want it happen immediately.
 
 If you want to set the checked status immediately, just call ___setChecked(boolean checked);___ method like CheckBox. And ___slideToChecked(boolean checked);___ method for slow one with slide animation.
 
@@ -26,7 +26,7 @@ update 1.2
 * New Style with __Material Design__, preview below.
 * Add "shrink" feature. This makes you can draw your image resources out size the view bounds, in the other word, shrink the size of view and make the experience stay the same.
 
-New Style with Material Disign:
+New Style with Material Design:
 
 ![materialdesign_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
 
@@ -46,7 +46,7 @@ update 1.1
 * Fix lots of bugs.
 * Change the __default style__
 * Add iOS7 style, you can just use like how the demo did
-* Update demo, it becomes more convient, effective and beautiful
+* Update demo, it becomes more convenient, effective and beautiful
 * Add new attribute: measureFactor, you can custom the factor between width and height now. It is convenient to config the rest space of background. Learn more in the demo.
 * Update the logic of thumbMargin, it can work well with negative margins now (iOS style just using this trick).
 
@@ -93,6 +93,6 @@ Now, SwitchButton can used more easily to present a switch of flat style using c
 
 (find the latest version upside)
 
-To offer a convient way to configuration the looking, I designed a series of interface. You can use them to change the style. In demo, you can find how to use them. The demo looks like this:
+To offer a convenient way to configuration the looking, I designed a series of interface. You can use them to change the style. In demo, you can find how to use them. The demo looks like this:
 
 (find the latest version upside)
