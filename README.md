@@ -96,3 +96,5 @@ Now, SwitchButton can used more easily to present a switch of flat style using c
 To offer a convenient way to configuration the looking, I designed a series of interface. You can use them to change the style. In demo, you can find how to use them. The demo looks like this:
 
 (find the latest version upside)
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
