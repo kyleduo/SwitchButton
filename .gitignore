@@ -1,12 +1,21 @@
-*.class
+.project
+.classpath
+.settings/
+bin/
+gen/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# git
+*.orig
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# vim
+*.sw*
+*~
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+build/
+.gradle/
+.apt_generated/
+*.iml
+
+local.properties
+
+.idea/
