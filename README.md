@@ -81,7 +81,15 @@ In xml layout file, you can configure the face of switch button using these attr
 *   __radius__: used for color version, radius of corner of background and thumb.
 *   __measureFactor__: factor limit the minimum width equals almost (the height of thumb * measureFactor)
 
-In code 
+In Preference
+
+```xml
+<com.kyleduo.switchbutton.SwitchButtonPreference
+    android:key="example_checkbox"
+    android:title="@string/pref_title_example"
+    android:summary="@string/pref_description_example"
+    android:defaultValue="true" />
+```
 
 ***
 Original
