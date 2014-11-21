@@ -3,7 +3,7 @@ SwitchButton
 
 update 1.2.4
 ---
-*   fix shrink bug(that will cause the content out of bounds not disapper)
+*   fix shrink bug(that will cause the content out of bounds not disapper, in Android 4.4)
 *   upload .pad resource, whitch I forgot to upload before.(My fault.)
 
 update 1.2.3
