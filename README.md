@@ -1,6 +1,8 @@
 SwitchButton
 ============
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
+
 update 1.2.4
 ---
 *   fix shrink bug(that will cause the content out of bounds not disapper, on Android 4.4)
@@ -102,4 +104,3 @@ To offer a convenient way to configuration the looking, I designed a series of i
 
 (find the latest version upside)
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
