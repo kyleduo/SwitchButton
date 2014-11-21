@@ -14,6 +14,4 @@ hs_err_pid*
 # ignore gen
 bin/
 gen/
-.classpath
-.settings/
 .DS_Store
