@@ -3,6 +3,10 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
+update 1.2.5
+---
+*	fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
+
 update 1.2.4
 ---
 *   fix shrink bug(that will cause the content out of bounds not disapper, on Android 4.4)

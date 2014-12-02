@@ -15,6 +15,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.CompoundButton;
 
@@ -180,6 +181,11 @@ public class SwitchButton extends CompoundButton {
 		setupDrawableBounds();
 		if (this.getMeasuredWidth() > 0 && this.getMeasuredHeight() > 0) {
 			mSaveLayerZone = new RectF(0, 0, this.getMeasuredWidth(), this.getMeasuredHeight());
+		}
+
+		ViewGroup parent = (ViewGroup) this.getParent();
+		if (parent != null) {
+			parent.setClipChildren(false);
 		}
 	}
 
