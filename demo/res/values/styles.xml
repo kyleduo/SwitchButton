@@ -36,17 +36,10 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
-    <style name="MaterialDesignStyle" parent="SwitchButtonStyle">
-        <item name="animationVelocity">6</item>
-        <item name="insetBottom">10dp</item>
-        <item name="insetTop">10dp</item>
-        <item name="insetLeft">10dp</item>
-        <item name="insetRight">10dp</item>
-        <item name="measureFactor">1.4</item>
-        <item name="offDrawable">@drawable/md_back_off</item>
-        <item name="onDrawable">@drawable/md_back_on</item>
-        <item name="thumbDrawable">@drawable/md_thumb</item>
-        <item name="thumb_margin">-17dp</item>
+    <style name="MaterialDesignStyle" parent="MD">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
     </style>
 
 </resources>

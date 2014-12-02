@@ -5,7 +5,9 @@ SwitchButton
 
 update 1.2.5
 ---
-*	fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
+*	Fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
+*	More available to setup Material Design style SwitchButton using ___@style/MD___ in xml layout.
+*	Fix Demo Project bug
 
 update 1.2.4
 ---
