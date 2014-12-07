@@ -3,6 +3,12 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
+
+update 1.2.6
+---
+*   With calling the method ___setChecked(boolean, false);___, you can change the status without invoking the listener.
+
+
 update 1.2.5
 ---
 *	Fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
