@@ -439,7 +439,6 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public void invalidate() {
 		if (mBounds != null && mConf.needShrink()) {
-			mBounds.inset(mConf.getInsetX(), mConf.getInsetY());
 			invalidate(mBounds);
 		} else {
 			super.invalidate();
