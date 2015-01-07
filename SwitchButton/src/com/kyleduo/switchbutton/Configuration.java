@@ -1,9 +1,13 @@
 package com.kyleduo.switchbutton;
 
+import java.lang.reflect.Field;
+
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
+import android.view.View;
 
 /**
  * class for configuring the Switchbutton
@@ -18,7 +22,7 @@ public class Configuration implements Cloneable {
 		static int DEFAULT_OFF_COLOR = Color.parseColor("#E3E3E3");
 		static int DEFAULT_ON_COLOR = Color.parseColor("#02BFE7");
 		static int DEFAULT_THUMB_COLOR = Color.parseColor("#FFFFFF");
-		static int DEFAULT_THUMB_PRESSED_COLOR = Color.parseColor("#0090EE");
+		static int DEFAULT_THUMB_PRESSED_COLOR = Color.parseColor("#fafafa");
 		static int DEFAULT_THUMB_MARGIN = 2;
 		static int DEFAULT_RADIUS = 999;
 		static float DEFAULT_MEASURE_FACTOR = 2f;
@@ -38,7 +42,7 @@ public class Configuration implements Cloneable {
 	 */
 	private Drawable mThumbDrawable = null;
 
-	private int mOnColor = Default.DEFAULT_ON_COLOR, mOffColor = Default.DEFAULT_OFF_COLOR, mThumbColor = Default.DEFAULT_THUMB_COLOR;
+	private int mOnColor = Default.DEFAULT_ON_COLOR, mOffColor = Default.DEFAULT_OFF_COLOR, mThumbColor = Default.DEFAULT_THUMB_COLOR, mThumbPressedColor = Default.DEFAULT_THUMB_PRESSED_COLOR;
 
 	/**
 	 * space between View's border and thumb
@@ -262,7 +266,22 @@ public class Configuration implements Cloneable {
 		if (mThumbDrawable != null) {
 			return mThumbDrawable;
 		} else {
-			return getDrawableFromColor(mThumbColor);
+			StateListDrawable drawable = new StateListDrawable();
+			Drawable normalDrawable = getDrawableFromColor(this.mThumbColor);
+			Drawable pressedDrawable = getDrawableFromColor(this.mThumbPressedColor);
+			int[] stateSet = null;
+			try {
+				Field stateField = View.class.getDeclaredField("PRESSED_ENABLED_STATE_SET");
+				stateField.setAccessible(true);
+				stateSet = (int[]) stateField.get(null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (stateSet != null) {
+				drawable.addState(stateSet, pressedDrawable);
+			}
+			drawable.addState(new int[] {}, normalDrawable);
+			return drawable;
 		}
 	}
 
@@ -340,7 +359,7 @@ public class Configuration implements Cloneable {
 	}
 
 	/**
-	 * usd for get drawable from color
+	 * use for get drawable from color
 	 * 
 	 * @param color
 	 * @return

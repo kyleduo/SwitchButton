@@ -14,6 +14,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -122,7 +123,7 @@ public class SwitchButton extends CompoundButton {
 		}
 		mConf.setOffDrawable(fetchDrawable(ta, R.styleable.SwitchButton_offDrawable, R.styleable.SwitchButton_offColor, Configuration.Default.DEFAULT_OFF_COLOR));
 		mConf.setOnDrawable(fetchDrawable(ta, R.styleable.SwitchButton_onDrawable, R.styleable.SwitchButton_onColor, Configuration.Default.DEFAULT_ON_COLOR));
-		mConf.setThumbDrawable(fetchDrawable(ta, R.styleable.SwitchButton_thumbDrawable, R.styleable.SwitchButton_thumbColor, Configuration.Default.DEFAULT_THUMB_COLOR));
+		mConf.setThumbDrawable(fetchThumbDrawable(ta));
 	}
 
 	private Drawable fetchDrawable(TypedArray ta, int attrId, int alterColorId, int defaultColor) {
@@ -134,6 +135,29 @@ public class SwitchButton extends CompoundButton {
 			((GradientDrawable) tempDrawable).setColor(tempColor);
 		}
 		return tempDrawable;
+	}
+
+	private Drawable fetchThumbDrawable(TypedArray ta) {
+
+		Drawable tempDrawable = ta.getDrawable(R.styleable.SwitchButton_thumbDrawable);
+		if (tempDrawable != null) {
+			return tempDrawable;
+		}
+
+		int normalColor = ta.getColor(R.styleable.SwitchButton_thumbColor, Configuration.Default.DEFAULT_THUMB_COLOR);
+		int pressedColor = ta.getColor(R.styleable.SwitchButton_thumbPressedColor, Configuration.Default.DEFAULT_THUMB_PRESSED_COLOR);
+
+		StateListDrawable drawable = new StateListDrawable();
+		GradientDrawable normalDrawable = new GradientDrawable();
+		normalDrawable.setCornerRadius(this.mConf.getRadius());
+		normalDrawable.setColor(normalColor);
+		GradientDrawable pressedDrawable = new GradientDrawable();
+		pressedDrawable.setCornerRadius(this.mConf.getRadius());
+		pressedDrawable.setColor(pressedColor);
+		drawable.addState(View.PRESSED_ENABLED_STATE_SET, pressedDrawable);
+		drawable.addState(new int[] {}, normalDrawable);
+
+		return drawable;
 	}
 
 	public void setConfiguration(Configuration conf) {
