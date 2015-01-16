@@ -3,6 +3,15 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
+This project provides you a convient way to customise a SwitchButton widget in Android. With just resources changed and attrs set, you can get a lifelike SwitchButton in Android 5.0, iOS 7/8, MIUI, or Flyme and so on.
+
+What are you waiting for, come to enjoy this.
+
+update 1.2.7
+---
+*	Fix rendering bug on some devices.
+*	Fix states bug.
+
 
 update 1.2.6
 ---

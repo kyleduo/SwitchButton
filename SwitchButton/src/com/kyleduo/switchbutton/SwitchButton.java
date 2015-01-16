@@ -1,5 +1,6 @@
 package com.kyleduo.switchbutton;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -64,6 +65,7 @@ public class SwitchButton extends CompoundButton {
 
 	private OnCheckedChangeListener mOnCheckedChangeListener;
 
+	@SuppressLint("NewApi")
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initView();
@@ -89,6 +91,10 @@ public class SwitchButton extends CompoundButton {
 
 		fetchDrawableFromAttr(ta);
 		ta.recycle();
+
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+			this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
 	}
 
 	public SwitchButton(Context context, AttributeSet attrs) {
