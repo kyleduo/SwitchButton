@@ -24,7 +24,6 @@ public class UseActivity extends ActionBarActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_use);
-//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		findView();
 
@@ -118,15 +117,6 @@ public class UseActivity extends ActionBarActivity implements OnClickListener {
 		}
 
 	}
-//
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		if (item.getItemId() == android.R.id.home) {
-//			finish();
-//			return true;
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
 
 	@Override
 	public void onClick(View v) {
