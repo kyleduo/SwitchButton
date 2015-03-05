@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	  xmlns:app="http://schemas.android.com/apk/res-auto"
+	  xmlns:tools="http://schemas.android.com/tools"
+	  tools:context=".MainActivity">
+	<item
+		android:id="@+id/action_github"
+		android:icon="@drawable/icon_github"
+		android:orderInCategory="100"
+		app:showAsAction="always"
+		android:title="@string/action_github"/>
+	<item
+		android:id="@+id/action_blog"
+		android:icon="@drawable/icon_blog"
+		android:orderInCategory="100"
+		app:showAsAction="always"
+		android:title="@string/action_blog"/>
+</menu>
