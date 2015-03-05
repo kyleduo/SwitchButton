@@ -3,11 +3,19 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbuttondemo).
+~~To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbuttondemo).~~
+
+**To get a quick preview, you can find the Demo in [My Blog](http://kyleduo.com/apk/switchbutton_128.apk).**
 
 This project provides you a convient way to customise a SwitchButton widget in Android. With just resources changed and attrs set, you can get a lifelike SwitchButton in Android 5.0, iOS 7/8, MIUI, or Flyme and so on.
 
 What are you waiting for, come to enjoy this.
+
+update 1.2.8
+---
+*	Fix stretch bug while using higher API.
+*	Add Gradle support.
+*	Built in Android Studio.
 
 update 1.2.7
 ---
@@ -46,7 +54,7 @@ If you want to set the checked status immediately, just call ___setChecked(boole
 When toggle, call ___toggle();___ with change the status immediately and ___toggle(false);___ for slow one.
 
 
-![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use.png)
+![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use_128.png)
 ***
 update 1.2
 ---
@@ -82,7 +90,7 @@ new default style and demo apk looks like this:
 
 ![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
 
-![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_style.png)
+![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_style_128.png)
 
 Update
 ---
