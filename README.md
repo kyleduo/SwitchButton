@@ -3,9 +3,7 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-~~To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbuttondemo).~~
-
-**To get a quick preview, you can find the Demo in [My Blog](http://kyleduo.com/apk/switchbutton_128.apk).**
+**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/apk/switchbutton_128.apk).**
 
 This project provides you a convient way to customise a SwitchButton widget in Android. With just resources changed and attrs set, you can get a lifelike SwitchButton in Android 5.0, iOS 7/8, MIUI, or Flyme and so on.
 
