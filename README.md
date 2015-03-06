@@ -7,7 +7,7 @@ SwitchButton
 
 This project provides you a convient way to customise a SwitchButton widget in Android. With just resources changed and attrs set, you can get a lifelike SwitchButton in Android 5.0, iOS 7/8, MIUI, or Flyme and so on.
 
-What are you waiting for, come to enjoy this.
+What are you waiting for, come to enjoy this widget.
 
 update 1.2.8
 ---
