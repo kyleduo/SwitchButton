@@ -1,4 +1,4 @@
-package com.kyleduo.switchbutton.switchbutton;
+package com.kyleduo.switchbutton;
 
 import java.lang.reflect.Field;
 

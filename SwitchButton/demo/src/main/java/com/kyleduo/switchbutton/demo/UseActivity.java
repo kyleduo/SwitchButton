@@ -11,7 +11,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.kyleduo.switchbutton.switchbutton.SwitchButton;
+import com.kyleduo.switchbutton.SwitchButton;
 
 public class UseActivity extends ActionBarActivity implements OnClickListener {
 

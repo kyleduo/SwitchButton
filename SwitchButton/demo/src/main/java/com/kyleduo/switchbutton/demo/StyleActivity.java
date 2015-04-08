@@ -7,8 +7,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
 
-import com.kyleduo.switchbutton.switchbutton.Configuration;
-import com.kyleduo.switchbutton.switchbutton.SwitchButton;
+import com.kyleduo.switchbutton.Configuration;
+import com.kyleduo.switchbutton.SwitchButton;
 
 public class StyleActivity extends ActionBarActivity {
 

@@ -1,4 +1,4 @@
-package com.kyleduo.switchbutton.switchbutton;
+package com.kyleduo.switchbutton;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,6 +20,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.CompoundButton;
+
 
 /**
  * SwitchButton widget which is easy to use
