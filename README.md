@@ -9,94 +9,26 @@ This project provides you a convient way to customise a SwitchButton widget in A
 
 What are you waiting for, come to enjoy this widget.
 
-update 1.2.8
+Overview
 ---
-*	Fix stretch bug while using higher API.
-*	Add Gradle support.
-*	Built in Android Studio.
-
-update 1.2.7
----
-*	Fix rendering bug on some devices.
-*	Fix states bug.
-
-
-update 1.2.6
----
-*   With calling the method ___setChecked(boolean, false);___, you can change the status without invoking the listener.
-
-
-update 1.2.5
----
-*	Fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
-*	More available to setup Material Design style SwitchButton using ___@style/MD___ in xml layout.
-*	Fix Demo Project bug
-
-update 1.2.4
----
-*   fix shrink bug(that will cause the content out of bounds not disapper, on Android 4.4)
-*   upload .pad resource, whitch I forgot to upload before.(My fault.)
-
-update 1.2.3
----
-*   bug fix
-*   upgrade demo apk
-*   more clear way to use
-
-Since the animation ran on sub thread, "toggle" and "setChecked" methods may mot execute as you wish what cause the checked status change immediately.
-
-This problem may be solved, but I declared 2 methods to deal with the situation whether you want it happen immediately.
-
-If you want to set the checked status immediately, just call ___setChecked(boolean checked);___ method like CheckBox. And ___slideToChecked(boolean checked);___ method for slow one with slide animation.
-
-When toggle, call ___toggle();___ with change the status immediately and ___toggle(false);___ for slow one.
-
-
-![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use_128.png)
-***
-update 1.2
----
-(11/08/2014)
-
-* Add StateList support for all resources and enable/disable, pressed has been tested in Demo.
-* New Style with __Material Design__, preview below.
-* Add "shrink" feature. This makes you can draw your image resources out size the view bounds, in the other word, shrink the size of view and make the experience stay the same.
-
-New Style with Material Design:
-
-![materialdesign_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
-
-To use shrink feature, you can easily add these attributes in your xml file. It is recommended that set these values positive.
-
-*   __insetLeft__: left size for shrinking
-*   __insetRight__: right size for shrinking
-*   __insetTop__: top size for shrinking
-*   __insetBottom__: bottom size for shrinking
-
-update 1.1
----
-(10/08/2014)
-
-* Fix lots of bugs.
-* Change the __default style__
-* Add iOS7 style, you can just use like how the demo did
-* Update demo, it becomes more convenient, effective and beautiful
-* Add new attribute: measureFactor, you can custom the factor between width and height now. It is convenient to config the rest space of background. Learn more in the demo.
-* Update the logic of thumbMargin, it can work well with negative margins now (iOS style just using this trick).
-
-new default style and demo apk looks like this:
+Default Style
 
 ![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
 
+Material Style
+
+![materialdesign_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
+
+Demo apk:
+
 ![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_style_128.png)
 
-Update
----
-Add an attr of radius, now you can change the radius when configure the button's face!
+![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use_128.png)
 ***
 Usage
 ---
-In xml layout file, you can configure the face of switch button using these attrs.
+
+In ___xml___ layout file, you can configure the face of switch button using these attrs.
 
 *   __onDrawable__: drawable of background for status ON
 *   __offDrawable__: drawable of background for status OFF
@@ -112,20 +44,24 @@ In xml layout file, you can configure the face of switch button using these attr
 *   __animationVelocity__: distance of animation per frame
 *   __radius__: used for color version, radius of corner of background and thumb.
 *   __measureFactor__: factor limit the minimum width equals almost (the height of thumb * measureFactor)
+*   __insetLeft__: left size for shrinking (1.2)
+*   __insetRight__: right size for shrinking (1.2)
+*   __insetTop__: top size for shrinking (1.2)
+*   __insetBottom__: bottom size for shrinking (1.2)
 
-In code 
+You can alse change the configuration of SwitchButton ___in code___ using class __Configuration__. The attributes in xml each has a setter and you can use them. Call method __setConfiguration(Configuration conf);__ of SwitchButton after that.
 
-***
-Original
-----
+License
+---
 
-After a few days before, I have updated this project completely. To finish this work, I refer to the project of [@Issacw0ng](https://github.com/Issacw0ng/SwitchButton), to learn how to control the animation and response to UI and did some update under my understand.
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
 
-Now, SwitchButton can used more easily to present a switch of flat style using color. The default looking is like this:
+	   http://www.apache.org/licenses/LICENSE-2.0
 
-(find the latest version upside)
-
-To offer a convenient way to configuration the looking, I designed a series of interface. You can use them to change the style. In demo, you can find how to use them. The demo looks like this:
-
-(find the latest version upside)
-
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.

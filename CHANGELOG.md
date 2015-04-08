@@ -1,0 +1,110 @@
+Change Log
+============
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
+
+**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/apk/switchbutton_128.apk).**
+
+This project provides you a convient way to customise a SwitchButton widget in Android. With just resources changed and attrs set, you can get a lifelike SwitchButton in Android 5.0, iOS 7/8, MIUI, or Flyme and so on.
+
+What are you waiting for, come to enjoy this widget.
+
+***
+
+update 1.2.8 <font color="#FF684A" size="4">(Latest)</font>
+---
+*	Fix stretch bug while using higher API.
+*	Add Gradle support.
+*	Built in Android Studio.
+
+***
+
+update 1.2.7
+---
+*	Fix rendering bug on some devices.
+*	Fix states bug.
+
+***
+
+update 1.2.6
+---
+*   With calling the method ___setChecked(boolean, false);___, you can change the status without invoking the listener.
+
+***
+
+update 1.2.5
+---
+*	Fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
+*	More available to setup Material Design style SwitchButton using ___@style/MD___ in xml layout.
+*	Fix Demo Project bug
+
+***
+
+update 1.2.4
+---
+*   fix shrink bug(that will cause the content out of bounds not disapper, on Android 4.4)
+*   upload .pad resource, whitch I forgot to upload before.(My fault.)
+
+***
+
+update 1.2.3
+---
+*   bug fix
+*   upgrade demo apk
+*   more clear way to use
+
+Since the animation ran on sub thread, "toggle" and "setChecked" methods may mot execute as you wish what cause the checked status change immediately.
+
+This problem may be solved, but I declared 2 methods to deal with the situation whether you want it happen immediately.
+
+If you want to set the checked status immediately, just call ___setChecked(boolean checked);___ method like CheckBox. And ___slideToChecked(boolean checked);___ method for slow one with slide animation.
+
+When toggle, call ___toggle();___ with change the status immediately and ___toggle(false);___ for slow one.
+
+
+![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use_128.png)
+
+***
+update 1.2
+---
+(11/08/2014)
+
+* Add StateList support for all resources and enable/disable, pressed has been tested in Demo.
+* New Style with __Material Design__, preview below.
+* Add "shrink" feature. This makes you can draw your image resources out size the view bounds, in the other word, shrink the size of view and make the experience stay the same.
+
+New Style with Material Design:
+
+![materialdesign_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/switchbutton_md.jpg)
+
+To use shrink feature, you can easily add these attributes in your xml file. It is recommended that set these values positive.
+
+*   __insetLeft__: left size for shrinking
+*   __insetRight__: right size for shrinking
+*   __insetTop__: top size for shrinking
+*   __insetBottom__: bottom size for shrinking
+
+***
+
+update 1.1
+---
+(10/08/2014)
+
+* Fix lots of bugs.
+* Change the __default style__
+* Add iOS7 style, you can just use like how the demo did
+* Update demo, it becomes more convenient, effective and beautiful
+* Add new attribute: measureFactor, you can custom the factor between width and height now. It is convenient to config the rest space of background. Learn more in the demo.
+* Update the logic of thumbMargin, it can work well with negative margins now (iOS style just using this trick).
+
+new default style and demo apk looks like this:
+
+![default_style](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/default_style.png)
+
+![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_style_128.png)
+
+***
+
+Update 1.0
+---
+Add an attr of radius, now you can change the radius when configure the button's face!
