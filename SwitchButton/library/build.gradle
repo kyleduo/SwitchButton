@@ -11,7 +11,7 @@ group = "com.kyleduo.switchbutton"
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-    resourcePrefix "kyleduo__"
+    resourcePrefix "SwitchButton__"
 
     defaultConfig {
         minSdkVersion 8
