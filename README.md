@@ -25,6 +25,21 @@ Demo apk:
 
 ![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use_128.png)
 ***
+Using Fresco in your application
+---
+__ADT__
+
+	Clone the project and use the -adt part as library
+	
+__Gradle__
+	
+Add dependencies in build.gradle of your module
+
+	dependencies {
+    	compile 'com.kyleduo.switchbutton:library:1.2.8'
+	}
+
+***
 Usage
 ---
 
