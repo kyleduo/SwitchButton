@@ -9,7 +9,22 @@ This project provides you a convient way to customise a SwitchButton widget in A
 
 What are you waiting for, come to enjoy this widget.
 
-Overview
+***
+Using SwitchButton in your application
+---
+__ADT__
+
+	Clone the project and use the -adt part as library
+	
+__Gradle__
+	
+Add dependencies in build.gradle of your module
+
+	dependencies {
+    	compile 'com.kyleduo.switchbutton:library:1.2.8'
+	}
+***
+Demo
 ---
 Default Style
 
@@ -24,21 +39,6 @@ Demo apk:
 ![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_style_128.png)
 
 ![easy_to_use](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/easy_to_use_128.png)
-***
-Using Fresco in your application
----
-__ADT__
-
-	Clone the project and use the -adt part as library
-	
-__Gradle__
-	
-Add dependencies in build.gradle of your module
-
-	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.2.8'
-	}
-
 ***
 Usage
 ---
