@@ -520,6 +520,9 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	protected void drawableStateChanged() {
 		super.drawableStateChanged();
+		if (mConf == null) {
+			return;
+		}
 		setDrawableState(mConf.getThumbDrawable());
 		setDrawableState(mConf.getOnDrawable());
 		setDrawableState(mConf.getOffDrawable());
