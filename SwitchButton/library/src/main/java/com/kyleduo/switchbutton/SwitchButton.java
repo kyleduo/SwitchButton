@@ -220,9 +220,6 @@ public class SwitchButton extends CompoundButton {
 
 	/**
 	 * setup zone for thumb to move
-	 * 
-	 * @param w
-	 * @param h
 	 */
 	private void setupSafeZone() {
 		int w = getMeasuredWidth();
@@ -519,6 +516,9 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	protected void drawableStateChanged() {
 		super.drawableStateChanged();
+		if (mConf == null) {
+			return;
+		}
 		setDrawableState(mConf.getThumbDrawable());
 		setDrawableState(mConf.getOnDrawable());
 		setDrawableState(mConf.getOffDrawable());
