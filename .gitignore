@@ -1,4 +1,5 @@
 *.class
+.idea/
 
 # Android Stuido profile
 *.iml
