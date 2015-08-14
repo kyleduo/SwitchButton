@@ -11,6 +11,12 @@ What are you waiting for, come to enjoy this widget.
 
 ***
 
+update 1.2.9 <font color="#FF684A" size="4">(Latest)</font>
+---
+*	Fix issue [#19](https://github.com/kyleduo/SwitchButton/issues/19).
+
+***
+
 update 1.2.8 <font color="#FF684A" size="4">(Latest)</font>
 ---
 *	Fix stretch bug while using higher API.
