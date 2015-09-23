@@ -24,9 +24,9 @@ import android.widget.CompoundButton;
 
 /**
  * SwitchButton widget which is easy to use
- * 
- * @version 1.2
+ *
  * @author kyleduo
+ * @version 1.2
  * @since 2014-09-24
  */
 
@@ -71,21 +71,21 @@ public class SwitchButton extends CompoundButton {
 
 		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SwitchButton);
 
-		mConf.setThumbMarginInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_margin, mConf.getDefaultThumbMarginInPixel()));
-		mConf.setThumbMarginInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginTop, mConf.getThumbMarginTop()),
-				ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginBottom, mConf.getThumbMarginBottom()),
-				ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginLeft, mConf.getThumbMarginLeft()),
-				ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_marginRight, mConf.getThumbMarginRight()));
-		mConf.setRadius(ta.getInt(R.styleable.SwitchButton_radius, Configuration.Default.DEFAULT_RADIUS));
+		mConf.setThumbMarginInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_margin, mConf.getDefaultThumbMarginInPixel()));
+		mConf.setThumbMarginInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_marginTop, mConf.getThumbMarginTop()),
+				ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_marginBottom, mConf.getThumbMarginBottom()),
+				ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_marginLeft, mConf.getThumbMarginLeft()),
+				ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_marginRight, mConf.getThumbMarginRight()));
+		mConf.setRadius(ta.getInt(R.styleable.SwitchButton_kswRadius, Configuration.Default.DEFAULT_RADIUS));
 
-		mConf.setThumbWidthAndHeightInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_width, -1), ta.getDimensionPixelSize(R.styleable.SwitchButton_thumb_height, -1));
+		mConf.setThumbWidthAndHeightInPixel(ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_width, -1), ta.getDimensionPixelSize(R.styleable.SwitchButton_kswThumb_height, -1));
 
-		mConf.setMeasureFactor(ta.getFloat(R.styleable.SwitchButton_measureFactor, -1));
+		mConf.setMeasureFactor(ta.getFloat(R.styleable.SwitchButton_kswMeasureFactor, -1));
 
-		mConf.setInsetBounds(ta.getDimensionPixelSize(R.styleable.SwitchButton_insetLeft, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_insetTop, 0),
-				ta.getDimensionPixelSize(R.styleable.SwitchButton_insetRight, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_insetBottom, 0));
+		mConf.setInsetBounds(ta.getDimensionPixelSize(R.styleable.SwitchButton_kswInsetLeft, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_kswInsetTop, 0),
+				ta.getDimensionPixelSize(R.styleable.SwitchButton_kswInsetRight, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_kswInsetBottom, 0));
 
-		int velocity = ta.getInteger(R.styleable.SwitchButton_animationVelocity, -1);
+		int velocity = ta.getInteger(R.styleable.SwitchButton_kswAnimationVelocity, -1);
 		mAnimationController.setVelocity(velocity);
 
 		fetchDrawableFromAttr(ta);
@@ -119,15 +119,15 @@ public class SwitchButton extends CompoundButton {
 	/**
 	 * fetch drawable resources from attrs, drop them to conf, AFTER the size
 	 * has been confirmed
-	 * 
+	 *
 	 * @param ta
 	 */
 	private void fetchDrawableFromAttr(TypedArray ta) {
 		if (mConf == null) {
 			return;
 		}
-		mConf.setOffDrawable(fetchDrawable(ta, R.styleable.SwitchButton_offDrawable, R.styleable.SwitchButton_offColor, Configuration.Default.DEFAULT_OFF_COLOR));
-		mConf.setOnDrawable(fetchDrawable(ta, R.styleable.SwitchButton_onDrawable, R.styleable.SwitchButton_onColor, Configuration.Default.DEFAULT_ON_COLOR));
+		mConf.setOffDrawable(fetchDrawable(ta, R.styleable.SwitchButton_kswOffDrawable, R.styleable.SwitchButton_kswOffColor, Configuration.Default.DEFAULT_OFF_COLOR));
+		mConf.setOnDrawable(fetchDrawable(ta, R.styleable.SwitchButton_kswOnDrawable, R.styleable.SwitchButton_kswOnColor, Configuration.Default.DEFAULT_ON_COLOR));
 		mConf.setThumbDrawable(fetchThumbDrawable(ta));
 	}
 
@@ -144,13 +144,13 @@ public class SwitchButton extends CompoundButton {
 
 	private Drawable fetchThumbDrawable(TypedArray ta) {
 
-		Drawable tempDrawable = ta.getDrawable(R.styleable.SwitchButton_thumbDrawable);
+		Drawable tempDrawable = ta.getDrawable(R.styleable.SwitchButton_kswThumbDrawable);
 		if (tempDrawable != null) {
 			return tempDrawable;
 		}
 
-		int normalColor = ta.getColor(R.styleable.SwitchButton_thumbColor, Configuration.Default.DEFAULT_THUMB_COLOR);
-		int pressedColor = ta.getColor(R.styleable.SwitchButton_thumbPressedColor, Configuration.Default.DEFAULT_THUMB_PRESSED_COLOR);
+		int normalColor = ta.getColor(R.styleable.SwitchButton_kswThumbColor, Configuration.Default.DEFAULT_THUMB_COLOR);
+		int pressedColor = ta.getColor(R.styleable.SwitchButton_kswThumbPressedColor, Configuration.Default.DEFAULT_THUMB_PRESSED_COLOR);
 
 		StateListDrawable drawable = new StateListDrawable();
 		GradientDrawable normalDrawable = new GradientDrawable();
@@ -160,9 +160,18 @@ public class SwitchButton extends CompoundButton {
 		pressedDrawable.setCornerRadius(this.mConf.getRadius());
 		pressedDrawable.setColor(pressedColor);
 		drawable.addState(View.PRESSED_ENABLED_STATE_SET, pressedDrawable);
-		drawable.addState(new int[] {}, normalDrawable);
+		drawable.addState(new int[]{}, normalDrawable);
 
 		return drawable;
+	}
+
+	/**
+	 * return a REFERENCE of configuration, it is suggested that not to change that
+	 *
+	 * @return
+	 */
+	public Configuration getConfiguration() {
+		return mConf;
 	}
 
 	public void setConfiguration(Configuration conf) {
@@ -180,15 +189,6 @@ public class SwitchButton extends CompoundButton {
 		this.requestLayout();
 		setup();
 		setChecked(mIsChecked);
-	}
-
-	/**
-	 * return a REFERENCE of configuration, it is suggested that not to change that
-	 * 
-	 * @return
-	 */
-	public Configuration getConfiguration() {
-		return mConf;
 	}
 
 	@Override
@@ -386,6 +386,7 @@ public class SwitchButton extends CompoundButton {
 
 	/**
 	 * calculate the alpha value for on layer
+	 *
 	 * @return 0 ~ 255
 	 */
 	private int calcAlpha() {
@@ -417,38 +418,38 @@ public class SwitchButton extends CompoundButton {
 		boolean nextStatus = mIsChecked;
 
 		switch (action) {
-		case MotionEvent.ACTION_DOWN:
-			catchView();
-			mStartX = event.getX();
-			mStartY = event.getY();
-			mLastX = mStartX;
-			setPressed(true);
-			break;
+			case MotionEvent.ACTION_DOWN:
+				catchView();
+				mStartX = event.getX();
+				mStartY = event.getY();
+				mLastX = mStartX;
+				setPressed(true);
+				break;
 
-		case MotionEvent.ACTION_MOVE:
-			float x = event.getX();
-			moveThumb((int) (x - mLastX));
-			mLastX = x;
-			break;
+			case MotionEvent.ACTION_MOVE:
+				float x = event.getX();
+				moveThumb((int) (x - mLastX));
+				mLastX = x;
+				break;
 
-		case MotionEvent.ACTION_CANCEL:
-		case MotionEvent.ACTION_UP:
-			setPressed(false);
+			case MotionEvent.ACTION_CANCEL:
+			case MotionEvent.ACTION_UP:
+				setPressed(false);
 
-			nextStatus = getStatusBasedOnPos();
+				nextStatus = getStatusBasedOnPos();
 
-			float time = event.getEventTime() - event.getDownTime();
+				float time = event.getEventTime() - event.getDownTime();
 
-			if (deltaX < mTouchSlop && deltaY < mTouchSlop && time < mClickTimeout) {
-				performClick();
-			} else {
-				slideToChecked(nextStatus);
-			}
+				if (deltaX < mTouchSlop && deltaY < mTouchSlop && time < mClickTimeout) {
+					performClick();
+				} else {
+					slideToChecked(nextStatus);
+				}
 
-			break;
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 		invalidate();
 		return true;
@@ -456,6 +457,7 @@ public class SwitchButton extends CompoundButton {
 
 	/**
 	 * return the status based on position of thumb
+	 *
 	 * @return
 	 */
 	private boolean getStatusBasedOnPos() {
@@ -483,11 +485,6 @@ public class SwitchButton extends CompoundButton {
 		}
 	}
 
-	@Override
-	public void setChecked(final boolean checked) {
-		setChecked(checked, true);
-	}
-
 	public void setChecked(final boolean checked, boolean trigger) {
 		if (mThumbZone != null) {
 			moveThumb(checked ? getMeasuredWidth() : -getMeasuredWidth());
@@ -498,6 +495,11 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public boolean isChecked() {
 		return mIsChecked;
+	}
+
+	@Override
+	public void setChecked(final boolean checked) {
+		setChecked(checked, true);
 	}
 
 	@Override

@@ -21,7 +21,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.2.9'
+    	compile 'com.kyleduo.switchbutton:library:1.2.10'
 	}
 ***
 Demo
@@ -45,24 +45,26 @@ Usage
 
 In ___xml___ layout file, you can configure the face of switch button using these attrs.
 
-*   __onDrawable__: drawable of background for status ON
-*   __offDrawable__: drawable of background for status OFF
-*   __thumbDrawable__: drawable of thumb
-*   __thumb_margin__: set inner margin between thumb and edges
-*   __thumb_marginLeft/Top/Bottom/Right__: set margin for specific edge
-*   __thumb_width__: set the width of thumb, probably used for gradient drawable
-*   __thumb_height__: set the height of thumb
-*   __onColor__: set the color of status ON, usd for flat version, the priority is below of onDrawable
-*   __offColor__: like the onColor
-*   __thumbColor__: like the onColor
-*   __thumbPressedColor__: like the thumbColor, but for pressed status
-*   __animationVelocity__: distance of animation per frame
-*   __radius__: used for color version, radius of corner of background and thumb.
-*   __measureFactor__: factor limit the minimum width equals almost (the height of thumb * measureFactor)
-*   __insetLeft__: left size for shrinking (1.2)
-*   __insetRight__: right size for shrinking (1.2)
-*   __insetTop__: top size for shrinking (1.2)
-*   __insetBottom__: bottom size for shrinking (1.2)
+(Update from 1.2.10)
+
+*   __kswOnDrawable__: drawable of background for status ON
+*   __kswOffDrawable__: drawable of background for status OFF
+*   __kswThumbDrawable__: drawable of thumb
+*   __kswThumb_margin__: set inner margin between thumb and edges
+*   __kswThumb_marginLeft/Top/Bottom/Right__: set margin for specific edge
+*   __kswThumb_width__: set the width of thumb, probably used for gradient drawable
+*   __kswThumb_height__: set the height of thumb
+*   __kswOnColor__: set the color of status ON, usd for flat version, the priority is below of onDrawable
+*   __kswOffColor__: like the onColor
+*   __kswThumbColor__: like the onColor
+*   __kswThumbPressedColor__: like the thumbColor, but for pressed status
+*   __kswAnimationVelocity__: distance of animation per frame
+*   __kswRadius__: used for color version, radius of corner of background and thumb.
+*   __kswMeasureFactor__: factor limit the minimum width equals almost (the height of thumb * measureFactor)
+*   __kswInsetLeft__: left size for shrinking (1.2)
+*   __kswInsetRight__: right size for shrinking (1.2)
+*   __kswInsetTop__: top size for shrinking (1.2)
+*   __kswInsetBottom__: bottom size for shrinking (1.2)
 
 You can alse change the configuration of SwitchButton ___in code___ using class __Configuration__. The attributes in xml each has a setter and you can use them. Call method __setConfiguration(Configuration conf);__ of SwitchButton after that.
 

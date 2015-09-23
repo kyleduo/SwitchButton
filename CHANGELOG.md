@@ -11,13 +11,20 @@ What are you waiting for, come to enjoy this widget.
 
 ***
 
-update 1.2.9 <font color="#FF684A" size="4">(Latest)</font>
+update 1.2.10 <font color="#FF684A" size="4">(Latest)</font>
+---
+*	Fix issue [#22](https://github.com/kyleduo/SwitchButton/issues/22) by change the attributes' name to prevent conflict;
+
+***
+
+
+update 1.2.9
 ---
 *	Fix issue [#19](https://github.com/kyleduo/SwitchButton/issues/19).
 
 ***
 
-update 1.2.8 <font color="#FF684A" size="4">(Latest)</font>
+update 1.2.8
 ---
 *	Fix stretch bug while using higher API.
 *	Add Gradle support.

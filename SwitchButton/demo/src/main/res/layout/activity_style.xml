@@ -34,15 +34,15 @@
     <com.kyleduo.switchbutton.SwitchButton
         android:id="@+id/sb_ios"
         style="@style/SwitchButtonStyle"
-        app:animationVelocity="8"
-        app:measureFactor="1.5"
-        app:offDrawable="@drawable/ios_off"
-        app:onColor="#43d95d"
-        app:thumbDrawable="@drawable/ios_thumb"
-        app:thumb_marginBottom="-8dp"
-        app:thumb_marginLeft="-5dp"
-        app:thumb_marginRight="-5dp"
-        app:thumb_marginTop="-2.5dp" />
+        app:kswAnimationVelocity="8"
+        app:kswMeasureFactor="1.5"
+        app:kswOffDrawable="@drawable/ios_off"
+        app:kswOnColor="#43d95d"
+        app:kswThumbDrawable="@drawable/ios_thumb"
+        app:kswThumb_marginBottom="-8dp"
+        app:kswThumb_marginLeft="-5dp"
+        app:kswThumb_marginRight="-5dp"
+        app:kswThumb_marginTop="-2.5dp" />
 
     <TextView
         style="@style/StyleTitleText"
@@ -73,14 +73,14 @@
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/sb_enable"
             style="@style/SwitchButtonStyle"
-            app:animationVelocity="8"
-            app:offDrawable="@drawable/img_back_off"
-            app:onDrawable="@drawable/img_back_on"
-            app:thumbDrawable="@drawable/selector_thumb"
-            app:thumb_marginBottom="2dp"
-            app:thumb_marginLeft="3dp"
-            app:thumb_marginRight="3dp"
-            app:thumb_marginTop="3dp" />
+            app:kswAnimationVelocity="8"
+            app:kswOffDrawable="@drawable/img_back_off"
+            app:kswOnDrawable="@drawable/img_back_on"
+            app:kswThumbDrawable="@drawable/selector_thumb"
+            app:kswThumb_marginBottom="2dp"
+            app:kswThumb_marginLeft="3dp"
+            app:kswThumb_marginRight="3dp"
+            app:kswThumb_marginTop="3dp" />
     </LinearLayout>
 
 </LinearLayout>
