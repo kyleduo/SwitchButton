@@ -1,6 +1,6 @@
 <resources>
 
-	<style name="MD">
+	<!--<style name="MD">
 		<item name="kswAnimationVelocity">6</item>
 		<item name="kswInsetBottom">16dp</item>
 		<item name="kswInsetTop">16dp</item>
@@ -11,6 +11,6 @@
 		<item name="kswOnDrawable">@drawable/md_back_on</item>
 		<item name="kswThumbDrawable">@drawable/md_thumb</item>
 		<item name="kswThumb_margin">-17dp</item>
-	</style>
+	</style>-->
 
 </resources>

@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kyleduo.switchbuttondemo.StyleActivity" >
 
-    <TextView
+    <!--<TextView
         style="@style/StyleTitleText"
         android:text="@string/style_default" />
 
@@ -81,6 +81,6 @@
             app:kswThumb_marginLeft="3dp"
             app:kswThumb_marginRight="3dp"
             app:kswThumb_marginTop="3dp" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

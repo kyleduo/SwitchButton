@@ -2,27 +2,29 @@
 <resources>
 
 	<declare-styleable name="SwitchButton">
-		<attr name="kswOnDrawable" format="reference"/>
-		<attr name="kswOffDrawable" format="reference"/>
 		<attr name="kswThumbDrawable" format="reference"/>
-		<attr name="kswThumb_margin" format="dimension|reference"/>
-		<attr name="kswThumb_marginTop" format="dimension|reference"/>
-		<attr name="kswThumb_marginBottom" format="dimension|reference"/>
-		<attr name="kswThumb_marginLeft" format="dimension|reference"/>
-		<attr name="kswThumb_marginRight" format="dimension|reference"/>
-		<attr name="kswThumb_width" format="dimension|reference"/>
-		<attr name="kswThumb_height" format="dimension|reference"/>
-		<attr name="kswOnColor" format="color|reference"/>
-		<attr name="kswOffColor" format="color|reference"/>
 		<attr name="kswThumbColor" format="color|reference"/>
-		<attr name="kswThumbPressedColor" format="color|reference"/>
+		<attr name="kswThumbMargin" format="dimension|reference"/>
+		<attr name="kswThumbMarginTop" format="dimension|reference"/>
+		<attr name="kswThumbMarginBottom" format="dimension|reference"/>
+		<attr name="kswThumbMarginLeft" format="dimension|reference"/>
+		<attr name="kswThumbMarginRight" format="dimension|reference"/>
+		<attr name="kswThumbWidth" format="dimension|reference"/>
+		<attr name="kswThumbHeight" format="dimension|reference"/>
+		<attr name="kswThumbRadius" format="dimension|reference"/>
+		<attr name="kswBackRadius" format="dimension|reference"/>
+		<attr name="kswBackDrawable" format="reference"/>
+		<attr name="kswBackColor" format="color|reference"/>
+		<!-- the ratio used when measuring "back" use "thumb" size. W-back = W-thumb * ratio -->
+		<attr name="kswBackMeasureRatio" format="float"/>
+		<!-- pixels per milliseconds -->
 		<attr name="kswAnimationVelocity" format="integer"/>
-		<attr name="kswRadius" format="integer"/>
-		<attr name="kswMeasureFactor" format="float"/>
-		<attr name="kswInsetLeft" format="dimension|reference"/>
-		<attr name="kswInsetRight" format="dimension|reference"/>
-		<attr name="kswInsetTop" format="dimension|reference"/>
-		<attr name="kswInsetBottom" format="dimension|reference"/>
+
+		<!-- exp. -->
+		<attr name="kswOnText" format="string|reference"/>
+		<attr name="kswOffText" format="string|reference"/>
+		<attr name="kswOnTextAppearance" format="reference"/>
+		<attr name="kswOffTextAppearance" format="reference"/>
 	</declare-styleable>
 
 </resources>
