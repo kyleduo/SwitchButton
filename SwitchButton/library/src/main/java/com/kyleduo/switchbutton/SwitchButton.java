@@ -3,6 +3,7 @@ package com.kyleduo.switchbutton;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
@@ -32,7 +34,7 @@ import android.widget.CompoundButton;
 
 public class SwitchButton extends CompoundButton {
 	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.6f;
-	public static final int DEFAULT_THUMB_RADIUS = 6;
+	public static final int DEFAULT_THUMB_SIZE = 20;
 
 	private static boolean SHOW_RECT = false;
 
@@ -50,20 +52,21 @@ public class SwitchButton extends CompoundButton {
 	private RectF mSaveLayerZone;
 
 	private PointF mThumbSizeF;
-	private RectF mThumbRectF, mBackRectF, mSafeRectF, mThumbMargin;
+	private RectF mThumbRectF, mBackRectF, mSafeRectF;
 	private Point mStartPoint, mLastPoint;
 	// 标记是否使用Drawable，如果不用Drawable，使用Color定制，在onDraw中直接绘制
 	private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
 	private Drawable mThumbDrawable, mBackDrawable;
 	private ColorStateList mBackColor, mThumbColor;
-	private float mThumbRadius;
+	private float mThumbRadius, mBackRadius;
 	private Paint mPaint;
 	// save thumbMargin
-	private RectF mThumbMarginRectF;
+	private RectF mThumbMargin;
 	// exp. 实验功能，绘制文本
 	private TextPaint mTextPaint;
 	private String mOnText, mOffText;
 	private float mBackMeasureRatio;
+	private float mAnimationVelocity;
 
 
 	private AnimationController mAnimationController;
@@ -80,7 +83,7 @@ public class SwitchButton extends CompoundButton {
 
 	private Rect mBounds = null;
 
-	private OnCheckedChangeListener mOnCheckedChangeListener;
+	private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener;
 
 	@SuppressLint("NewApi")
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
@@ -132,52 +135,77 @@ public class SwitchButton extends CompoundButton {
 		mBackRectF = new RectF();
 		mSafeRectF = new RectF();
 		mThumbSizeF = new PointF();
+		mThumbMargin = new RectF();
+
+		Resources res = getResources();
+		float density = res.getDisplayMetrics().density;
+
+		Drawable thumbDrawable = null;
+		ColorStateList thumbColor = null;
+		float margin = density * 2;
+		float marginLeft = 0;
+		float marginRight = 0;
+		float marginTop = 0;
+		float marginBottom = 0;
+		float thumbWidth = density * DEFAULT_THUMB_SIZE;
+		float thumbHeight = density * DEFAULT_THUMB_SIZE;
+		float thumbRadius = density * DEFAULT_THUMB_SIZE / 2;
+		float backRadius = thumbRadius + density * 2;
+		Drawable backDrawable = null;
+		ColorStateList backColor = null;
+		float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
+		float animationVelocity = 0.5f;
 
 		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
-		if (ta == null) {
-			return;
+		if (ta != null) {
+			thumbDrawable = ta.getDrawable(R.styleable.SwitchButton_kswThumbDrawable);
+			thumbColor = ta.getColorStateList(R.styleable.SwitchButton_kswThumbColor);
+			margin = ta.getFloat(R.styleable.SwitchButton_kswThumbMargin, margin);
+			marginLeft = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginLeft, margin);
+			marginRight = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginRight, margin);
+			marginTop = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginTop, margin);
+			marginBottom = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
+			thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, thumbWidth);
+			thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, thumbHeight);
+			thumbRadius = ta.getFloat(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
+			backRadius = ta.getFloat(R.styleable.SwitchButton_kswBackRadius, backRadius);
+			backDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
+			backColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
+			backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
+			animationVelocity = ta.getFloat(R.styleable.SwitchButton_kswAnimationVelocity, animationVelocity);
+
+			ta.recycle();
 		}
 
 		// thumb drawable and color
-		mThumbDrawable = ta.getDrawable(R.styleable.SwitchButton_kswThumbDrawable);
+		mThumbDrawable = thumbDrawable;
+		mThumbColor = thumbColor;
 		mIsThumbUseDrawable = mThumbDrawable != null;
-		if (!mIsThumbUseDrawable) {
-			mThumbColor = ta.getColorStateList(R.styleable.SwitchButton_kswThumbColor);
-			if (mThumbColor == null) {
-				mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
-			}
+		if (!mIsThumbUseDrawable && mThumbColor == null) {
+			mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
 		}
 
 		// back drawable and color
-		mBackDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
+		mBackDrawable = backDrawable;
+		mBackColor = backColor;
 		mIsBackUseDrawable = mBackDrawable != null;
-		if (!mIsBackUseDrawable) {
-			mBackColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackDrawable);
-			if (mBackColor == null) {
-				mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
-			}
+		if (!mIsBackUseDrawable && mBackColor == null) {
+			mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
 		}
-
 		// margin
-		float margin = ta.getFloat(R.styleable.SwitchButton_kswThumbMargin, 0);
-		float marginLeft = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginLeft, margin);
-		float marginRight = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginRight, margin);
-		float marginTop = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginTop, margin);
-		float marginBottom = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
 		mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
 
-		// size & measure params
-		mBackMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, DEFAULT_BACK_MEASURE_RATIO);
-
-		float thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, 0);
-		float thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, 0);
+		// size & measure params must larger than 1
+		mBackMeasureRatio = backMeasureRatio < 1 && mThumbMargin.width() >= 0 ? 1 : backMeasureRatio;
+		if (mIsThumbUseDrawable) {
+			thumbWidth = Math.max(thumbWidth, mThumbDrawable.getMinimumWidth());
+			thumbHeight = Math.max(thumbHeight, mThumbDrawable.getMinimumHeight());
+		}
 		mThumbSizeF.set(thumbWidth, thumbHeight);
 
-		mThumbRadius = ta.getFloat(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
-
-
-
-		ta.recycle();
+		mThumbRadius = thumbRadius;
+		mBackRadius = backRadius;
+		mAnimationVelocity = animationVelocity;
 	}
 
 	private void initView() {
@@ -270,6 +298,56 @@ public class SwitchButton extends CompoundButton {
 //	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 //		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
 //	}
+
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
+	}
+
+	private int measureWidth(int widthMeasureSpec) {
+		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+		int measuredWidth;
+
+		int minWidth = (int) (mThumbSizeF.x * mBackMeasureRatio);
+		if (mIsBackUseDrawable) {
+			minWidth = Math.max(minWidth, mBackDrawable.getMinimumWidth());
+		}
+		minWidth = Math.max(minWidth, (int) (minWidth + mThumbMargin.left + mThumbMargin.right));
+		minWidth = Math.max(minWidth, getSuggestedMinimumWidth());
+
+		if (widthMode == MeasureSpec.EXACTLY) {
+			measuredWidth = Math.max(minWidth, widthSize);
+		} else {
+			measuredWidth = minWidth;
+			if (widthMode == MeasureSpec.AT_MOST) {
+				measuredWidth = Math.min(measuredWidth, widthSize);
+			}
+		}
+
+		return measuredWidth;
+	}
+
+	private int measureHeight(int heightMeasureSpec) {
+		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+		int measuredHeight;
+
+		int minHeight = (int) Math.max(mThumbSizeF.y, mThumbSizeF.y + mThumbMargin.top + mThumbMargin.right);
+		minHeight = Math.max(minHeight, getSuggestedMinimumHeight());
+
+		if (heightMode == MeasureSpec.EXACTLY) {
+			measuredHeight = Math.max(minHeight, heightSize);
+		} else {
+			measuredHeight = minHeight;
+			if (heightMode == MeasureSpec.AT_MOST) {
+				measuredHeight = Math.min(measuredHeight, heightSize);
+			}
+		}
+
+		return measuredHeight;
+	}
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -418,6 +496,10 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		int width = getMeasuredWidth();
+		int height = getMeasuredHeight();
+		Log.d("onDraw", "w: " + width + " h: " + height);
+		canvas.drawColor(Color.RED);
 
 //		canvas.getClipBounds(mBounds);
 //		if (mBounds != null && mConf.needShrink()) {
@@ -609,7 +691,7 @@ public class SwitchButton extends CompoundButton {
 		}
 	}
 
-	public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+	public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
 		if (onCheckedChangeListener == null) {
 			throw new IllegalArgumentException("onCheckedChangeListener can not be null");
 		}

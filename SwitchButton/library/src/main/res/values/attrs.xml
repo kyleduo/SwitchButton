@@ -18,7 +18,7 @@
 		<!-- the ratio used when measuring "back" use "thumb" size. W-back = W-thumb * ratio -->
 		<attr name="kswBackMeasureRatio" format="float"/>
 		<!-- pixels per milliseconds -->
-		<attr name="kswAnimationVelocity" format="integer"/>
+		<attr name="kswAnimationVelocity" format="float"/>
 
 		<!-- exp. -->
 		<attr name="kswOnText" format="string|reference"/>
