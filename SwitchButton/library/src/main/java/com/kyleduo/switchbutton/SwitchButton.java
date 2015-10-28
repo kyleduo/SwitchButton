@@ -13,6 +13,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -31,6 +32,7 @@ import android.widget.CompoundButton;
 
 public class SwitchButton extends CompoundButton {
 	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.6f;
+	public static final int DEFAULT_THUMB_RADIUS = 6;
 
 	private static boolean SHOW_RECT = false;
 
@@ -48,12 +50,13 @@ public class SwitchButton extends CompoundButton {
 	private RectF mSaveLayerZone;
 
 	private PointF mThumbSizeF;
-	private RectF mThumbRectF, mBackRectF, mSafeRectF;
+	private RectF mThumbRectF, mBackRectF, mSafeRectF, mThumbMargin;
 	private Point mStartPoint, mLastPoint;
 	// 标记是否使用Drawable，如果不用Drawable，使用Color定制，在onDraw中直接绘制
 	private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
 	private Drawable mThumbDrawable, mBackDrawable;
 	private ColorStateList mBackColor, mThumbColor;
+	private float mThumbRadius;
 	private Paint mPaint;
 	// save thumbMargin
 	private RectF mThumbMarginRectF;
@@ -135,29 +138,44 @@ public class SwitchButton extends CompoundButton {
 			return;
 		}
 
+		// thumb drawable and color
 		mThumbDrawable = ta.getDrawable(R.styleable.SwitchButton_kswThumbDrawable);
+		mIsThumbUseDrawable = mThumbDrawable != null;
+		if (!mIsThumbUseDrawable) {
+			mThumbColor = ta.getColorStateList(R.styleable.SwitchButton_kswThumbColor);
+			if (mThumbColor == null) {
+				mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
+			}
+		}
+
+		// back drawable and color
 		mBackDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
+		mIsBackUseDrawable = mBackDrawable != null;
+		if (!mIsBackUseDrawable) {
+			mBackColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackDrawable);
+			if (mBackColor == null) {
+				mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
+			}
+		}
+
+		// margin
+		float margin = ta.getFloat(R.styleable.SwitchButton_kswThumbMargin, 0);
+		float marginLeft = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginLeft, margin);
+		float marginRight = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginRight, margin);
+		float marginTop = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginTop, margin);
+		float marginBottom = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
+		mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
+
+		// size & measure params
 		mBackMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, DEFAULT_BACK_MEASURE_RATIO);
+
 		float thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, 0);
 		float thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, 0);
 		mThumbSizeF.set(thumbWidth, thumbHeight);
 
-		mIsThumbUseDrawable = mThumbDrawable != null;
-		if (!mIsThumbUseDrawable) {
-			// 获取color
-			mThumbColor = ta.getColorStateList(R.styleable.SwitchButton_kswThumbColor);
-			if (mThumbColor == null) {
-				mThumbColor = ColorStateList.valueOf(0x32432);
-			}
-		}
+		mThumbRadius = ta.getFloat(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
 
 
-
-		mBackColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
-		if (mBackColor == null) {
-			// TODO(kyleduo): 15/10/25 default color
-			mBackColor = ColorStateList.valueOf(0xFF000000);
-		}
 
 		ta.recycle();
 	}
