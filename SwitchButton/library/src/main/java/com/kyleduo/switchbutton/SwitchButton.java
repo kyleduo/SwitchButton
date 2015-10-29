@@ -618,7 +618,8 @@ public class SwitchButton extends CompoundButton {
 	 * @return
 	 */
 	private boolean getStatusBasedOnPos() {
-		return mThumbZone.left > mCenterPos;
+//		return mThumbZone.left > mCenterPos;
+		return false;
 	}
 
 	@Override
@@ -719,7 +720,7 @@ public class SwitchButton extends CompoundButton {
 		if (isAnimating) {
 			return;
 		}
-		int from = mThumbZone.left;
+//		int from = mThumbZone.left;
 //		int to = checked ? mSafeZone.right - mConf.getThumbWidth() : mSafeZone.left;
 //		mAnimationController.startAnimation(from, to);
 	}
