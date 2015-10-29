@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.kyleduo.switchbutton.demo"
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 21
         versionCode 10
         versionName "1.2.8"

@@ -1,5 +1,6 @@
 package com.kyleduo.switchbutton;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -33,7 +34,7 @@ import android.widget.CompoundButton;
  */
 
 public class SwitchButton extends CompoundButton {
-	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.6f;
+	public static final float DEFAULT_BACK_MEASURE_RATIO = 2.4f;
 	public static final int DEFAULT_THUMB_SIZE = 20;
 
 	private static boolean SHOW_RECT = false;
@@ -67,6 +68,12 @@ public class SwitchButton extends CompoundButton {
 	private String mOnText, mOffText;
 	private float mBackMeasureRatio;
 	private float mAnimationVelocity;
+
+	/**
+	 * 动画进度
+	 */
+	private float mProcess;
+	private RectF mPresentThumbRectF;
 
 
 	private AnimationController mAnimationController;
@@ -130,12 +137,15 @@ public class SwitchButton extends CompoundButton {
 
 	private void init(AttributeSet attrs) {
 		// TODO(kyleduo): 15/10/25 initialization
+		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 		mThumbRectF = new RectF();
 		mBackRectF = new RectF();
 		mSafeRectF = new RectF();
 		mThumbSizeF = new PointF();
 		mThumbMargin = new RectF();
+
+		mPresentThumbRectF = new RectF();
 
 		Resources res = getResources();
 		float density = res.getDisplayMetrics().density;
@@ -151,6 +161,7 @@ public class SwitchButton extends CompoundButton {
 		float thumbHeight = density * DEFAULT_THUMB_SIZE;
 		float thumbRadius = density * DEFAULT_THUMB_SIZE / 2;
 		float backRadius = thumbRadius + density * 2;
+		Log.d("radius", "thumbR: " + thumbRadius + "  backRadiusR: " + backRadius);
 		Drawable backDrawable = null;
 		ColorStateList backColor = null;
 		float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
@@ -160,11 +171,11 @@ public class SwitchButton extends CompoundButton {
 		if (ta != null) {
 			thumbDrawable = ta.getDrawable(R.styleable.SwitchButton_kswThumbDrawable);
 			thumbColor = ta.getColorStateList(R.styleable.SwitchButton_kswThumbColor);
-			margin = ta.getFloat(R.styleable.SwitchButton_kswThumbMargin, margin);
-			marginLeft = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginLeft, margin);
-			marginRight = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginRight, margin);
-			marginTop = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginTop, margin);
-			marginBottom = ta.getFloat(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
+			margin = ta.getDimension(R.styleable.SwitchButton_kswThumbMargin, margin);
+			marginLeft = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginLeft, margin);
+			marginRight = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginRight, margin);
+			marginTop = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginTop, margin);
+			marginBottom = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
 			thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, thumbWidth);
 			thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, thumbHeight);
 			thumbRadius = ta.getFloat(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
@@ -196,7 +207,7 @@ public class SwitchButton extends CompoundButton {
 		mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
 
 		// size & measure params must larger than 1
-		mBackMeasureRatio = backMeasureRatio < 1 && mThumbMargin.width() >= 0 ? 1 : backMeasureRatio;
+		mBackMeasureRatio = mThumbMargin.width() >= 0 ? Math.max(backMeasureRatio, 1) : backMeasureRatio;
 		if (mIsThumbUseDrawable) {
 			thumbWidth = Math.max(thumbWidth, mThumbDrawable.getMinimumWidth());
 			thumbHeight = Math.max(thumbHeight, mThumbDrawable.getMinimumHeight());
@@ -352,10 +363,27 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		setup();
+		if (w != oldw || h != oldh) {
+			setup();
+		}
 	}
 
+	/**
+	 * set up the rect of back and thumb
+	 */
 	private void setup() {
+		float thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top);
+		float thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left);
+		mThumbRectF.set(thumbLeft, thumbTop, thumbLeft + mThumbSizeF.x, thumbTop + mThumbSizeF.y);
+
+		float backLeft = mThumbRectF.left - mThumbMargin.left;
+		mBackRectF.set(backLeft, mThumbRectF.top - mThumbMargin.top, backLeft + mThumbMargin.left + mThumbSizeF.x * mBackMeasureRatio + mThumbMargin.right, mThumbRectF.bottom + mThumbMargin.bottom);
+
+		Log.d("setup", "thumbRect: " + mThumbRectF + " backRect: " + mBackRectF);
+
+		// TODO(kyleduo): 15/10/29 safe zone 控制动画终点
+		mSafeRectF.set(mThumbRectF.left, 0, mBackRectF.right - mThumbMargin.right - mThumbRectF.width(), 0);
+
 //		setupBackZone();
 //		setupSafeZone();
 //		setupThumbZone();
@@ -499,7 +527,22 @@ public class SwitchButton extends CompoundButton {
 		int width = getMeasuredWidth();
 		int height = getMeasuredHeight();
 		Log.d("onDraw", "w: " + width + " h: " + height);
-		canvas.drawColor(Color.RED);
+//		canvas.drawColor(Color.RED);
+		// back
+		mPaint.setColor(Color.GRAY);
+		canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
+
+		// thumb
+		mPresentThumbRectF.set(mThumbRectF);
+		mPresentThumbRectF.offset(mProcess * mSafeRectF.width(), 0);
+		if (mIsThumbUseDrawable) {
+			mThumbDrawable.setBounds((int) mPresentThumbRectF.left, (int) mPresentThumbRectF.top, (int) mPresentThumbRectF.right, (int) mPresentThumbRectF.bottom);
+			mThumbDrawable.draw(canvas);
+		} else {
+			mPaint.setColor(Color.RED);
+			canvas.drawRoundRect(mPresentThumbRectF, mThumbRadius, mThumbRadius, mPaint);
+		}
+
 
 //		canvas.getClipBounds(mBounds);
 //		if (mBounds != null && mConf.needShrink()) {
@@ -631,8 +674,20 @@ public class SwitchButton extends CompoundButton {
 //		}
 	}
 
+	public float getProcess() {
+		return mProcess;
+	}
+
+	public void setProcess(float process) {
+		this.mProcess = process;
+		invalidate();
+	}
+
 	@Override
 	public boolean performClick() {
+		ObjectAnimator animator = ObjectAnimator.ofFloat(this, "process", 0, 1);
+		animator.setDuration(1000);
+		animator.start();
 		return super.performClick();
 	}
 

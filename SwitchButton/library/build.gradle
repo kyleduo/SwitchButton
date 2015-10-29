@@ -14,7 +14,7 @@ android {
     resourcePrefix "SwitchButton__"
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 23
         versionCode 12
         versionName "1.2.10"

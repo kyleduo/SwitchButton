@@ -10,9 +10,9 @@
 	<com.kyleduo.switchbutton.SwitchButton
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:minHeight="48dp"
-		android:minWidth="48dp"
 		/>
+	<!--app:kswThumbDrawable="@drawable/md_thumb"-->
+		<!--app:kswThumbMargin="-16dp"-->
 
 	<ListView
 		android:id="@+id/list"
