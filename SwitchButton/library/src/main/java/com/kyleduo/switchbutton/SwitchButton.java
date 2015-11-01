@@ -9,7 +9,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -20,8 +19,10 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CompoundButton;
 
 
@@ -34,12 +35,11 @@ import android.widget.CompoundButton;
  */
 
 public class SwitchButton extends CompoundButton {
-	public static final float DEFAULT_BACK_MEASURE_RATIO = 2.4f;
+	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.8f;
 	public static final int DEFAULT_THUMB_SIZE = 20;
+	public static final long DEFAULT_ANIMATION_DURATION = 250l;
 
 	private static boolean SHOW_RECT = false;
-
-	private boolean mIsChecked = false;
 
 	/**
 	 * zone for thumb to move inside
@@ -69,6 +69,8 @@ public class SwitchButton extends CompoundButton {
 	private float mBackMeasureRatio;
 	private float mAnimationVelocity;
 
+	private ObjectAnimator mThumbProcessAnimator;
+
 	/**
 	 * 动画进度
 	 */
@@ -76,9 +78,9 @@ public class SwitchButton extends CompoundButton {
 	private RectF mPresentThumbRectF;
 
 
-	private AnimationController mAnimationController;
-	private SBAnimationListener mOnAnimateListener = new SBAnimationListener();
-	private boolean isAnimating = false;
+//	private AnimationController mAnimationController;
+//	private SBAnimationListener mOnAnimateListener = new SBAnimationListener();
+//	private boolean isAnimating = false;
 
 	private float mStartX, mStartY, mLastX;
 	private float mCenterPos;
@@ -135,8 +137,14 @@ public class SwitchButton extends CompoundButton {
 	}
 
 
+	static int times = 0;
 	private void init(AttributeSet attrs) {
 		// TODO(kyleduo): 15/10/25 initialization
+		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+		mClickTimeout = ViewConfiguration.getPressedStateDuration() + ViewConfiguration.getTapTimeout();
+
+		setLayerType(LAYER_TYPE_SOFTWARE, null);
+
 		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 		mThumbRectF = new RectF();
@@ -144,6 +152,9 @@ public class SwitchButton extends CompoundButton {
 		mSafeRectF = new RectF();
 		mThumbSizeF = new PointF();
 		mThumbMargin = new RectF();
+
+		mThumbProcessAnimator = ObjectAnimator.ofFloat(this, "process", 0, 0).setDuration(DEFAULT_ANIMATION_DURATION);
+		mThumbProcessAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
 		mPresentThumbRectF = new RectF();
 
@@ -217,8 +228,17 @@ public class SwitchButton extends CompoundButton {
 		mThumbRadius = thumbRadius;
 		mBackRadius = backRadius;
 		mAnimationVelocity = animationVelocity;
-	}
 
+		setFocusable(true);
+		setClickable(true);
+		setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				Log.e("onCheckedChanged", ++times + " times " + isChecked);
+			}
+		});
+	}
+/*
 	private void initView() {
 //		mConf = Configuration.getDefault(getContext().getResources().getDisplayMetrics().density);
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
@@ -229,7 +249,7 @@ public class SwitchButton extends CompoundButton {
 			mRectPaint = new Paint();
 			mRectPaint.setStyle(Style.STROKE);
 		}
-	}
+	}*/
 
 	/**
 	 * fetch drawable resources from attrs, drop them to conf, AFTER the size
@@ -237,6 +257,7 @@ public class SwitchButton extends CompoundButton {
 	 *
 	 * @param ta
 	 */
+/*
 	private void fetchDrawableFromAttr(TypedArray ta) {
 //		if (mConf == null) {
 //			return;
@@ -256,6 +277,7 @@ public class SwitchButton extends CompoundButton {
 //		}
 		return tempDrawable;
 	}
+*/
 
 //	private Drawable fetchThumbDrawable(TypedArray ta) {
 //
@@ -288,7 +310,7 @@ public class SwitchButton extends CompoundButton {
 //	public Configuration getConfiguration() {
 //		return mConf;
 //	}
-	public void setConfiguration(Configuration conf) {
+/*	public void setConfiguration(Configuration conf) {
 //		if (mConf == null) {
 //			mConf = Configuration.getDefault(conf.getDensity());
 //		}
@@ -302,8 +324,8 @@ public class SwitchButton extends CompoundButton {
 //		mAnimationController.setVelocity(mConf.getVelocity());
 		this.requestLayout();
 		setup();
-		setChecked(mIsChecked);
-	}
+//		setChecked(mIsChecked);
+	}*/
 
 //	@Override
 //	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -526,7 +548,7 @@ public class SwitchButton extends CompoundButton {
 		super.onDraw(canvas);
 		int width = getMeasuredWidth();
 		int height = getMeasuredHeight();
-		Log.d("onDraw", "w: " + width + " h: " + height);
+//		Log.d("onDraw", "w: " + width + " h: " + height);
 //		canvas.drawColor(Color.RED);
 		// back
 		mPaint.setColor(Color.GRAY);
@@ -606,16 +628,16 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		if (isAnimating || !isEnabled()) {
-			return false;
-		}
+//		if (mThumbProcessAnimator.isRunning() || !isEnabled()) {
+//			return false;
+//		}
 		int action = event.getAction();
 
 		float deltaX = event.getX() - mStartX;
 		float deltaY = event.getY() - mStartY;
 
 		// status the view going to change to when finger released
-		boolean nextStatus = mIsChecked;
+		boolean nextStatus = isChecked();
 
 		switch (action) {
 			case MotionEvent.ACTION_DOWN:
@@ -628,32 +650,33 @@ public class SwitchButton extends CompoundButton {
 
 			case MotionEvent.ACTION_MOVE:
 				float x = event.getX();
-				moveThumb((int) (x - mLastX));
+				setProcess(getProcess() + (x - mLastX) / mSafeRectF.width());
 				mLastX = x;
 				break;
 
 			case MotionEvent.ACTION_CANCEL:
 			case MotionEvent.ACTION_UP:
 				setPressed(false);
-
 				nextStatus = getStatusBasedOnPos();
-
 				float time = event.getEventTime() - event.getDownTime();
-
 				if (deltaX < mTouchSlop && deltaY < mTouchSlop && time < mClickTimeout) {
 					performClick();
 				} else {
-					slideToChecked(nextStatus);
+					if (nextStatus != isChecked()) {
+						playSoundEffect(SoundEffectConstants.CLICK);
+						setChecked(nextStatus);
+					} else {
+						slideToPosition(nextStatus);
+					}
 				}
-
 				break;
 
 			default:
 				break;
 		}
-		invalidate();
 		return true;
 	}
+
 
 	/**
 	 * return the status based on position of thumb
@@ -661,34 +684,46 @@ public class SwitchButton extends CompoundButton {
 	 * @return
 	 */
 	private boolean getStatusBasedOnPos() {
-//		return mThumbZone.left > mCenterPos;
-		return false;
+		return getProcess() > 0.5f;
 	}
 
-	@Override
-	public void invalidate() {
-//		if (mBounds != null && mConf.needShrink()) {
-//			invalidate(mBounds);
-//		} else {
-//			super.invalidate();
-//		}
-	}
-
-	public float getProcess() {
+	public final float getProcess() {
 		return mProcess;
 	}
 
-	public void setProcess(float process) {
-		this.mProcess = process;
+	public final void setProcess(final float process) {
+		float tp = process;
+		if (tp > 1) {
+			tp = 1;
+		} else if (tp < 0) {
+			tp = 0;
+		}
+		this.mProcess = tp;
 		invalidate();
 	}
 
 	@Override
 	public boolean performClick() {
-		ObjectAnimator animator = ObjectAnimator.ofFloat(this, "process", 0, 1);
-		animator.setDuration(1000);
-		animator.start();
 		return super.performClick();
+	}
+
+	/**
+	 * 滑动到边缘
+	 * @param toOn 去开还是关
+	 */
+	private void slideToPosition(boolean toOn) {
+		if (mThumbProcessAnimator == null) {
+			return;
+		}
+		if (mThumbProcessAnimator.isRunning()) {
+			mThumbProcessAnimator.cancel();
+		}
+		if (toOn) {
+			mThumbProcessAnimator.setFloatValues(mProcess, 1f);
+		} else {
+			mThumbProcessAnimator.setFloatValues(mProcess, 0);
+		}
+		mThumbProcessAnimator.start();
 	}
 
 	private void catchView() {
@@ -698,42 +733,15 @@ public class SwitchButton extends CompoundButton {
 		}
 	}
 
-	public void setChecked(final boolean checked, boolean trigger) {
-		if (mThumbZone != null) {
-			moveThumb(checked ? getMeasuredWidth() : -getMeasuredWidth());
-		}
-		setCheckedInClass(checked, trigger);
-	}
-
-	@Override
-	public boolean isChecked() {
-		return mIsChecked;
-	}
-
 	@Override
 	public void setChecked(final boolean checked) {
-		setChecked(checked, true);
-	}
-
-	@Override
-	public void toggle() {
-		toggle(true);
-	}
-
-	public void toggle(boolean animated) {
-		if (animated) {
-			slideToChecked(!mIsChecked);
-		} else {
-			setChecked(!mIsChecked);
-		}
+		super.setChecked(checked);
+		slideToPosition(checked);
 	}
 
 	@Override
 	protected void drawableStateChanged() {
 		super.drawableStateChanged();
-//		if (mConf == null) {
-//			return;
-//		}
 //		setDrawableState(mConf.getThumbDrawable());
 //		setDrawableState(mConf.getOnDrawable());
 //		setDrawableState(mConf.getOffDrawable());
@@ -747,31 +755,31 @@ public class SwitchButton extends CompoundButton {
 		}
 	}
 
-	public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
-		if (onCheckedChangeListener == null) {
-			throw new IllegalArgumentException("onCheckedChangeListener can not be null");
-		}
-		mOnCheckedChangeListener = onCheckedChangeListener;
-	}
+//	public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
+//		if (onCheckedChangeListener == null) {
+//			throw new IllegalArgumentException("onCheckedChangeListener can not be null");
+//		}
+//		mOnCheckedChangeListener = onCheckedChangeListener;
+//	}
 
-	private void setCheckedInClass(boolean checked) {
-		setCheckedInClass(checked, true);
-	}
+//	private void setCheckedInClass(boolean checked) {
+//		setCheckedInClass(checked, true);
+//	}
 
-	private void setCheckedInClass(boolean checked, boolean trigger) {
-		if (mIsChecked == checked) {
-			return;
-		}
-		mIsChecked = checked;
+//	private void setCheckedInClass(boolean checked, boolean trigger) {
+//		if (mIsChecked == checked) {
+//			return;
+//		}
+//		mIsChecked = checked;
+//
+//		refreshDrawableState();
+//
+//		if (mOnCheckedChangeListener != null && trigger) {
+//			mOnCheckedChangeListener.onCheckedChanged(this, mIsChecked);
+//		}
+//	}
 
-		refreshDrawableState();
-
-		if (mOnCheckedChangeListener != null && trigger) {
-			mOnCheckedChangeListener.onCheckedChanged(this, mIsChecked);
-		}
-	}
-
-	public void slideToChecked(boolean checked) {
+/*	public void slideToChecked(boolean checked) {
 		if (isAnimating) {
 			return;
 		}
@@ -799,31 +807,31 @@ public class SwitchButton extends CompoundButton {
 	private void moveThumbTo(int newLeft, int newRight) {
 		mThumbZone.set(newLeft, mThumbZone.top, newRight, mThumbZone.bottom);
 //		mConf.getThumbDrawable().setBounds(mThumbZone);
-	}
+	}*/
 
-	class SBAnimationListener implements AnimationController.OnAnimateListener {
-
-		@Override
-		public void onAnimationStart() {
-			isAnimating = true;
-		}
-
-		@Override
-		public boolean continueAnimating() {
-			return mThumbZone.right < mSafeZone.right && mThumbZone.left > mSafeZone.left;
-		}
-
-		@Override
-		public void onFrameUpdate(int frame) {
-			moveThumb(frame);
-			postInvalidate();
-		}
-
-		@Override
-		public void onAnimateComplete() {
-			setCheckedInClass(getStatusBasedOnPos());
-			isAnimating = false;
-		}
-
-	}
+//	class SBAnimationListener implements AnimationController.OnAnimateListener {
+//
+//		@Override
+//		public void onAnimationStart() {
+//			isAnimating = true;
+//		}
+//
+//		@Override
+//		public boolean continueAnimating() {
+//			return mThumbZone.right < mSafeZone.right && mThumbZone.left > mSafeZone.left;
+//		}
+//
+//		@Override
+//		public void onFrameUpdate(int frame) {
+//			moveThumb(frame);
+//			postInvalidate();
+//		}
+//
+//		@Override
+//		public void onAnimateComplete() {
+//			setCheckedInClass(getStatusBasedOnPos());
+//			isAnimating = false;
+//		}
+//
+//	}
 }
