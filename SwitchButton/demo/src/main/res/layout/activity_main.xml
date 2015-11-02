@@ -10,10 +10,20 @@
 	<com.kyleduo.switchbutton.SwitchButton
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:padding="8dp"
+		/>
+	<com.kyleduo.switchbutton.SwitchButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:kswThumbMargin="-18dp"
+		app:kswBackMeasureRatio="1.4"
+		app:kswThumbDrawable="@drawable/md_thumb"
+		android:padding="8dp"
 		/>
 	<android.support.v7.widget.SwitchCompat
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:padding="8dp"
 		/>
 	<!--app:kswThumbDrawable="@drawable/md_thumb"-->
 		<!--app:kswThumbMargin="-16dp"-->

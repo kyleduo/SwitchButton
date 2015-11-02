@@ -38,9 +38,8 @@ public class SwitchButton extends CompoundButton {
 	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.8f;
 	public static final int DEFAULT_THUMB_SIZE = 20;
 	public static final long DEFAULT_ANIMATION_DURATION = 250l;
-
+	static int times = 0;
 	private static boolean SHOW_RECT = false;
-
 	/**
 	 * zone for thumb to move inside
 	 */
@@ -51,7 +50,6 @@ public class SwitchButton extends CompoundButton {
 	private Rect mBackZone;
 	private Rect mThumbZone;
 	private RectF mSaveLayerZone;
-
 	private PointF mThumbSizeF;
 	private RectF mThumbRectF, mBackRectF, mSafeRectF;
 	private Point mStartPoint, mLastPoint;
@@ -59,6 +57,7 @@ public class SwitchButton extends CompoundButton {
 	private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
 	private Drawable mThumbDrawable, mBackDrawable;
 	private ColorStateList mBackColor, mThumbColor;
+	private int mCurrThumbColor, mCurrBackColor;
 	private float mThumbRadius, mBackRadius;
 	private Paint mPaint;
 	// save thumbMargin
@@ -68,30 +67,23 @@ public class SwitchButton extends CompoundButton {
 	private String mOnText, mOffText;
 	private float mBackMeasureRatio;
 	private float mAnimationVelocity;
-
 	private ObjectAnimator mThumbProcessAnimator;
-
 	/**
 	 * 动画进度
 	 */
 	private float mProcess;
-	private RectF mPresentThumbRectF;
 
 
 //	private AnimationController mAnimationController;
 //	private SBAnimationListener mOnAnimateListener = new SBAnimationListener();
 //	private boolean isAnimating = false;
-
+	private RectF mPresentThumbRectF;
 	private float mStartX, mStartY, mLastX;
 	private float mCenterPos;
-
 	private int mTouchSlop;
 	private int mClickTimeout;
-
 	private Paint mRectPaint;
-
 	private Rect mBounds = null;
-
 	private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener;
 
 	@SuppressLint("NewApi")
@@ -131,13 +123,12 @@ public class SwitchButton extends CompoundButton {
 		init(attrs);
 	}
 
+
 	public SwitchButton(Context context) {
 		super(context);
 		init(null);
 	}
 
-
-	static int times = 0;
 	private void init(AttributeSet attrs) {
 		// TODO(kyleduo): 15/10/25 initialization
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
@@ -205,6 +196,7 @@ public class SwitchButton extends CompoundButton {
 		mIsThumbUseDrawable = mThumbDrawable != null;
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
 			mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
+			mCurrThumbColor = mThumbColor.getDefaultColor();
 		}
 
 		// back drawable and color
@@ -212,7 +204,8 @@ public class SwitchButton extends CompoundButton {
 		mBackColor = backColor;
 		mIsBackUseDrawable = mBackDrawable != null;
 		if (!mIsBackUseDrawable && mBackColor == null) {
-			mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
+			mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_back_color);
+			mCurrBackColor = mBackColor.getDefaultColor();
 		}
 		// margin
 		mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
@@ -331,8 +324,6 @@ public class SwitchButton extends CompoundButton {
 //	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 //		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
 //	}
-
-
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
@@ -348,6 +339,7 @@ public class SwitchButton extends CompoundButton {
 			minWidth = Math.max(minWidth, mBackDrawable.getMinimumWidth());
 		}
 		minWidth = Math.max(minWidth, (int) (minWidth + mThumbMargin.left + mThumbMargin.right));
+		minWidth = Math.max(minWidth, minWidth + getPaddingLeft() + getPaddingRight());
 		minWidth = Math.max(minWidth, getSuggestedMinimumWidth());
 
 		if (widthMode == MeasureSpec.EXACTLY) {
@@ -369,6 +361,7 @@ public class SwitchButton extends CompoundButton {
 
 		int minHeight = (int) Math.max(mThumbSizeF.y, mThumbSizeF.y + mThumbMargin.top + mThumbMargin.right);
 		minHeight = Math.max(minHeight, getSuggestedMinimumHeight());
+		minHeight = Math.max(minHeight, minHeight + getPaddingTop() + getPaddingBottom());
 
 		if (heightMode == MeasureSpec.EXACTLY) {
 			measuredHeight = Math.max(minHeight, heightSize);
@@ -403,8 +396,9 @@ public class SwitchButton extends CompoundButton {
 
 		Log.d("setup", "thumbRect: " + mThumbRectF + " backRect: " + mBackRectF);
 
-		// TODO(kyleduo): 15/10/29 safe zone 控制动画终点
 		mSafeRectF.set(mThumbRectF.left, 0, mBackRectF.right - mThumbMargin.right - mThumbRectF.width(), 0);
+
+		mBackRadius = Math.min(mBackRectF.width(), mBackRectF.height()) / 2.f;
 
 //		setupBackZone();
 //		setupSafeZone();
@@ -551,7 +545,7 @@ public class SwitchButton extends CompoundButton {
 //		Log.d("onDraw", "w: " + width + " h: " + height);
 //		canvas.drawColor(Color.RED);
 		// back
-		mPaint.setColor(Color.GRAY);
+		mPaint.setColor(mCurrBackColor);
 		canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
 
 		// thumb
@@ -561,7 +555,7 @@ public class SwitchButton extends CompoundButton {
 			mThumbDrawable.setBounds((int) mPresentThumbRectF.left, (int) mPresentThumbRectF.top, (int) mPresentThumbRectF.right, (int) mPresentThumbRectF.bottom);
 			mThumbDrawable.draw(canvas);
 		} else {
-			mPaint.setColor(Color.RED);
+			mPaint.setColor(mCurrThumbColor);
 			canvas.drawRoundRect(mPresentThumbRectF, mThumbRadius, mThumbRadius, mPaint);
 		}
 
@@ -666,7 +660,7 @@ public class SwitchButton extends CompoundButton {
 						playSoundEffect(SoundEffectConstants.CLICK);
 						setChecked(nextStatus);
 					} else {
-						slideToPosition(nextStatus);
+						animateToState(nextStatus);
 					}
 				}
 				break;
@@ -709,16 +703,17 @@ public class SwitchButton extends CompoundButton {
 
 	/**
 	 * 滑动到边缘
-	 * @param toOn 去开还是关
+	 *
+	 * @param checked 去开还是关
 	 */
-	private void slideToPosition(boolean toOn) {
+	private void animateToState(boolean checked) {
 		if (mThumbProcessAnimator == null) {
 			return;
 		}
 		if (mThumbProcessAnimator.isRunning()) {
 			mThumbProcessAnimator.cancel();
 		}
-		if (toOn) {
+		if (checked) {
 			mThumbProcessAnimator.setFloatValues(mProcess, 1f);
 		} else {
 			mThumbProcessAnimator.setFloatValues(mProcess, 0);
@@ -736,12 +731,25 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public void setChecked(final boolean checked) {
 		super.setChecked(checked);
-		slideToPosition(checked);
+		animateToState(checked);
 	}
 
 	@Override
 	protected void drawableStateChanged() {
 		super.drawableStateChanged();
+
+		if (!mIsThumbUseDrawable) {
+			mCurrThumbColor = mThumbColor.getColorForState(getDrawableState(), mCurrThumbColor);
+		} else {
+			setDrawableState(mThumbDrawable);
+		}
+
+		if (!mIsBackUseDrawable) {
+			mCurrBackColor = mBackColor.getColorForState(getDrawableState(), mCurrBackColor);
+		} else {
+			setDrawableState(mBackDrawable);
+		}
+
 //		setDrawableState(mConf.getThumbDrawable());
 //		setDrawableState(mConf.getOnDrawable());
 //		setDrawableState(mConf.getOffDrawable());
