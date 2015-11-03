@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.kyleduo.switchbutton.SwitchButton;
+
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
@@ -20,6 +22,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 		setContentView(R.layout.activity_main);
 //		mListView = (ListView) findViewById(R.id.list);
 //		mListView.setOnItemClickListener(this);
+
+		final SwitchButton sb = (SwitchButton) findViewById(R.id.def_ksw);
+		sb.setThumbMargin(null);
 	}
 
 

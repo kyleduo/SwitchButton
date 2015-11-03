@@ -8,6 +8,7 @@
 			  tools:context="com.kyleduo.switchbuttondemo.MainActivity">
 
 	<com.kyleduo.switchbutton.SwitchButton
+		android:id="@+id/def_ksw"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:padding="8dp"
