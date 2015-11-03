@@ -10,11 +10,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -36,7 +34,8 @@ import android.widget.CompoundButton;
 public class SwitchButton extends CompoundButton {
 	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.8f;
 	public static final int DEFAULT_THUMB_SIZE = 20;
-	public static final long DEFAULT_ANIMATION_DURATION = 250l;
+	public static final int DEFAULT_ANIMATION_DURATION = 250;
+	public static final int MIN_TEXT_MARGIN_DP = 3;
 	static int times = 0;
 	private static int[] CHECKED_PRESSED_STATE = new int[]{android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
 	private static int[] UNCHECKED_PRESSED_STATE = new int[]{-android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
@@ -53,11 +52,8 @@ public class SwitchButton extends CompoundButton {
 	private Paint mPaint;
 	// save thumbMargin
 	private RectF mThumbMargin;
-	// exp. 实验功能，绘制文本
-	private TextPaint mTextPaint;
-	private String mOnText, mOffText;
 	private float mBackMeasureRatio;
-	private float mAnimationVelocity;
+	private long mAnimationDuration;
 	/**
 	 * 是否在滑动的时候渐隐back
 	 */
@@ -73,11 +69,9 @@ public class SwitchButton extends CompoundButton {
 	 */
 	private RectF mPresentThumbRectF;
 	private float mStartX, mStartY, mLastX;
-	private float mCenterPos;
 	private int mTouchSlop;
 	private int mClickTimeout;
 	private Paint mRectPaint;
-	private Rect mBounds = null;
 	private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener;
 
 	@SuppressLint("NewApi")
@@ -124,7 +118,6 @@ public class SwitchButton extends CompoundButton {
 	}
 
 	private void init(AttributeSet attrs) {
-		// TODO(kyleduo): 15/10/25 initialization
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 		mClickTimeout = ViewConfiguration.getPressedStateDuration() + ViewConfiguration.getTapTimeout();
 
@@ -158,11 +151,10 @@ public class SwitchButton extends CompoundButton {
 		float thumbHeight = density * DEFAULT_THUMB_SIZE;
 		float thumbRadius = density * DEFAULT_THUMB_SIZE / 2;
 		float backRadius = thumbRadius;
-		Log.d("radius", "thumbR: " + thumbRadius + "  backRadiusR: " + backRadius);
 		Drawable backDrawable = null;
 		ColorStateList backColor = null;
 		float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
-		float animationVelocity = 0.5f;
+		int animationDuration = DEFAULT_ANIMATION_DURATION;
 		boolean fadeBack = true;
 
 		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
@@ -181,7 +173,7 @@ public class SwitchButton extends CompoundButton {
 			backDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
 			backColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
 			backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
-			animationVelocity = ta.getFloat(R.styleable.SwitchButton_kswAnimationVelocity, animationVelocity);
+			animationDuration = ta.getInteger(R.styleable.SwitchButton_kswAnimationDuration, animationDuration);
 			fadeBack = ta.getBoolean(R.styleable.SwitchButton_kswFadeBack, true);
 			ta.recycle();
 		}
@@ -217,8 +209,10 @@ public class SwitchButton extends CompoundButton {
 
 		mThumbRadius = thumbRadius;
 		mBackRadius = backRadius;
-		mAnimationVelocity = animationVelocity;
+		mAnimationDuration = animationDuration;
 		mFadeBack = fadeBack;
+
+		mThumbProcessAnimator.setDuration(mAnimationDuration);
 
 		setFocusable(true);
 		setClickable(true);
@@ -787,7 +781,18 @@ public class SwitchButton extends CompoundButton {
 		mDrawDebugRect = drawDebugRect;
 	}
 
-//	public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
+	public long getAnimationDuration() {
+		return mAnimationDuration;
+	}
+
+	public void setAnimationDuration(long animationDuration) {
+		mAnimationDuration = animationDuration;
+		if (mThumbProcessAnimator != null) {
+			mThumbProcessAnimator.setDuration(mAnimationDuration);
+		}
+	}
+
+	//	public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
 //		if (onCheckedChangeListener == null) {
 //			throw new IllegalArgumentException("onCheckedChangeListener can not be null");
 //		}

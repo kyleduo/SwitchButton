@@ -19,7 +19,7 @@
 		android:layout_height="wrap_content"
 		android:padding="8dp"
 		app:kswThumbRadius="2dp"
-		app:kswBackRadius="3dp"
+		app:kswBackRadius="2dp"
 		app:kswBackMeasureRatio="2.2"
 		/>
 
