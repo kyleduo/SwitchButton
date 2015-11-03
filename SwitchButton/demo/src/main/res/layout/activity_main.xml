@@ -3,7 +3,7 @@
 			  xmlns:tools="http://schemas.android.com/tools"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
-			  android:background="#eeeeee"
+			  android:background="#fafafa"
 			  android:orientation="vertical"
 			  tools:context="com.kyleduo.switchbuttondemo.MainActivity">
 
@@ -15,11 +15,13 @@
 	<com.kyleduo.switchbutton.SwitchButton
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:kswThumbMargin="-18dp"
-		app:kswBackMeasureRatio="1.4"
-		app:kswThumbDrawable="@drawable/md_thumb"
-		android:padding="8dp"
+		app:kswThumbMargin="-14dp"
+		app:kswBackMeasureRatio="1.5"
+		app:kswThumbDrawable="@drawable/ksw_md_thumb_2"
+		android:paddingTop="8dp"
+		android:paddingBottom="8dp"
 		/>
+
 	<android.support.v7.widget.SwitchCompat
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

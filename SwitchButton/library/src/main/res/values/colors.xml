@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="ksw_md_ripple_normal">#1E000000</color>
+	<color name="ksw_md_ripple_checked">#33019285</color>
+	<color name="ksw_md_solid_shadow">#33000000</color>
+	<color name="ksw_md_solid_normal">#ECECEC</color>
+	<color name="ksw_md_solid_checked">#019285</color>
+</resources>

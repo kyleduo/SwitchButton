@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:color="@android:color/transparent" android:state_enabled="false"/>
+	<item android:color="@color/ksw_md_ripple_checked" android:state_checked="true" android:state_pressed="true"/>
+	<item android:color="@color/ksw_md_ripple_normal" android:state_checked="false" android:state_pressed="true"/>
+	<item android:color="@android:color/transparent"/>
+</selector>

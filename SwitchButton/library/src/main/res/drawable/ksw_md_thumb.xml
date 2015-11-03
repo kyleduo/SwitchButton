@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+	>
+	<item android:state_checked="true" android:state_pressed="true">
+		<layer-list>
+			<item>
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_ripple_size"
+						  android:height="@dimen/ksw_md_thumb_ripple_size"/>
+					<solid android:color="@color/ksw_md_ripple_checked"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center"
+				android:top="@dimen/ksw_md_thumb_shadow_offset">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_shadow_size"
+						  android:height="@dimen/ksw_md_thumb_shadow_size"/>
+					<solid android:color="@color/ksw_md_solid_shadow"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_solid_size"
+						  android:height="@dimen/ksw_md_thumb_solid_size"/>
+					<solid android:color="@color/ksw_md_solid_checked"/>
+				</shape>
+			</item>
+		</layer-list>
+	</item>
+	<item android:state_checked="false" android:state_pressed="true">
+		<layer-list>
+			<item>
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_ripple_size"
+						  android:height="@dimen/ksw_md_thumb_ripple_size"/>
+					<solid android:color="@color/ksw_md_ripple_normal"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center"
+				android:top="@dimen/ksw_md_thumb_shadow_offset">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_shadow_size"
+						  android:height="@dimen/ksw_md_thumb_shadow_size"/>
+					<solid android:color="@color/ksw_md_solid_shadow"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_solid_size"
+						  android:height="@dimen/ksw_md_thumb_solid_size"/>
+					<solid android:color="@color/ksw_md_solid_normal"/>
+				</shape>
+			</item>
+		</layer-list>
+	</item>
+	<item android:state_checked="true">
+		<layer-list>
+			<item>
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_ripple_size"
+						  android:height="@dimen/ksw_md_thumb_ripple_size"/>
+					<solid android:color="@android:color/transparent"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center"
+				android:top="@dimen/ksw_md_thumb_shadow_offset">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_shadow_size"
+						  android:height="@dimen/ksw_md_thumb_shadow_size"/>
+					<solid android:color="@color/ksw_md_solid_shadow"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_solid_size"
+						  android:height="@dimen/ksw_md_thumb_solid_size"/>
+					<solid android:color="@color/ksw_md_solid_checked"/>
+				</shape>
+			</item>
+		</layer-list>
+	</item>
+	<item>
+		<layer-list>
+			<item>
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_ripple_size"
+						  android:height="@dimen/ksw_md_thumb_ripple_size"/>
+					<solid android:color="@android:color/transparent"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center"
+				android:top="@dimen/ksw_md_thumb_shadow_offset">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_shadow_size"
+						  android:height="@dimen/ksw_md_thumb_shadow_size"/>
+					<solid android:color="@color/ksw_md_solid_shadow"/>
+				</shape>
+			</item>
+			<item
+				android:gravity="center">
+				<shape android:shape="oval">
+					<size android:width="@dimen/ksw_md_thumb_solid_size"
+						  android:height="@dimen/ksw_md_thumb_solid_size"/>
+					<solid android:color="@color/ksw_md_solid_normal"/>
+				</shape>
+			</item>
+		</layer-list>
+	</item>
+</selector>

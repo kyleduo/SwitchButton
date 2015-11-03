@@ -38,6 +38,7 @@ public class SwitchButton extends CompoundButton {
 	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.8f;
 	public static final int DEFAULT_THUMB_SIZE = 20;
 	public static final long DEFAULT_ANIMATION_DURATION = 250l;
+	private static int[] CHECKED_PRESSED_STATE = new int[]{};
 	static int times = 0;
 	private static boolean SHOW_RECT = false;
 	/**
@@ -47,8 +48,6 @@ public class SwitchButton extends CompoundButton {
 	/**
 	 * zone for background
 	 */
-	private Rect mBackZone;
-	private Rect mThumbZone;
 	private RectF mSaveLayerZone;
 	private PointF mThumbSizeF;
 	private RectF mThumbRectF, mBackRectF, mSafeRectF;
@@ -58,6 +57,7 @@ public class SwitchButton extends CompoundButton {
 	private Drawable mThumbDrawable, mBackDrawable;
 	private ColorStateList mBackColor, mThumbColor;
 	private int mCurrThumbColor, mCurrBackColor;
+	private int mNextBackColor;
 	private float mThumbRadius, mBackRadius;
 	private Paint mPaint;
 	// save thumbMargin
@@ -134,9 +134,10 @@ public class SwitchButton extends CompoundButton {
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 		mClickTimeout = ViewConfiguration.getPressedStateDuration() + ViewConfiguration.getTapTimeout();
 
-		setLayerType(LAYER_TYPE_SOFTWARE, null);
-
 		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mRectPaint.setStyle(Paint.Style.STROKE);
+		mRectPaint.setStrokeWidth(getResources().getDisplayMetrics().density);
 
 		mThumbRectF = new RectF();
 		mBackRectF = new RectF();
@@ -584,11 +585,11 @@ public class SwitchButton extends CompoundButton {
 
 		if (SHOW_RECT) {
 			mRectPaint.setColor(Color.parseColor("#AA0000"));
-			canvas.drawRect(mBackZone, mRectPaint);
+			canvas.drawRect(mBackRectF, mRectPaint);
 			mRectPaint.setColor(Color.parseColor("#00FF00"));
-			canvas.drawRect(mSafeZone, mRectPaint);
+			canvas.drawRect(mSafeRectF, mRectPaint);
 			mRectPaint.setColor(Color.parseColor("#0000FF"));
-			canvas.drawRect(mThumbZone, mRectPaint);
+			canvas.drawRect(mPresentThumbRectF, mRectPaint);
 		}
 	}
 
