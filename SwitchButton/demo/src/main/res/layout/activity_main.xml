@@ -11,29 +11,28 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:padding="8dp"
+		android:enabled="false"
+		android:checked="true"
 		/>
+
 	<com.kyleduo.switchbutton.SwitchButton
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		app:kswThumbMargin="-14dp"
-		app:kswBackMeasureRatio="1.5"
-		app:kswThumbDrawable="@drawable/ksw_md_thumb_2"
+		app:kswBackMeasureRatio="1.45"
+		app:kswBackColor="@color/ksw_md_back_color"
+		app:kswThumbDrawable="@drawable/ksw_md_thumb"
 		android:paddingTop="8dp"
 		android:paddingBottom="8dp"
 		/>
 
-	<android.support.v7.widget.SwitchCompat
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:padding="8dp"
-		/>
 	<!--app:kswThumbDrawable="@drawable/md_thumb"-->
 		<!--app:kswThumbMargin="-16dp"-->
 
-	<ListView
+	<!--<ListView
 		android:id="@+id/list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:entries="@array/contents"/>
+		android:entries="@array/contents"/>-->
 
 </LinearLayout>

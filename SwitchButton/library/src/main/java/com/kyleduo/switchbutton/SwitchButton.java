@@ -9,7 +9,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -38,20 +37,12 @@ public class SwitchButton extends CompoundButton {
 	public static final float DEFAULT_BACK_MEASURE_RATIO = 1.8f;
 	public static final int DEFAULT_THUMB_SIZE = 20;
 	public static final long DEFAULT_ANIMATION_DURATION = 250l;
-	private static int[] CHECKED_PRESSED_STATE = new int[]{};
 	static int times = 0;
-	private static boolean SHOW_RECT = false;
-	/**
-	 * zone for thumb to move inside
-	 */
-	private Rect mSafeZone;
-	/**
-	 * zone for background
-	 */
-	private RectF mSaveLayerZone;
+	private static int[] CHECKED_PRESSED_STATE = new int[]{android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
+	private static int[] UNCHECKED_PRESSED_STATE = new int[]{-android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
+
 	private PointF mThumbSizeF;
 	private RectF mThumbRectF, mBackRectF, mSafeRectF;
-	private Point mStartPoint, mLastPoint;
 	// 标记是否使用Drawable，如果不用Drawable，使用Color定制，在onDraw中直接绘制
 	private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
 	private Drawable mThumbDrawable, mBackDrawable;
@@ -67,16 +58,19 @@ public class SwitchButton extends CompoundButton {
 	private String mOnText, mOffText;
 	private float mBackMeasureRatio;
 	private float mAnimationVelocity;
+	/**
+	 * 是否在滑动的时候渐隐back
+	 */
+	private boolean mFadeBack;
+	private boolean mDrawDebugRect = false;
 	private ObjectAnimator mThumbProcessAnimator;
 	/**
 	 * 动画进度
 	 */
 	private float mProcess;
-
-
-//	private AnimationController mAnimationController;
-//	private SBAnimationListener mOnAnimateListener = new SBAnimationListener();
-//	private boolean isAnimating = false;
+	/**
+	 * 存储动画过程中的临时位置
+	 */
 	private RectF mPresentThumbRectF;
 	private float mStartX, mStartY, mLastX;
 	private float mCenterPos;
@@ -169,6 +163,7 @@ public class SwitchButton extends CompoundButton {
 		ColorStateList backColor = null;
 		float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
 		float animationVelocity = 0.5f;
+		boolean fadeBack = true;
 
 		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
 		if (ta != null) {
@@ -187,7 +182,7 @@ public class SwitchButton extends CompoundButton {
 			backColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
 			backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
 			animationVelocity = ta.getFloat(R.styleable.SwitchButton_kswAnimationVelocity, animationVelocity);
-
+			fadeBack = ta.getBoolean(R.styleable.SwitchButton_kswFadeBack, true);
 			ta.recycle();
 		}
 
@@ -207,6 +202,7 @@ public class SwitchButton extends CompoundButton {
 		if (!mIsBackUseDrawable && mBackColor == null) {
 			mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_back_color);
 			mCurrBackColor = mBackColor.getDefaultColor();
+			mNextBackColor = mBackColor.getColorForState(CHECKED_PRESSED_STATE, mCurrBackColor);
 		}
 		// margin
 		mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
@@ -222,6 +218,7 @@ public class SwitchButton extends CompoundButton {
 		mThumbRadius = thumbRadius;
 		mBackRadius = backRadius;
 		mAnimationVelocity = animationVelocity;
+		mFadeBack = fadeBack;
 
 		setFocusable(true);
 		setClickable(true);
@@ -231,6 +228,9 @@ public class SwitchButton extends CompoundButton {
 				Log.e("onCheckedChanged", ++times + " times " + isChecked);
 			}
 		});
+		if (isChecked()) {
+			setProcess(1);
+		}
 	}
 /*
 	private void initView() {
@@ -327,6 +327,7 @@ public class SwitchButton extends CompoundButton {
 //	}
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		Log.e("ss", "onMeasure");
 		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
 	}
 
@@ -541,13 +542,19 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		int width = getMeasuredWidth();
-		int height = getMeasuredHeight();
-//		Log.d("onDraw", "w: " + width + " h: " + height);
-//		canvas.drawColor(Color.RED);
+
 		// back
 		mPaint.setColor(mCurrBackColor);
 		canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
+
+		// fade back
+		if (isPressed() && mFadeBack) {
+			mPaint.setColor(mNextBackColor);
+			int alpha = (int) (255 * (isChecked() ? (1 - getProcess()) : getProcess()));
+			mPaint.setAlpha(alpha);
+			canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
+			mPaint.setAlpha(255);
+		}
 
 		// thumb
 		mPresentThumbRectF.set(mThumbRectF);
@@ -560,6 +567,14 @@ public class SwitchButton extends CompoundButton {
 			canvas.drawRoundRect(mPresentThumbRectF, mThumbRadius, mThumbRadius, mPaint);
 		}
 
+		if (mDrawDebugRect) {
+			mRectPaint.setColor(Color.parseColor("#AA0000"));
+			canvas.drawRect(mBackRectF, mRectPaint);
+			mRectPaint.setColor(Color.parseColor("#00FF00"));
+			canvas.drawRect(mSafeRectF, mRectPaint);
+			mRectPaint.setColor(Color.parseColor("#0000FF"));
+			canvas.drawRect(mPresentThumbRectF, mRectPaint);
+		}
 
 //		canvas.getClipBounds(mBounds);
 //		if (mBounds != null && mConf.needShrink()) {
@@ -583,14 +598,6 @@ public class SwitchButton extends CompoundButton {
 //			canvas.restore();
 //		}
 
-		if (SHOW_RECT) {
-			mRectPaint.setColor(Color.parseColor("#AA0000"));
-			canvas.drawRect(mBackRectF, mRectPaint);
-			mRectPaint.setColor(Color.parseColor("#00FF00"));
-			canvas.drawRect(mSafeRectF, mRectPaint);
-			mRectPaint.setColor(Color.parseColor("#0000FF"));
-			canvas.drawRect(mPresentThumbRectF, mRectPaint);
-		}
 	}
 
 	private boolean notStatableDrawable() {
@@ -623,9 +630,10 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-//		if (mThumbProcessAnimator.isRunning() || !isEnabled()) {
-//			return false;
-//		}
+		if (!isEnabled()) {
+			return false;
+		}
+
 		int action = event.getAction();
 
 		float deltaX = event.getX() - mStartX;
@@ -739,14 +747,16 @@ public class SwitchButton extends CompoundButton {
 	protected void drawableStateChanged() {
 		super.drawableStateChanged();
 
-		if (!mIsThumbUseDrawable) {
+		if (!mIsThumbUseDrawable && mThumbColor != null) {
 			mCurrThumbColor = mThumbColor.getColorForState(getDrawableState(), mCurrThumbColor);
 		} else {
 			setDrawableState(mThumbDrawable);
 		}
 
-		if (!mIsBackUseDrawable) {
+		if (!mIsBackUseDrawable && mBackColor != null) {
 			mCurrBackColor = mBackColor.getColorForState(getDrawableState(), mCurrBackColor);
+			int[] states = isChecked() ? UNCHECKED_PRESSED_STATE : CHECKED_PRESSED_STATE;
+			mNextBackColor = mBackColor.getColorForState(states, mCurrBackColor);
 		} else {
 			setDrawableState(mBackDrawable);
 		}
@@ -762,6 +772,14 @@ public class SwitchButton extends CompoundButton {
 			drawable.setState(myDrawableState);
 			invalidate();
 		}
+	}
+
+	public boolean isDrawDebugRect() {
+		return mDrawDebugRect;
+	}
+
+	public void setDrawDebugRect(boolean drawDebugRect) {
+		mDrawDebugRect = drawDebugRect;
 	}
 
 //	public void setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {

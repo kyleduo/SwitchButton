@@ -5,4 +5,5 @@
 	<color name="ksw_md_solid_shadow">#33000000</color>
 	<color name="ksw_md_solid_normal">#ECECEC</color>
 	<color name="ksw_md_solid_checked">#019285</color>
+	<color name="ksw_md_solid_disable">#FFFFFF</color>
 </resources>
