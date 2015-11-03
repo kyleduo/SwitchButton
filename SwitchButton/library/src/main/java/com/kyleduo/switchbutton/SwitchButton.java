@@ -543,17 +543,21 @@ public class SwitchButton extends CompoundButton {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		// back
-		mPaint.setColor(mCurrBackColor);
-		canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
-
 		// fade back
 		if (isPressed() && mFadeBack) {
+			int alpha = (int) (255 * (isChecked() ? getProcess() : (1 - getProcess())));
+			mPaint.setColor(mCurrBackColor);
+			mPaint.setAlpha(alpha);
+			canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
+
 			mPaint.setColor(mNextBackColor);
-			int alpha = (int) (255 * (isChecked() ? (1 - getProcess()) : getProcess()));
+			alpha = (int) (255 * (isChecked() ? (1 - getProcess()) : getProcess()));
 			mPaint.setAlpha(alpha);
 			canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
 			mPaint.setAlpha(255);
+		} else {
+			mPaint.setColor(mCurrBackColor);
+			canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
 		}
 
 		// thumb

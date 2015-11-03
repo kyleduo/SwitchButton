@@ -22,6 +22,7 @@
 		app:kswBackMeasureRatio="1.45"
 		app:kswBackColor="@color/ksw_md_back_color"
 		app:kswThumbDrawable="@drawable/ksw_md_thumb"
+		android:checked="true"
 		android:paddingTop="8dp"
 		android:paddingBottom="8dp"
 		/>
