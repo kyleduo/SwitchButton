@@ -11,14 +11,25 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:padding="8dp"
-		android:enabled="false"
-		android:checked="true"
+		/>
+
+
+	<com.kyleduo.switchbutton.SwitchButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="8dp"
+		app:kswThumbRadius="2dp"
+		app:kswBackRadius="3dp"
+		app:kswBackMeasureRatio="2.2"
 		/>
 
 	<com.kyleduo.switchbutton.SwitchButton
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:kswThumbMargin="-14dp"
+		app:kswThumbMarginTop="-14dp"
+		app:kswThumbMarginBottom="-14dp"
+		app:kswThumbMarginLeft="-16dp"
+		app:kswThumbMarginRight="-16dp"
 		app:kswBackMeasureRatio="1.45"
 		app:kswBackColor="@color/ksw_md_back_color"
 		app:kswThumbDrawable="@drawable/ksw_md_thumb"

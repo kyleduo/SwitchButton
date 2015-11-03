@@ -157,7 +157,7 @@ public class SwitchButton extends CompoundButton {
 		float thumbWidth = density * DEFAULT_THUMB_SIZE;
 		float thumbHeight = density * DEFAULT_THUMB_SIZE;
 		float thumbRadius = density * DEFAULT_THUMB_SIZE / 2;
-		float backRadius = thumbRadius + density * 2;
+		float backRadius = thumbRadius;
 		Log.d("radius", "thumbR: " + thumbRadius + "  backRadiusR: " + backRadius);
 		Drawable backDrawable = null;
 		ColorStateList backColor = null;
@@ -176,8 +176,8 @@ public class SwitchButton extends CompoundButton {
 			marginBottom = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
 			thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, thumbWidth);
 			thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, thumbHeight);
-			thumbRadius = ta.getFloat(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
-			backRadius = ta.getFloat(R.styleable.SwitchButton_kswBackRadius, backRadius);
+			thumbRadius = ta.getDimension(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
+			backRadius = ta.getDimension(R.styleable.SwitchButton_kswBackRadius, thumbRadius + density * 2f);
 			backDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
 			backColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
 			backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
@@ -400,7 +400,8 @@ public class SwitchButton extends CompoundButton {
 
 		mSafeRectF.set(mThumbRectF.left, 0, mBackRectF.right - mThumbMargin.right - mThumbRectF.width(), 0);
 
-		mBackRadius = Math.min(mBackRectF.width(), mBackRectF.height()) / 2.f;
+		float minBackRadius = Math.min(mBackRectF.width(), mBackRectF.height()) / 2.f;
+		mBackRadius = Math.min(minBackRadius, mBackRadius);
 
 //		setupBackZone();
 //		setupSafeZone();
@@ -715,11 +716,11 @@ public class SwitchButton extends CompoundButton {
 	}
 
 	/**
-	 * 滑动到边缘
+	 * 执行动画
 	 *
 	 * @param checked 去开还是关
 	 */
-	private void animateToState(boolean checked) {
+	protected void animateToState(boolean checked) {
 		if (mThumbProcessAnimator == null) {
 			return;
 		}
