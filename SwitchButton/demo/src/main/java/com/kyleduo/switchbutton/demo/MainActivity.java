@@ -3,36 +3,22 @@ package com.kyleduo.switchbutton.demo;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
-
-import com.kyleduo.switchbutton.SwitchButton;
+import android.widget.ListView;
 
 
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-
-//	private ListView mListView;
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-//		mListView = (ListView) findViewById(R.id.list);
-//		mListView.setOnItemClickListener(this);
-
-		final SwitchButton sb = (SwitchButton) findViewById(R.id.def_ksw);
-		final SwitchButton sb2 = (SwitchButton) findViewById(R.id.def_ksw_2);
-		sb.setThumbMargin(null);
-		sb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				sb2.setEnabled(isChecked);
-			}
-		});
+		ListView listView = (ListView) findViewById(R.id.list);
+		listView.setOnItemClickListener(this);
 	}
 
 
@@ -52,7 +38,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 				startActivity(intent);
 				return true;
 			case R.id.action_blog:
-				intent.setData(Uri.parse("http://www.kyleduo.com"));
+				intent.setData(Uri.parse("http://kyleduo.com"));
 				startActivity(intent);
 				return true;
 			default:

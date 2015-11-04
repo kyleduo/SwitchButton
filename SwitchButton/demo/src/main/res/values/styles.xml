@@ -5,9 +5,7 @@
 		<!-- Customize your theme here. -->
 	</style>
 
-	<!--<style name="StyleTitleText">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
+	<style name="StyleTitleText">
 		<item name="android:paddingTop">4dp</item>
 		<item name="android:paddingBottom">2dp</item>
 		<item name="android:textColor">#444444</item>
@@ -15,18 +13,17 @@
 	</style>
 
 	<style name="SwitchButtonStyle">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
 		<item name="android:paddingLeft">10dp</item>
 		<item name="android:paddingRight">10dp</item>
 		<item name="android:paddingTop">4dp</item>
 		<item name="android:paddingBottom">4dp</item>
 	</style>
 
-	<style name="MaterialDesignStyle" parent="MD">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:padding">16dp</item>
-	</style>-->
+	<style name="SwitchButtonStyleMD" parent="SwitchbuttonMD">
+		<item name="android:paddingLeft">10dp</item>
+		<item name="android:paddingRight">10dp</item>
+		<item name="android:paddingTop">4dp</item>
+		<item name="android:paddingBottom">4dp</item>
+	</style>
 
 </resources>

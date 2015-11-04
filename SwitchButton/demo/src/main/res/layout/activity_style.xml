@@ -1,86 +1,138 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#eeeeee"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.kyleduo.switchbuttondemo.StyleActivity" >
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:background="#eeeeee"
+			  android:orientation="vertical"
+			  android:paddingBottom="@dimen/activity_vertical_margin"
+			  android:paddingLeft="@dimen/activity_horizontal_margin"
+			  android:paddingRight="@dimen/activity_horizontal_margin"
+			  android:paddingTop="@dimen/activity_vertical_margin">
 
-    <!--<TextView
-        style="@style/StyleTitleText"
-        android:text="@string/style_default" />
+	<TextView
+		style="@style/StyleTitleText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/style_default"/>
 
-    <com.kyleduo.switchbutton.SwitchButton
-        android:id="@+id/sb_default"
-        style="@style/SwitchButtonStyle" />
+	<com.kyleduo.switchbutton.SwitchButton
+		android:id="@+id/sb_default"
+		style="@style/SwitchButtonStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/>
 
-    <TextView
-        style="@style/StyleTitleText"
-        android:text="@string/style_md" />
+	<TextView
+		style="@style/StyleTitleText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/style_custom"/>
 
-    <com.kyleduo.switchbutton.SwitchButton
-        android:id="@+id/sb_md"
-        style="@style/MaterialDesignStyle" />
+	<com.kyleduo.switchbutton.SwitchButton
+		android:id="@+id/sb_custom"
+		style="@style/SwitchButtonStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:kswBackMeasureRatio="2.2"
+		app:kswBackRadius="2dp"
+		app:kswThumbRadius="2dp"
+		app:kswTintColor="#49416E"
+		/>
 
-    <TextView
-        style="@style/StyleTitleText"
-        android:text="@string/style_ios" />
+	<TextView
+		style="@style/StyleTitleText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/style_tint_color"/>
 
-    <com.kyleduo.switchbutton.SwitchButton
-        android:id="@+id/sb_ios"
-        style="@style/SwitchButtonStyle"
-        app:kswAnimationVelocity="8"
-        app:kswMeasureFactor="1.5"
-        app:kswOffDrawable="@drawable/ios_off"
-        app:kswOnColor="#43d95d"
-        app:kswThumbDrawable="@drawable/ios_thumb"
-        app:kswThumb_marginBottom="-8dp"
-        app:kswThumb_marginLeft="-5dp"
-        app:kswThumb_marginRight="-5dp"
-        app:kswThumb_marginTop="-2.5dp" />
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
 
-    <TextView
-        style="@style/StyleTitleText"
-        android:text="@string/style_change" />
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_tint_color_0"
+			style="@style/SwitchButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true"
+			app:kswTintColor="#B13254"/>
 
-    <LinearLayout
-        android:id="@+id/incode_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_tint_color_1"
+			style="@style/SwitchButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true"
+			app:kswTintColor="#FF5449"/>
 
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/sb_changeface_control"
-            style="@style/SwitchButtonStyle" />
-    </LinearLayout>
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_tint_color_2"
+			style="@style/SwitchButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true"
+			app:kswTintColor="#0E5AA4"/>
+	</LinearLayout>
 
-    <TextView
-        style="@style/StyleTitleText"
-        android:text="@string/enable_title" />
+	<TextView
+		style="@style/StyleTitleText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/style_md_ios"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
 
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/sb_enable"
-            style="@style/SwitchButtonStyle"
-            app:kswAnimationVelocity="8"
-            app:kswOffDrawable="@drawable/img_back_off"
-            app:kswOnDrawable="@drawable/img_back_on"
-            app:kswThumbDrawable="@drawable/selector_thumb"
-            app:kswThumb_marginBottom="2dp"
-            app:kswThumb_marginLeft="3dp"
-            app:kswThumb_marginRight="3dp"
-            app:kswThumb_marginTop="3dp" />
-    </LinearLayout>-->
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_md"
+			style="@style/SwitchButtonStyleMD"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_ios"
+			style="@style/SwitchButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:kswAnimationDuration="300"
+			app:kswBackDrawable="@drawable/ios_back_drawable"
+			app:kswBackMeasureRatio="1.4"
+			app:kswThumbDrawable="@drawable/ios_thumb"
+			app:kswThumbMarginBottom="-8dp"
+			app:kswThumbMarginLeft="-5dp"
+			app:kswThumbMarginRight="-5dp"
+			app:kswThumbMarginTop="-2.5dp"/>
+	</LinearLayout>
+
+
+	<TextView
+		style="@style/StyleTitleText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/style_disable"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_disable"
+			style="@style/SwitchButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:enabled="false"/>
+
+		<com.kyleduo.switchbutton.SwitchButton
+			android:id="@+id/sb_disable_checked"
+			style="@style/SwitchButtonStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true"
+			android:enabled="false"/>
+	</LinearLayout>
 
 </LinearLayout>

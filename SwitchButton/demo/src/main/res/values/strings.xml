@@ -9,15 +9,16 @@
 	<!-- style title -->
 	<string name="style_default">Default Style</string>
 	<string name="style_image">Using Image</string>
-	<string name="style_ios">iOS7 style</string>
+	<string name="style_tint_color">Custom by tint color</string>
 	<string name="style_custom">Custom Style</string>
-	<string name="style_md">Material Design</string>
-	<string name="style_change">Change Style In Code \n(use the 1st to change the 2nd one)</string>
+	<string name="style_md_ios">Material Design &#038; iOS Style</string>
+	<string name="style_disable">Disable state</string>
 	<string name="changeface">Change Face</string>
 	<string name="enable_title">enable/disable other SwitchButtons</string>
 
 	<!-- use title -->
 	<string name="use_listener">work with listener</string>
+	<string name="use_delay">work with delay</string>
 	<string name="use_listener_finish">You did it!</string>
 	<string name="use_long">work with stuff takes long</string>
 	<string name="use_long_hint">Click "Start" button to kick it off.</string>

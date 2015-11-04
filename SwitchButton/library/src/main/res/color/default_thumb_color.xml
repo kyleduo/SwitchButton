@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:color="#5C5969" android:state_enabled="false" android:state_checked="true"/>
-	<item android:color="#696969" android:state_enabled="false"/>
-	<item android:color="#6649416E" android:state_pressed="true"/>
-	<item android:color="#49416E" android:state_checked="true"/>
+	<item android:color="#3303BEE7" android:state_enabled="false" android:state_checked="true"/>
+	<item android:color="#AAAAAA" android:state_enabled="false"/>
+	<item android:color="#6603BEE7" android:state_pressed="true"/>
+	<item android:color="#03BEE7" android:state_checked="true"/>
 	<item android:color="#EEEEEE" />
 </selector>

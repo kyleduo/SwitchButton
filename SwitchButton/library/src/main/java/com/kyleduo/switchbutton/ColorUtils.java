@@ -24,7 +24,7 @@ public class ColorUtils {
 
 		int[] colors = new int[] {
 				tintColor - 0xAA000000,
-				0xFFCACACA,
+				0xFFAAAAAA,
 				tintColor - 0x99000000,
 				tintColor - 0x99000000,
 				tintColor,

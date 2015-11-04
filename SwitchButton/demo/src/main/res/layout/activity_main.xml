@@ -7,55 +7,10 @@
 			  android:orientation="vertical"
 			  tools:context="com.kyleduo.switchbuttondemo.MainActivity">
 
-	<com.kyleduo.switchbutton.SwitchButton
-		android:id="@+id/def_ksw"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:padding="8dp"
-		/>
-
-	<com.kyleduo.switchbutton.SwitchButton
-		android:id="@+id/def_ksw_2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:padding="8dp"
-		app:kswThumbRadius="2dp"
-		app:kswBackRadius="2dp"
-		app:kswTintColor="#49416E"
-		app:kswBackMeasureRatio="2.2"
-		/>
-
-	<com.kyleduo.switchbutton.SwitchButton
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:padding="8dp"
-		app:kswThumbRadius="2dp"
-		app:kswBackRadius="2dp"
-		app:kswBackMeasureRatio="2.2"
-		/>
-
-	<com.kyleduo.switchbutton.SwitchButton
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:kswThumbMarginTop="-14dp"
-		app:kswThumbMarginBottom="-14dp"
-		app:kswThumbMarginLeft="-16dp"
-		app:kswThumbMarginRight="-16dp"
-		app:kswBackMeasureRatio="1.45"
-		app:kswBackColor="@color/ksw_md_back_color"
-		app:kswThumbDrawable="@drawable/ksw_md_thumb"
-		android:checked="true"
-		android:paddingTop="8dp"
-		android:paddingBottom="8dp"
-		/>
-
-	<!--app:kswThumbDrawable="@drawable/md_thumb"-->
-		<!--app:kswThumbMargin="-16dp"-->
-
-	<!--<ListView
+	<ListView
 		android:id="@+id/list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:entries="@array/contents"/>-->
+		android:entries="@array/contents"/>
 
 </LinearLayout>
