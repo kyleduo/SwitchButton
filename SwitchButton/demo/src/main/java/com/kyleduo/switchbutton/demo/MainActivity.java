@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 
 import com.kyleduo.switchbutton.SwitchButton;
 
@@ -24,7 +25,14 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 //		mListView.setOnItemClickListener(this);
 
 		final SwitchButton sb = (SwitchButton) findViewById(R.id.def_ksw);
+		final SwitchButton sb2 = (SwitchButton) findViewById(R.id.def_ksw_2);
 		sb.setThumbMargin(null);
+		sb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				sb2.setEnabled(isChecked);
+			}
+		});
 	}
 
 

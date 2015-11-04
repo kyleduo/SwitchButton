@@ -23,8 +23,8 @@ public class ColorUtils {
 		};
 
 		int[] colors = new int[] {
-				tintColor - 0xCC000000,
-				0xFF696969,
+				tintColor - 0xAA000000,
+				0xFFCACACA,
 				tintColor - 0x99000000,
 				tintColor - 0x99000000,
 				tintColor,
@@ -41,10 +41,10 @@ public class ColorUtils {
 		int[][] states = new int[][]{
 				{-ENABLE_ATTR, CHECKED_ATTR},
 				{-ENABLE_ATTR},
-				{CHECKED_ATTR, ENABLE_ATTR, PRESSED_ATTR},
-				{-CHECKED_ATTR, ENABLE_ATTR, PRESSED_ATTR},
-				{CHECKED_ATTR, ENABLE_ATTR},
-				{-CHECKED_ATTR, ENABLE_ATTR}
+				{CHECKED_ATTR, PRESSED_ATTR},
+				{-CHECKED_ATTR, PRESSED_ATTR},
+				{CHECKED_ATTR},
+				{-CHECKED_ATTR}
 		};
 
 		int[] colors = new int[] {
@@ -55,10 +55,6 @@ public class ColorUtils {
 				tintColor - 0xD0000000,
 				0x20000000
 		};
-
-		for (int i : colors) {
-			Log.e("xx", Integer.toHexString(i));
-		}
 		return new ColorStateList(states, colors);
 	}
 }
