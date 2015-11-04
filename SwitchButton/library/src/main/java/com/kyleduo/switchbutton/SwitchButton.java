@@ -47,6 +47,7 @@ public class SwitchButton extends CompoundButton {
 	private float mBackMeasureRatio;
 	private long mAnimationDuration;
 	private boolean mFadeBack;
+	private int mTintColor;
 	// 配置属性 end
 
 
@@ -129,6 +130,7 @@ public class SwitchButton extends CompoundButton {
 		float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
 		int animationDuration = DEFAULT_ANIMATION_DURATION;
 		boolean fadeBack = true;
+		int tintColor = Integer.MIN_VALUE;
 
 		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
 		if (ta != null) {
@@ -148,6 +150,7 @@ public class SwitchButton extends CompoundButton {
 			backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
 			animationDuration = ta.getInteger(R.styleable.SwitchButton_kswAnimationDuration, animationDuration);
 			fadeBack = ta.getBoolean(R.styleable.SwitchButton_kswFadeBack, true);
+			tintColor = ta.getColor(R.styleable.SwitchButton_kswTintColor, tintColor);
 			ta.recycle();
 		}
 
@@ -155,8 +158,13 @@ public class SwitchButton extends CompoundButton {
 		mThumbDrawable = thumbDrawable;
 		mThumbColor = thumbColor;
 		mIsThumbUseDrawable = mThumbDrawable != null;
+		mTintColor = tintColor;
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
-			mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
+			if (mTintColor != Integer.MIN_VALUE) {
+				mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
+			} else {
+				mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
+			}
 			mCurrThumbColor = mThumbColor.getDefaultColor();
 		}
 		mThumbSizeF.set(thumbWidth, thumbHeight);
@@ -166,10 +174,15 @@ public class SwitchButton extends CompoundButton {
 		mBackColor = backColor;
 		mIsBackUseDrawable = mBackDrawable != null;
 		if (!mIsBackUseDrawable && mBackColor == null) {
-			mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_back_color);
+			if (mTintColor != Integer.MIN_VALUE) {
+				mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
+			} else {
+				mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_back_color);
+			}
 			mCurrBackColor = mBackColor.getDefaultColor();
 			mNextBackColor = mBackColor.getColorForState(CHECKED_PRESSED_STATE, mCurrBackColor);
 		}
+
 		// margin
 		mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
 
@@ -283,15 +296,23 @@ public class SwitchButton extends CompoundButton {
 
 		// fade back
 		if (isPressed() && mFadeBack) {
-			int alpha = (int) (255 * (isChecked() ? getProcess() : (1 - getProcess())));
-			mPaint.setColor(mCurrBackColor);
-			mPaint.setAlpha(alpha);
+			int alpha;
+			int colorAlpha;
+
+			// curr back
+			alpha = (int) (255 * (isChecked() ? getProcess() : (1 - getProcess())));
+			colorAlpha = Color.alpha(mCurrBackColor);
+			colorAlpha = colorAlpha * alpha / 255;
+			mPaint.setARGB(colorAlpha, Color.red(mCurrBackColor), Color.green(mCurrBackColor), Color.blue(mCurrBackColor));
 			canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
 
-			mPaint.setColor(mNextBackColor);
+			// next back
 			alpha = (int) (255 * (isChecked() ? (1 - getProcess()) : getProcess()));
-			mPaint.setAlpha(alpha);
+			colorAlpha = Color.alpha(mNextBackColor);
+			colorAlpha = colorAlpha * alpha / 255;
+			mPaint.setARGB(colorAlpha, Color.red(mNextBackColor), Color.green(mNextBackColor), Color.blue(mNextBackColor));
 			canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
+
 			mPaint.setAlpha(255);
 		} else {
 			mPaint.setColor(mCurrBackColor);

@@ -12,8 +12,18 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:padding="8dp"
+		app:kswTintColor="#CB3322"
 		/>
 
+	<com.kyleduo.switchbutton.SwitchButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="8dp"
+		app:kswThumbRadius="2dp"
+		app:kswBackRadius="2dp"
+		app:kswTintColor="#49416E"
+		app:kswBackMeasureRatio="2.2"
+		/>
 
 	<com.kyleduo.switchbutton.SwitchButton
 		android:layout_width="wrap_content"
