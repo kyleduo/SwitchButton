@@ -12,9 +12,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.ViewConfiguration;
@@ -161,12 +159,12 @@ public class SwitchButton extends CompoundButton {
 		mThumbColor = thumbColor;
 		mIsThumbUseDrawable = mThumbDrawable != null;
 		mTintColor = tintColor;
+		if (mTintColor == Integer.MIN_VALUE) {
+			// default
+			mTintColor = 0x327FC2;
+		}
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
-			if (mTintColor != Integer.MIN_VALUE) {
-				mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
-			} else {
-				mThumbColor = ContextCompat.getColorStateList(getContext(), R.color.default_thumb_color);
-			}
+			mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
 			mCurrThumbColor = mThumbColor.getDefaultColor();
 		}
 		mThumbSizeF.set(thumbWidth, thumbHeight);
@@ -176,11 +174,7 @@ public class SwitchButton extends CompoundButton {
 		mBackColor = backColor;
 		mIsBackUseDrawable = mBackDrawable != null;
 		if (!mIsBackUseDrawable && mBackColor == null) {
-			if (mTintColor != Integer.MIN_VALUE) {
-				mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
-			} else {
-				mBackColor = ContextCompat.getColorStateList(getContext(), R.color.default_back_color);
-			}
+			mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
 			mCurrBackColor = mBackColor.getDefaultColor();
 			mNextBackColor = mBackColor.getColorForState(CHECKED_PRESSED_STATE, mCurrBackColor);
 		}
@@ -209,7 +203,6 @@ public class SwitchButton extends CompoundButton {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		Log.e("ss", "onMeasure");
 		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
 	}
 
@@ -292,8 +285,6 @@ public class SwitchButton extends CompoundButton {
 		if (mBackDrawable != null) {
 			mBackDrawable.setBounds((int) mBackRectF.left, (int) mBackRectF.top, (int) mBackRectF.right, (int) mBackRectF.bottom);
 		}
-
-		Log.d("setup", "thumbRect: " + mThumbRectF + " backRect: " + mBackRectF + " backRadius: " + mBackRadius);
 	}
 
 	@Override
@@ -641,5 +632,24 @@ public class SwitchButton extends CompoundButton {
 		if (!mIsBackUseDrawable) {
 			invalidate();
 		}
+	}
+
+	public boolean isFadeBack() {
+		return mFadeBack;
+	}
+
+	public void setFadeBack(boolean fadeBack) {
+		mFadeBack = fadeBack;
+	}
+
+	public int getTintColor() {
+		return mTintColor;
+	}
+
+	public void setTintColor(int tintColor) {
+		mTintColor = tintColor;
+		mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
+		mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
+		invalidate();
 	}
 }

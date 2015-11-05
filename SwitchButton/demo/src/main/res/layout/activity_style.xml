@@ -25,18 +25,88 @@
 		style="@style/StyleTitleText"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/style_custom"/>
+		android:text="@string/style_nofade"/>
 
 	<com.kyleduo.switchbutton.SwitchButton
-		android:id="@+id/sb_custom"
+		android:id="@+id/sb_nofade"
 		style="@style/SwitchButtonStyle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:kswBackMeasureRatio="2.2"
-		app:kswBackRadius="2dp"
-		app:kswThumbRadius="2dp"
-		app:kswTintColor="#49416E"
-		/>
+		app:kswFadeBack="false"/>
+
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:stretchColumns="*"
+		>
+
+		<TableRow>
+
+			<TextView
+				style="@style/StyleTitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:text="@string/style_custom"/>
+
+			<TextView
+				style="@style/StyleTitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:text="@string/style_flyme"/>
+
+			<TextView
+				style="@style/StyleTitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:text="@string/style_miui"/>
+		</TableRow>
+
+
+		<TableRow>
+
+			<com.kyleduo.switchbutton.SwitchButton
+				android:id="@+id/sb_custom"
+				style="@style/SwitchButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				app:kswBackMeasureRatio="2.2"
+				app:kswBackRadius="2dp"
+				app:kswThumbRadius="2dp"
+				app:kswTintColor="#49416E"
+				/>
+
+			<com.kyleduo.switchbutton.SwitchButton
+				android:id="@+id/sb_custom_flyme"
+				style="@style/SwitchButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				app:kswBackDrawable="@drawable/flyme_back_drawable"
+				app:kswBackMeasureRatio="2.2"
+				app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+				app:kswThumbHeight="16dp"
+				app:kswThumbWidth="16dp"
+				/>
+
+			<com.kyleduo.switchbutton.SwitchButton
+				android:id="@+id/sb_custom_miui"
+				style="@style/SwitchButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				app:kswBackDrawable="@drawable/miui_back_drawable"
+				app:kswBackMeasureRatio="2"
+				app:kswThumbDrawable="@drawable/miui_thumb_drawable"
+				app:kswThumbHeight="18dp"
+				app:kswThumbWidth="18dp"
+				/>
+		</TableRow>
+
+	</TableLayout>
 
 	<TextView
 		style="@style/StyleTitleText"
@@ -107,7 +177,6 @@
 			app:kswThumbMarginTop="-2.5dp"/>
 	</LinearLayout>
 
-
 	<TextView
 		style="@style/StyleTitleText"
 		android:layout_width="wrap_content"
@@ -134,5 +203,18 @@
 			android:checked="true"
 			android:enabled="false"/>
 	</LinearLayout>
+
+	<TextView
+		style="@style/StyleTitleText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/style_code"/>
+
+	<com.kyleduo.switchbutton.SwitchButton
+		android:id="@+id/sb_code"
+		style="@style/SwitchButtonStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		/>
 
 </LinearLayout>

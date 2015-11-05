@@ -60,6 +60,7 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 					@Override
 					public void onAnimationStart(Animator animation) {
 						mStartBt.setEnabled(false);
+						mLongSb.setChecked(false);
 					}
 
 					@Override

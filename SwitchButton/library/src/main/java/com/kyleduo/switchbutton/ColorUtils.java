@@ -27,7 +27,7 @@ public class ColorUtils {
 				0xFFAAAAAA,
 				tintColor - 0x99000000,
 				tintColor - 0x99000000,
-				tintColor,
+				tintColor | 0xFF000000,
 				0xFFEEEEEE
 		};
 
