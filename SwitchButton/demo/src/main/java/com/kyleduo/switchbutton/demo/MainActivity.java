@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		startActivity(new Intent(this, UseActivity.class));
 	}
 
+	private void gotoWeibo() {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("http://weibo.com/u/1762403573"));
+		startActivity(intent);
+	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		switch (position) {
@@ -72,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 			case 2:
 				jumpToUse();
+				break;
+			case 3:
+				gotoWeibo();
 				break;
 
 			default:

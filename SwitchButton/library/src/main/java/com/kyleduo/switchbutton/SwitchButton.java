@@ -23,10 +23,10 @@ import android.widget.CompoundButton;
 
 
 /**
- * SwitchButton widget which is easy to use
+ * SwitchButton
  *
  * @author kyleduo
- * @version 1.2
+ * @version 1.2.10
  * @since 2014-09-24
  */
 
@@ -35,48 +35,38 @@ public class SwitchButton extends CompoundButton {
 	public static final int DEFAULT_THUMB_SIZE_DP = 20;
 	public static final int DEFAULT_THUMB_MARGIN_DP = 2;
 	public static final int DEFAULT_ANIMATION_DURATION = 250;
+	public static final int DEFAULT_TINT_COLOR = 0x327FC2;
+
 	private static int[] CHECKED_PRESSED_STATE = new int[]{android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
 	private static int[] UNCHECKED_PRESSED_STATE = new int[]{-android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
 
-	// 配置属性
 	private Drawable mThumbDrawable, mBackDrawable;
-	private Drawable mCurrentBackDrawable, mNextBackDrawable;
 	private ColorStateList mBackColor, mThumbColor;
-	private int mCurrThumbColor, mCurrBackColor, mNextBackColor;
 	private float mThumbRadius, mBackRadius;
-	// save thumbMargin
 	private RectF mThumbMargin;
 	private float mBackMeasureRatio;
 	private long mAnimationDuration;
+	// fade back drawable or color when dragging or animating
 	private boolean mFadeBack;
 	private int mTintColor;
-	// 配置属性 end
-
-
-	// 内部属性
 	private PointF mThumbSizeF;
+
+	private int mCurrThumbColor, mCurrBackColor, mNextBackColor;
+	private Drawable mCurrentBackDrawable, mNextBackDrawable;
 	private RectF mThumbRectF, mBackRectF, mSafeRectF;
 	private Paint mPaint;
-	// 标记是否使用Drawable，如果不用Drawable，使用Color定制，在onDraw中直接绘制
+	// whether using Drawable for thumb or back
 	private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
-	/**
-	 * 是否在滑动的时候渐隐back
-	 */
 	private boolean mDrawDebugRect = false;
 	private ObjectAnimator mProcessAnimator;
-	/**
-	 * 动画进度
-	 */
+	// animation control
 	private float mProcess;
-	/**
-	 * 存储动画过程中的临时位置
-	 */
+	// temp position of thumb when dragging or animating
 	private RectF mPresentThumbRectF;
 	private float mStartX, mStartY, mLastX;
 	private int mTouchSlop;
 	private int mClickTimeout;
 	private Paint mRectPaint;
-	// 内部属性 end
 
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -162,8 +152,7 @@ public class SwitchButton extends CompoundButton {
 		mIsThumbUseDrawable = mThumbDrawable != null;
 		mTintColor = tintColor;
 		if (mTintColor == Integer.MIN_VALUE) {
-			// default
-			mTintColor = 0x327FC2;
+			mTintColor = DEFAULT_TINT_COLOR;
 		}
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
 			mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
@@ -346,8 +335,6 @@ public class SwitchButton extends CompoundButton {
 		if (mDrawDebugRect) {
 			mRectPaint.setColor(Color.parseColor("#AA0000"));
 			canvas.drawRect(mBackRectF, mRectPaint);
-			mRectPaint.setColor(Color.parseColor("#00FF00"));
-			canvas.drawRect(mSafeRectF, mRectPaint);
 			mRectPaint.setColor(Color.parseColor("#0000FF"));
 			canvas.drawRect(mPresentThumbRectF, mRectPaint);
 		}
@@ -465,9 +452,9 @@ public class SwitchButton extends CompoundButton {
 	}
 
 	/**
-	 * 执行动画
+	 * processing animation
 	 *
-	 * @param checked 去开还是关
+	 * @param checked checked or unChecked
 	 */
 	protected void animateToState(boolean checked) {
 		if (mProcessAnimator == null) {
@@ -525,6 +512,7 @@ public class SwitchButton extends CompoundButton {
 
 	public void setDrawDebugRect(boolean drawDebugRect) {
 		mDrawDebugRect = drawDebugRect;
+		invalidate();
 	}
 
 	public long getAnimationDuration() {

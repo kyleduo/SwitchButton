@@ -28,6 +28,7 @@ public class StyleInCodeActivity extends ActionBarActivity implements AdapterVie
 			"setFadeBack",
 			"setBackMeasureRatio",
 			"setAnimationDuration",
+			"setDrawDebugRect",
 	};
 
 	@Override
@@ -95,6 +96,9 @@ public class StyleInCodeActivity extends ActionBarActivity implements AdapterVie
 			case 11:
 				mChangeSb.setAnimationDuration(mAnimationDurationFlag ? SwitchButton.DEFAULT_ANIMATION_DURATION : 1000);
 				mAnimationDurationFlag = !mAnimationDurationFlag;
+				break;
+			case 12:
+				mChangeSb.setDrawDebugRect(!mChangeSb.isDrawDebugRect());
 				break;
 			default:
 				break;

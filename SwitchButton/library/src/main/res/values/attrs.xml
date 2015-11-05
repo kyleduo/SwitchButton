@@ -16,7 +16,6 @@
 		<attr name="kswBackDrawable" format="reference"/>
 		<attr name="kswBackColor" format="color|reference"/>
 		<attr name="kswFadeBack" format="boolean"/>
-		<!-- the ratio used when measuring "back" use "thumb" size. W-back = W-thumb * ratio -->
 		<attr name="kswBackMeasureRatio" format="float"/>
 		<attr name="kswAnimationDuration" format="integer"/>
 		<attr name="kswTintColor" format="color|reference"/>

@@ -1,10 +1,10 @@
 <resources>
-	<string name="app_name">SwitchButton</string>
+	<string name="app_name">SwitchButton Demo</string>
 
 	<string name="hello_world">Hello world!</string>
 	<string name="action_settings">Settings</string>
 
-	<string name="copyright">Version 1.2.10\n&#169; 2014&#8211;2015 Kyle_DUO. Some rights reserved.</string>
+	<string name="copyright">Version 1.2.10\n&#169; 2014&#8211;2015 kyleduo.Some rights reserved.</string>
 
 	<!-- style title -->
 	<string name="style_default">Default Style</string>
