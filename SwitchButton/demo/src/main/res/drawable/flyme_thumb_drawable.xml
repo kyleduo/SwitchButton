@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:state_checked="true" android:state_enabled="false">
+		<shape android:shape="oval">
+			<solid android:color="#B8E2F8"/>
+		</shape>
+	</item>
 	<item android:state_enabled="false">
 		<layer-list>
-			<item android:bottom="6dp" android:left="2dp" android:right="2dp" android:top="6dp">
+			<item android:bottom="6dp" android:left="4dp" android:right="4dp" android:top="6dp">
 				<shape>
-					<solid android:color="#AAAAAA"/>
+					<solid android:color="#DEDEDE"/>
 					<corners android:radius="1dp"/>
 				</shape>
 			</item>
@@ -15,12 +20,14 @@
 			<solid android:color="#28A4E9"/>
 		</shape>
 	</item>
-	<layer-list>
-		<item android:bottom="6dp" android:left="2dp" android:right="2dp" android:top="6dp">
-			<shape>
-				<solid android:color="#AAAAAA"/>
-				<corners android:radius="1dp"/>
-			</shape>
-		</item>
-	</layer-list>
+	<item>
+		<layer-list>
+			<item android:bottom="6dp" android:left="4dp" android:right="4dp" android:top="6dp">
+				<shape>
+					<solid android:color="#D0D0D0"/>
+					<corners android:radius="1dp"/>
+				</shape>
+			</item>
+		</layer-list>
+	</item>
 </selector>
