@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		startActivity(new Intent(this, StyleActivity.class));
 	}
 
+	private void jumpToStyleInCode() {
+		startActivity(new Intent(this, StyleInCodeActivity.class));
+	}
+
 	private void jumpToUse() {
 		startActivity(new Intent(this, UseActivity.class));
 	}
@@ -63,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				break;
 
 			case 1:
+				jumpToStyleInCode();
+				break;
+
+			case 2:
 				jumpToUse();
 				break;
 

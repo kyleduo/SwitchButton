@@ -59,7 +59,7 @@
 			style="@style/SwitchButtonStyle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:kswTintColor="#D5401A"/>
+			app:kswTintColor="#16A560"/>
 
 		<View
 			android:layout_width="match_parent"

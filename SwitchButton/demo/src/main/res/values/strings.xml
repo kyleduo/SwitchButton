@@ -16,7 +16,6 @@
 	<string name="style_miui">MIUI7 Style</string>
 	<string name="style_md_ios">Material Design &#038; iOS Style</string>
 	<string name="style_disable">Disable state</string>
-	<string name="style_code">Change appearance in code.</string>
 	<string name="enable_title">enable/disable other SwitchButtons</string>
 
 	<!-- use title -->
@@ -34,6 +33,8 @@
 	<string name="checked_not_animated">setCheckedImmediately(boolean);</string>
 	<string name="bt_start">Start</string>
 
+	<style name="style_in_code">Change properties in code.</style>
+
 	<!-- menu -->
 	<string name="action_github">view in github</string>
 	<string name="action_blog">my blog</string>
@@ -41,10 +42,12 @@
 	<!-- contents -->
 	<string-array name="contents">
 		<item>@string/title_activity_style</item>
+		<item>@string/title_activity_style_in_code</item>
 		<item>@string/title_activity_use</item>
 		<item>@string/copyright</item>
 	</string-array>
 
-	<string name="title_activity_style">Easy to style</string>
+	<string name="title_activity_style">Style in xml</string>
 	<string name="title_activity_use">Easy to use</string>
+	<string name="title_activity_style_in_code">Style in code</string>
 </resources>

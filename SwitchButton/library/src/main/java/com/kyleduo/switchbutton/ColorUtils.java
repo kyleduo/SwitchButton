@@ -1,7 +1,6 @@
 package com.kyleduo.switchbutton;
 
 import android.content.res.ColorStateList;
-import android.util.Log;
 
 /**
  * Generate thumb and background color state list use tintColor
@@ -30,10 +29,6 @@ public class ColorUtils {
 				tintColor | 0xFF000000,
 				0xFFEEEEEE
 		};
-
-		for (int i : colors) {
-			Log.e("xx", Integer.toHexString(i));
-		}
 		return new ColorStateList(states, colors);
 	}
 

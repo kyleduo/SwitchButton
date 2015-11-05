@@ -8,22 +8,26 @@ import com.kyleduo.switchbutton.SwitchButton;
 
 public class StyleActivity extends ActionBarActivity {
 
-	private SwitchButton mChangeSb, mFlymeSb, mMiuiSb;
+	private SwitchButton mFlymeSb, mMiuiSb, mCustomSb, mDefaultSb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_style);
 
-		mChangeSb = (SwitchButton) findViewById(R.id.sb_code);
+		SwitchButton disableSb = (SwitchButton) findViewById(R.id.sb_disable_control);
 		mFlymeSb = (SwitchButton) findViewById(R.id.sb_custom_flyme);
 		mMiuiSb = (SwitchButton) findViewById(R.id.sb_custom_miui);
+		mCustomSb = (SwitchButton) findViewById(R.id.sb_custom);
+		mDefaultSb = (SwitchButton) findViewById(R.id.sb_default);
 
-		mChangeSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		disableSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				mFlymeSb.setEnabled(isChecked);
 				mMiuiSb.setEnabled(isChecked);
+				mCustomSb.setEnabled(isChecked);
+				mDefaultSb.setEnabled(isChecked);
 			}
 		});
 	}

@@ -34,6 +34,15 @@
 				android:value=".MainActivity"
 				/>
 		</activity>
+		<activity
+			android:name=".StyleInCodeActivity"
+			android:label="@string/title_activity_style_in_code"
+			android:parentActivityName=".MainActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".MainActivity"
+				/>
+		</activity>
 
 	</application>
 
