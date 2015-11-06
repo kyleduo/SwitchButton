@@ -3,15 +3,24 @@ Change Log
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/apk/switchbutton_128.apk).**
+**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/project/switchbutton/switchbutton_demo_130.apk).**
 
-This project provides you a convient way to customise a SwitchButton widget in Android. With just resources changed and attrs set, you can get a lifelike SwitchButton in Android 5.0, iOS 7/8, MIUI, or Flyme and so on.
+This project provides you a convenient way to use and customise a SwitchButton widget in Android. With just resources changed and attrs set, you can create a lifelike SwitchButton of Android 5.0+, iOS, MIUI, or Flyme and so on.
 
-What are you waiting for, come to enjoy this widget.
+Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
+
+***
+update 1.3.0 <font color="#FF684A" size="4">(Latest)</font>
+---
+*	Reconstructe the whole library.
+* 	More convenient customization way by __tintColor__.
+* 	New design demo. All APIs in ONE.
+*  Fix issue [#23](https://github.com/kyleduo/SwitchButton/issues/23) [#25](https://github.com/kyleduo/SwitchButton/issues/25) [#26](https://github.com/kyleduo/SwitchButton/issues/26)
+*  Just exciting!!!
 
 ***
 
-update 1.2.10 <font color="#FF684A" size="4">(Latest)</font>
+update 1.2.10
 ---
 *	Fix issue [#22](https://github.com/kyleduo/SwitchButton/issues/22) by change the attributes' name to prevent conflict;
 
