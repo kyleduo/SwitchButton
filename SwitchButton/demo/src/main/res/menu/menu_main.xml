@@ -10,7 +10,7 @@
 		android:title="@string/action_github"/>
 	<item
 		android:id="@+id/action_blog"
-		android:icon="@drawable/icon_blog"
+		android:icon="@drawable/icon_blog_2"
 		android:orderInCategory="100"
 		app:showAsAction="always"
 		android:title="@string/action_blog"/>
