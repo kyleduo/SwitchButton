@@ -46,21 +46,18 @@
 				style="@style/StyleTitleText"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:gravity="center"
 				android:text="@string/style_custom"/>
 
 			<TextView
 				style="@style/StyleTitleText"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:gravity="center"
 				android:text="@string/style_flyme"/>
 
 			<TextView
 				style="@style/StyleTitleText"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:gravity="center"
 				android:text="@string/style_miui"/>
 		</TableRow>
 
