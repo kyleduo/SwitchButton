@@ -65,22 +65,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		startActivity(intent);
 	}
 
+	private void gotoLicense() {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("http://www.apache.org/licenses/LICENSE-2.0"));
+		startActivity(intent);
+	}
+
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		switch (position) {
 			case 0:
 				jumpToStyle();
 				break;
-
 			case 1:
 				jumpToStyleInCode();
 				break;
-
 			case 2:
 				jumpToUse();
 				break;
 			case 3:
 				gotoWeibo();
+				break;
+			case 4:
+				gotoLicense();
 				break;
 
 			default:
