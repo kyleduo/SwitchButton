@@ -205,7 +205,7 @@
 		style="@style/StyleTitleText"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/style_disable"/>
+		android:text="@string/style_disable_opt"/>
 
 	<com.kyleduo.switchbutton.SwitchButton
 		android:id="@+id/sb_disable_control"

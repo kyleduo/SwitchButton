@@ -3,7 +3,7 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/project/switchbutton/switchbutton_demo_130.apk).**
+**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/project/switchbutton/switchbutton_demo_131.apk).**
 
 This project provides you a convenient way to use and customise a SwitchButton widget in Android. With just resources changed and attrs set, you can create a lifelike SwitchButton of Android 5.0+, iOS, MIUI, or Flyme and so on.
 
@@ -12,7 +12,7 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 ***
 Change Log
 ---
-[Change Log 1.3.0](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
+[Change Log 1.3.1](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
 Using SwitchButton in your application
 ---
@@ -26,14 +26,14 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.3.0'
+    	compile 'com.kyleduo.switchbutton:library:1.3.1'
 	}
 ***
 Demo
 ---
 I create a new demo apk to show you how to style the cute widget and use it. There's some screenshots of the new demo.
 
-![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/demo_130.jpg)
+![demo_preview](https://raw.githubusercontent.com/kyleduo/SwitchButton/master/preview/demo_131.jpg)
 
 ***
 Usage

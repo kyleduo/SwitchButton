@@ -80,17 +80,6 @@
 					<solid android:color="@color/ksw_md_ripple_checked"/>
 				</shape>
 			</item>
-			<item>
-				<shape android:shape="oval">
-					<gradient android:centerX="0.5"
-							  android:centerY="0.52"
-							  android:endColor="#00000000"
-							  android:startColor="#50000000"
-							  android:type="radial"
-							  android:gradientRadius="13dp"
-						/>
-				</shape>
-			</item>
 			<item
 				android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom"
 				android:gravity="center"
@@ -123,17 +112,6 @@
 						android:width="@dimen/ksw_md_thumb_ripple_size"
 						android:height="@dimen/ksw_md_thumb_ripple_size"/>
 					<solid android:color="@color/ksw_md_ripple_normal"/>
-				</shape>
-			</item>
-			<item>
-				<shape android:shape="oval">
-					<gradient android:centerX="0.5"
-							  android:centerY="0.52"
-							  android:endColor="#00000000"
-							  android:startColor="#50000000"
-							  android:type="radial"
-							  android:gradientRadius="13dp"
-						/>
 				</shape>
 			</item>
 			<item
@@ -170,17 +148,6 @@
 					<solid android:color="@android:color/transparent"/>
 				</shape>
 			</item>
-			<item>
-				<shape android:shape="oval">
-					<gradient android:centerX="0.5"
-							  android:centerY="0.52"
-							  android:endColor="#00000000"
-							  android:startColor="#50000000"
-							  android:type="radial"
-							  android:gradientRadius="13dp"
-						/>
-				</shape>
-			</item>
 			<item
 				android:bottom="@dimen/ksw_md_thumb_shadow_inset_bottom"
 				android:gravity="center"
@@ -213,17 +180,6 @@
 						android:width="@dimen/ksw_md_thumb_ripple_size"
 						android:height="@dimen/ksw_md_thumb_ripple_size"/>
 					<solid android:color="@android:color/transparent"/>
-				</shape>
-			</item>
-			<item>
-				<shape android:shape="oval">
-					<gradient android:centerX="0.5"
-							  android:centerY="0.52"
-							  android:endColor="#00000000"
-							  android:startColor="#50000000"
-							  android:type="radial"
-							  android:gradientRadius="13dp"
-						/>
 				</shape>
 			</item>
 			<item
