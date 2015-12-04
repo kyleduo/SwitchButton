@@ -418,7 +418,7 @@ public class SwitchButton extends CompoundButton {
 			default:
 				break;
 		}
-		return true;
+		return super.onTouchEvent(event);
 	}
 
 
