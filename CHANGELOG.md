@@ -10,7 +10,13 @@ This project provides you a convenient way to use and customise a SwitchButton w
 Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
 
 ***
-update 1.3.1 <font color="#FF684A" size="4">(Latest)</font>
+update 1.3.2 <font color="#FF684A" size="4">(Latest)</font>
+---
+*	**setClickable(boolean)** support.
+* 	Bug fix.
+
+***
+update 1.3.1
 ---
 *	Remove shadow of MD style to support under 5.0.
 

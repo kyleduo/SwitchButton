@@ -26,7 +26,7 @@ import android.widget.CompoundButton;
  * SwitchButton
  *
  * @author kyleduo
- * @version 1.2.10
+ * @version 1.3.2
  * @since 2014-09-24
  */
 
@@ -371,7 +371,7 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		if (!isEnabled()) {
+		if (!isEnabled() || !isClickable()) {
 			return false;
 		}
 
@@ -418,7 +418,7 @@ public class SwitchButton extends CompoundButton {
 			default:
 				break;
 		}
-		return super.onTouchEvent(event);
+		return true;
 	}
 
 
