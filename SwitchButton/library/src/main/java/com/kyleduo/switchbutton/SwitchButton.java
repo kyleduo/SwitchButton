@@ -157,6 +157,10 @@ public class SwitchButton extends CompoundButton {
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
 			mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
 			mCurrThumbColor = mThumbColor.getDefaultColor();
+		} else if (!mIsThumbUseDrawable) {
+			//noinspection ConstantConditions
+			thumbWidth = Math.max(thumbWidth, mThumbDrawable.getMinimumWidth());
+			thumbHeight = Math.max(thumbHeight, mThumbDrawable.getMinimumHeight());
 		}
 		mThumbSizeF.set(thumbWidth, thumbHeight);
 
@@ -481,8 +485,11 @@ public class SwitchButton extends CompoundButton {
 
 	@Override
 	public void setChecked(final boolean checked) {
+		// animate before super.setChecked() become user may call setChecked again in OnCheckedChangedListener
+		if (isChecked() != checked) {
+			animateToState(checked);
+		}
 		super.setChecked(checked);
-		animateToState(checked);
 	}
 
 	public void setCheckedImmediately(boolean checked) {
@@ -689,7 +696,6 @@ public class SwitchButton extends CompoundButton {
 		refreshDrawableState();
 		invalidate();
 	}
-
 
 
 }

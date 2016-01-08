@@ -59,9 +59,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		startActivity(new Intent(this, UseActivity.class));
 	}
 
+	private void jumpToRecycler() {
+		startActivity(new Intent(this, RecyclerActivity.class));
+	}
+
 	private void gotoWeibo() {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse("http://weibo.com/u/1762403573"));
+		intent.setData(Uri.parse("http://kyleduo.com"));
 		startActivity(intent);
 	}
 
@@ -85,9 +89,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				jumpToUse();
 				break;
 			case 3:
-				gotoWeibo();
+				jumpToRecycler();
 				break;
 			case 4:
+				gotoWeibo();
+				break;
+			case 5:
 				gotoLicense();
 				break;
 

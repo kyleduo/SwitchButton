@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.kyleduo.switchbutton.demo"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+	package="com.kyleduo.switchbutton.demo"
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<application
 		android:allowBackup="false"
@@ -37,6 +38,15 @@
 		<activity
 			android:name=".StyleInCodeActivity"
 			android:label="@string/title_activity_style_in_code"
+			android:parentActivityName=".MainActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".MainActivity"
+				/>
+		</activity>
+		<activity
+			android:name=".RecyclerActivity"
+			android:label="@string/title_activity_recycler_view"
 			android:parentActivityName=".MainActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"

@@ -70,6 +70,39 @@
 
 		<TextView
 			style="@style/StyleTitleText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/use_check_in_check"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<com.kyleduo.switchbutton.SwitchButton
+				android:id="@+id/use_focus_open"
+				style="@style/SwitchButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+
+			<com.kyleduo.switchbutton.SwitchButton
+				android:id="@+id/use_focus_open_control"
+				style="@style/SwitchButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:kswTintColor="#D02E21"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginBottom="8dp"
+			android:layout_marginTop="8dp"
+			android:background="#cccccc"/>
+
+		<TextView
+			style="@style/StyleTitleText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/use_long"/>

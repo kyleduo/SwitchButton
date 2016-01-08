@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 
 public class UseActivity extends AppCompatActivity implements View.OnClickListener {
 
-	private SwitchButton mListenerSb, mLongSb, mToggleSb, mCheckedSb, mDelaySb;
+	private SwitchButton mListenerSb, mLongSb, mToggleSb, mCheckedSb, mDelaySb, mForceOpenSb, mForceOpenControlSb;
 	private ProgressBar mPb;
 	private Button mStartBt, mToggleAniBt, mToggleNotAniBt, mCheckedAniBt, mCheckNotAniBt;
 	private TextView mListenerFinish;
@@ -90,6 +91,17 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 		// checked
 		mCheckedAniBt.setOnClickListener(this);
 		mCheckNotAniBt.setOnClickListener(this);
+
+		// check in check
+		mForceOpenSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (mForceOpenControlSb.isChecked()) {
+					Toast.makeText(UseActivity.this, "Call mForceOpenSb.setChecked(true); in on CheckedChanged", Toast.LENGTH_SHORT).show();
+					mForceOpenSb.setChecked(true);
+				}
+			}
+		});
 	}
 
 	private void findView() {
@@ -111,6 +123,9 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 
 		mListenerFinish = (TextView) findViewById(R.id.listener_finish);
 		mListenerFinish.setVisibility(mListenerSb.isChecked() ? View.VISIBLE : View.INVISIBLE);
+
+		mForceOpenSb = (SwitchButton) findViewById(R.id.use_focus_open);
+		mForceOpenControlSb = (SwitchButton) findViewById(R.id.use_focus_open_control);
 	}
 
 	@Override
