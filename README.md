@@ -38,6 +38,15 @@ I create a new demo apk to show you how to style the cute widget and use it. The
 Usage
 ---
 
+The usage of SwitchButton is just like CheckBox. Since SwitchButton has addition animation when checked status changed, there are two addition methods for disable animation for single operation.
+
+* __setCheckedImmediatelay(boolean)__: like setChecked but NO animation.
+* __toggleImmediately()__: like toggle but NO animation.
+
+***
+Style
+---
+
 In 1.3.0, I updated the usage of __SwitchButton__ library. To make it more Android way to use, I've combined the thumb and back style each to StateListColor/StateListDrawable. So you are free to create styles in different states.
 
 In __xml__ layout file, you can configure the face of switch button using these attrs.
