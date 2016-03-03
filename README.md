@@ -12,7 +12,7 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 ***
 Change Log
 ---
-[Change Log 1.3.3](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
+[Change Log 1.3.4](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
 Using SwitchButton in your application
 ---
@@ -25,7 +25,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.3.3'
+    	compile 'com.kyleduo.switchbutton:library:1.3.4'
 	}
 ***
 Demo

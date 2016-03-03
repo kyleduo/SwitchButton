@@ -9,8 +9,15 @@ This project provides you a convenient way to use and customise a SwitchButton w
 
 Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
 
+
 ***
-update 1.3.3 <font color="#FF684A" size="4">(Latest)</font>
+update 1.3.4 <font color="#FF684A" size="4">(Latest)</font>
+---
+
+* Fix [#40](https://github.com/kyleduo/SwitchButton/issues/40)
+
+***
+update 1.3.3
 ---
 *	Fix SwitchButtonMD style bug in RecyclerView and add page for test. 
 *	Fix bug in setCheckedImmediately() in onCheckedChanged() method. **(setChecked in onChecked)**
