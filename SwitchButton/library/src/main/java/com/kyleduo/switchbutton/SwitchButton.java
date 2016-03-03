@@ -26,7 +26,6 @@ import android.widget.CompoundButton;
  * SwitchButton
  *
  * @author kyleduo
- * @version 1.3.2
  * @since 2014-09-24
  */
 
@@ -157,8 +156,8 @@ public class SwitchButton extends CompoundButton {
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
 			mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
 			mCurrThumbColor = mThumbColor.getDefaultColor();
-		} else if (!mIsThumbUseDrawable) {
-			//noinspection ConstantConditions
+		}
+		if (mIsThumbUseDrawable) {
 			thumbWidth = Math.max(thumbWidth, mThumbDrawable.getMinimumWidth());
 			thumbHeight = Math.max(thumbHeight, mThumbDrawable.getMinimumHeight());
 		}
