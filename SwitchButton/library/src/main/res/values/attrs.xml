@@ -19,6 +19,8 @@
 		<attr name="kswBackMeasureRatio" format="float"/>
 		<attr name="kswAnimationDuration" format="integer"/>
 		<attr name="kswTintColor" format="color|reference"/>
+		<attr name="kswTextOn" format="string"/>
+		<attr name="kswTextOff" format="string"/>
 	</declare-styleable>
 
 </resources>

@@ -13,6 +13,9 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
@@ -52,7 +55,7 @@ public class SwitchButton extends CompoundButton {
 
 	private int mCurrThumbColor, mCurrBackColor, mNextBackColor;
 	private Drawable mCurrentBackDrawable, mNextBackDrawable;
-	private RectF mThumbRectF, mBackRectF, mSafeRectF;
+	private RectF mThumbRectF, mBackRectF, mSafeRectF, mTextOnRectF, mTextOffRectF;
 	private Paint mPaint;
 	// whether using Drawable for thumb or back
 	private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
@@ -66,6 +69,11 @@ public class SwitchButton extends CompoundButton {
 	private int mTouchSlop;
 	private int mClickTimeout;
 	private Paint mRectPaint;
+	private String mTextOn;
+	private String mTextOff;
+	private TextPaint mTextPaint;
+	private Layout mOnLayout;
+	private Layout mOffLayout;
 
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -91,11 +99,15 @@ public class SwitchButton extends CompoundButton {
 		mRectPaint.setStyle(Paint.Style.STROKE);
 		mRectPaint.setStrokeWidth(getResources().getDisplayMetrics().density);
 
+		mTextPaint = getPaint();
+
 		mThumbRectF = new RectF();
 		mBackRectF = new RectF();
 		mSafeRectF = new RectF();
 		mThumbSizeF = new PointF();
 		mThumbMargin = new RectF();
+		mTextOnRectF = new RectF();
+		mTextOffRectF = new RectF();
 
 		mProcessAnimator = ObjectAnimator.ofFloat(this, "process", 0, 0).setDuration(DEFAULT_ANIMATION_DURATION);
 		mProcessAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -122,6 +134,8 @@ public class SwitchButton extends CompoundButton {
 		int animationDuration = DEFAULT_ANIMATION_DURATION;
 		boolean fadeBack = true;
 		int tintColor = Integer.MIN_VALUE;
+		String textOn = null;
+		String textOff = null;
 
 		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
 		if (ta != null) {
@@ -142,8 +156,14 @@ public class SwitchButton extends CompoundButton {
 			animationDuration = ta.getInteger(R.styleable.SwitchButton_kswAnimationDuration, animationDuration);
 			fadeBack = ta.getBoolean(R.styleable.SwitchButton_kswFadeBack, true);
 			tintColor = ta.getColor(R.styleable.SwitchButton_kswTintColor, tintColor);
+			textOn = ta.getString(R.styleable.SwitchButton_kswTextOn);
+			textOff = ta.getString(R.styleable.SwitchButton_kswTextOff);
 			ta.recycle();
 		}
+
+		// text
+		mTextOn = textOn;
+		mTextOff = textOff;
 
 		// thumb drawable and color
 		mThumbDrawable = thumbDrawable;
@@ -195,8 +215,19 @@ public class SwitchButton extends CompoundButton {
 		}
 	}
 
+
+	private Layout makeLayout(CharSequence text) {
+		return new StaticLayout(text, mTextPaint, (int) Math.ceil(Layout.getDesiredWidth(text, mTextPaint)), Layout.Alignment.ALIGN_NORMAL, 1.f, 0, false);
+	}
+
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		if (mOnLayout == null) {
+            mOnLayout = makeLayout(mTextOn == null ? "" : mTextOn);
+        }
+        if (mOffLayout == null) {
+            mOffLayout = makeLayout(mTextOff == null ? "" : mTextOff);
+        }
 		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
 	}
 
@@ -279,6 +310,14 @@ public class SwitchButton extends CompoundButton {
 		if (mBackDrawable != null) {
 			mBackDrawable.setBounds((int) mBackRectF.left, (int) mBackRectF.top, (int) mBackRectF.right, (int) mBackRectF.bottom);
 		}
+
+		float marginOnX = Math.max(0, (mBackRectF.width() - mThumbRectF.width() - mOnLayout.getWidth()) / 2);
+		float marginOnY = Math.max(0, (mBackRectF.height() - mOnLayout.getHeight()) / 2);
+		mTextOnRectF.set(mBackRectF.left + marginOnX, mBackRectF.top + marginOnY, mBackRectF.right - mThumbRectF.width() - marginOnX, mBackRectF.bottom - marginOnY);
+
+		float marginOffX = Math.max(0, (mBackRectF.width() - mThumbRectF.width() - mOffLayout.getWidth()) / 2);
+		float marginOffY = Math.max(0, (mBackRectF.height() - mOffLayout.getHeight()) / 2);
+		mTextOffRectF.set(mBackRectF.left + mThumbRectF.width() + marginOffX, mBackRectF.top + marginOffY, mBackRectF.right - marginOffX, mBackRectF.bottom - marginOffY);
 	}
 
 	@Override
@@ -324,6 +363,14 @@ public class SwitchButton extends CompoundButton {
 			}
 		}
 
+		// text
+		Layout switchText = isChecked() ? mOnLayout : mOffLayout;
+		RectF textRectF = isChecked() ? mTextOnRectF : mTextOffRectF;
+		canvas.save();
+		canvas.translate(textRectF.left, textRectF.top);
+		switchText.draw(canvas);
+		canvas.restore();
+
 		// thumb
 		mPresentThumbRectF.set(mThumbRectF);
 		mPresentThumbRectF.offset(mProcess * mSafeRectF.width(), 0);
@@ -340,6 +387,8 @@ public class SwitchButton extends CompoundButton {
 			canvas.drawRect(mBackRectF, mRectPaint);
 			mRectPaint.setColor(Color.parseColor("#0000FF"));
 			canvas.drawRect(mPresentThumbRectF, mRectPaint);
+			mRectPaint.setColor(Color.parseColor("#00CC00"));
+			canvas.drawRect(isChecked() ? mTextOnRectF : mTextOffRectF, mRectPaint);
 		}
 	}
 
