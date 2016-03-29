@@ -9,6 +9,7 @@
 
 	<!-- style title -->
 	<string name="style_default">Default Style</string>
+	<string name="style_text">With Status Text</string>
 	<string name="style_nofade">Default Style without background fade effect.</string>
 	<string name="style_tint_color">Custom by tint color</string>
 	<string name="style_custom">Custom Style</string>
