@@ -2,8 +2,13 @@ package com.kyleduo.switchbutton.demo;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +33,7 @@ public class StyleInCodeActivity extends ActionBarActivity implements AdapterVie
 			"setFadeBack",
 			"setBackMeasureRatio",
 			"setAnimationDuration",
+			"setText",
 			"setDrawDebugRect",
 	};
 
@@ -97,7 +103,18 @@ public class StyleInCodeActivity extends ActionBarActivity implements AdapterVie
 				mChangeSb.setAnimationDuration(mAnimationDurationFlag ? SwitchButton.DEFAULT_ANIMATION_DURATION : 1000);
 				mAnimationDurationFlag = !mAnimationDurationFlag;
 				break;
-			case 12:
+			case 12: {
+				SpannableString ss = new SpannableString("abc");
+				Drawable d = getResources().getDrawable(R.drawable.icon_blog);
+				if (d != null) {
+					d.setBounds(0, d.getIntrinsicWidth() / 4, d.getIntrinsicWidth() / 2, d.getIntrinsicHeight() * 3 / 4);
+					ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
+					ss.setSpan(span, 0, 3, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+					mChangeSb.setText(ss, "OFF");
+				}
+			}
+			break;
+			case 13:
 				mChangeSb.setDrawDebugRect(!mChangeSb.isDrawDebugRect());
 				break;
 			default:

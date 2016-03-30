@@ -12,10 +12,13 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
@@ -70,8 +73,8 @@ public class SwitchButton extends CompoundButton {
 	private int mTouchSlop;
 	private int mClickTimeout;
 	private Paint mRectPaint;
-	private String mTextOn;
-	private String mTextOff;
+	private CharSequence mTextOn;
+	private CharSequence mTextOff;
 	private TextPaint mTextPaint;
 	private Layout mOnLayout;
 	private Layout mOffLayout;
@@ -354,7 +357,7 @@ public class SwitchButton extends CompoundButton {
 
 		if (mOffLayout != null) {
 			float marginOffX = mBackRectF.right - (mBackRectF.width() - mThumbRectF.width() - mOffLayout.getWidth()) / 2 + mThumbMargin.right - mOffLayout.getWidth() - mTextMarginH * (mThumbMargin.right > 0 ? 1 : -1);
-			float marginOffY = mBackRectF.top + (mBackRectF.height() - mOnLayout.getHeight()) / 2;
+			float marginOffY = mBackRectF.top + (mBackRectF.height() - mOffLayout.getHeight()) / 2;
 			mTextOffRectF.set(marginOffX, marginOffY, marginOffX + mOffLayout.getWidth(), marginOffY + mOffLayout.getHeight());
 		}
 	}
@@ -406,7 +409,7 @@ public class SwitchButton extends CompoundButton {
 		Layout switchText = getProcess() > 0.5 ? mOnLayout : mOffLayout;
 		RectF textRectF = getProcess() > 0.5 ? mTextOnRectF : mTextOffRectF;
 		if (switchText != null && textRectF != null) {
-			int alpha = (int) (255 * (getProcess() > 0.5 ? getProcess() * 2 - 1 : (1 - getProcess()) * 2));
+			int alpha = (int) (255 * (getProcess() >= 0.75 ? getProcess() * 4 - 3 : (getProcess() < 0.25 ? 1 - getProcess() * 4 : 0)));
 			int textColor = getProcess() > 0.5 ? mOnTextColor : mOffTextColor;
 			int colorAlpha = Color.alpha(textColor);
 			colorAlpha = colorAlpha * alpha / 255;
@@ -797,5 +800,63 @@ public class SwitchButton extends CompoundButton {
 		invalidate();
 	}
 
+	public void setText(CharSequence onText, CharSequence offText) {
+		mTextOn = onText;
+		mTextOff = offText;
 
+		mOnLayout = null;
+		mOffLayout = null;
+
+		requestLayout();
+	}
+
+
+	@Override
+	public Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+		SavedState ss = new SavedState(superState);
+		ss.onText = mTextOn;
+		ss.offText = mTextOff;
+		return ss;
+	}
+
+	@Override
+	public void onRestoreInstanceState(Parcelable state) {
+		SavedState ss = (SavedState) state;
+		setText(ss.onText, ss.offText);
+		super.onRestoreInstanceState(ss.getSuperState());
+	}
+
+	static class SavedState extends BaseSavedState {
+		CharSequence onText;
+		CharSequence offText;
+
+		SavedState(Parcelable superState) {
+			super(superState);
+		}
+
+		private SavedState(Parcel in) {
+			super(in);
+			onText = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+			offText = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+		}
+
+		@Override
+		public void writeToParcel(Parcel out, int flags) {
+			super.writeToParcel(out, flags);
+			TextUtils.writeToParcel(onText, out, flags);
+			TextUtils.writeToParcel(offText, out, flags);
+		}
+
+		public static final Parcelable.Creator<SavedState> CREATOR
+				= new Parcelable.Creator<SavedState>() {
+			public SavedState createFromParcel(Parcel in) {
+				return new SavedState(in);
+			}
+
+			public SavedState[] newArray(int size) {
+				return new SavedState[size];
+			}
+		};
+	}
 }
