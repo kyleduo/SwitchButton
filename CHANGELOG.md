@@ -16,6 +16,7 @@ update 1.4.0 <font color="#FF684A" size="4">(Latest)</font>
 
 * Add text feature. You can set text for either checked or unchecked status with __kswTextOn__ and __kswTextOff__ attrs. And you can set the margin of text in horizontal direction using __kswTextMarginH__ attr.
 * For additional, you can set small icons now by using SpannableString with __setText()__ method in code.
+* Thanks [@lpmfilho](https://github.com/lpmfilho)
 
 ***
 update 1.3.4 
