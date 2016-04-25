@@ -209,7 +209,7 @@
                 app:kswAnimationDuration="300"
                 app:kswBackDrawable="@drawable/ios_back_drawable"
                 app:kswBackMeasureRatio="1.4"
-                app:kswThumbDrawable="@drawable/ios_thumb"
+                app:kswThumbDrawable="@drawable/ios_thumb_selector"
                 app:kswThumbMarginBottom="-8dp"
                 app:kswThumbMarginLeft="-5dp"
                 app:kswThumbMarginRight="-5dp"

@@ -5,7 +5,7 @@
 			  android:layout_height="match_parent"
 			  android:background="#fafafa"
 			  android:orientation="vertical"
-			  tools:context="com.kyleduo.switchbuttondemo.MainActivity">
+			  tools:context="com.kyleduo.switchbutton.demo.MainActivity">
 
 	<ListView
 		android:id="@+id/list"
