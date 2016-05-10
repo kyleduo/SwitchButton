@@ -67,7 +67,7 @@ In __xml__ layout file, you can configure the face of switch button using these 
 *   __kswFadeBack__: fade background color/drawable when drag or animate between on/off status or not
 *   __kswBackMeasureRatio__: decide width of background from thumb's, this is the ratio
 *   __kswAnimationDuration__: duration of animation between 2 status
-*   __kswTintColor__: change SwitchButton's style just by __one__ property, all relevant color will be generate automatically.
+*   __kswTintColor__: change SwitchButton's style just by __one__ property, all relevant color will be generate automatically. Do not support `SwitchButtonMD` or other style created by xml resources.
 *   __kswTextOn__: text for checked status.
 *   __kswTextOff__: text for unchecked status.
 *   __kswTextMarginH__: horizontal margin of text.
