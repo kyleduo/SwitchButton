@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 
 	private SwitchButton mListenerSb, mLongSb, mToggleSb, mCheckedSb, mDelaySb, mForceOpenSb, mForceOpenControlSb;
 	private ProgressBar mPb;
-	private Button mStartBt, mToggleAniBt, mToggleNotAniBt, mCheckedAniBt, mCheckNotAniBt;
+	private Button mStartBt;
 	private TextView mListenerFinish;
 
 	@Override
@@ -26,6 +27,17 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 		setContentView(R.layout.activity_use);
 
 		findView();
+
+		LinearLayout toggleWrapper = (LinearLayout) findViewById(R.id.toggle_wrapper);
+		for (int i = 0; i < toggleWrapper.getChildCount(); i++) {
+			toggleWrapper.getChildAt(i).setOnClickListener(this);
+		}
+
+		LinearLayout checkWrapper = (LinearLayout) findViewById(R.id.check_wrapper);
+		for (int i = 0; i < checkWrapper.getChildCount(); i++) {
+			checkWrapper.getChildAt(i).setOnClickListener(this);
+		}
+
 
 		// work with listener
 		mListenerSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -84,20 +96,12 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 			}
 		});
 
-		// toggle
-		mToggleAniBt.setOnClickListener(this);
-		mToggleNotAniBt.setOnClickListener(this);
-
-		// checked
-		mCheckedAniBt.setOnClickListener(this);
-		mCheckNotAniBt.setOnClickListener(this);
-
 		// check in check
 		mForceOpenSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (mForceOpenControlSb.isChecked()) {
-					Toast.makeText(UseActivity.this, "Call mForceOpenSb.setChecked(true); in on CheckedChanged", Toast.LENGTH_SHORT).show();
+					toast("Call mForceOpenSb.setChecked(true); in on CheckedChanged");
 					mForceOpenSb.setChecked(true);
 				}
 			}
@@ -116,16 +120,26 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 		mPb.setMax(1000);
 
 		mStartBt = (Button) findViewById(R.id.long_start);
-		mToggleAniBt = (Button) findViewById(R.id.toggle_ani);
-		mToggleNotAniBt = (Button) findViewById(R.id.toggle_not_ani);
-		mCheckedAniBt = (Button) findViewById(R.id.checked_ani);
-		mCheckNotAniBt = (Button) findViewById(R.id.checked_not_ani);
 
 		mListenerFinish = (TextView) findViewById(R.id.listener_finish);
 		mListenerFinish.setVisibility(mListenerSb.isChecked() ? View.VISIBLE : View.INVISIBLE);
 
 		mForceOpenSb = (SwitchButton) findViewById(R.id.use_focus_open);
 		mForceOpenControlSb = (SwitchButton) findViewById(R.id.use_focus_open_control);
+
+		mToggleSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				toast("Toggle SwitchButton new check state: " + (isChecked ? "Checked" : "Unchecked"));
+			}
+		});
+
+		mCheckedSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				toast("Check SwitchButton new check state: " + (isChecked ? "Checked" : "Unchecked"));
+			}
+		});
 	}
 
 	@Override
@@ -135,18 +149,33 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 			case R.id.toggle_ani:
 				mToggleSb.toggle();
 				break;
+			case R.id.toggle_ani_no_event:
+				mToggleSb.toggleNoEvent();
+				break;
 			case R.id.toggle_not_ani:
 				mToggleSb.toggleImmediately();
+				break;
+			case R.id.toggle_not_ani_no_event:
+				mToggleSb.toggleImmediatelyNoEvent();
 				break;
 			case R.id.checked_ani:
 				mCheckedSb.setChecked(!mCheckedSb.isChecked());
 				break;
+			case R.id.checked_ani_no_event:
+				mCheckedSb.setCheckedNoEvent(!mCheckedSb.isChecked());
+				break;
 			case R.id.checked_not_ani:
 				mCheckedSb.setCheckedImmediately(!mCheckedSb.isChecked());
 				break;
-
+			case R.id.checked_not_ani_no_event:
+				mCheckedSb.setCheckedImmediatelyNoEvent(!mCheckedSb.isChecked());
+				break;
 			default:
 				break;
 		}
+	}
+
+	private void toast(String text) {
+		Toast.makeText(UseActivity.this, text, Toast.LENGTH_SHORT).show();
 	}
 }

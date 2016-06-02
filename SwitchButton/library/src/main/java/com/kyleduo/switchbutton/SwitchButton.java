@@ -82,6 +82,8 @@ public class SwitchButton extends CompoundButton {
 	private float mTextHeight;
 	private float mTextMarginH;
 
+	private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
+
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(attrs);
@@ -597,6 +599,52 @@ public class SwitchButton extends CompoundButton {
 			animateToState(checked);
 		}
 		super.setChecked(checked);
+	}
+
+	public void setCheckedNoEvent(final boolean checked) {
+		if (mChildOnCheckedChangeListener == null) {
+			setChecked(checked);
+		} else {
+			super.setOnCheckedChangeListener(null);
+			setChecked(checked);
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	public void setCheckedImmediatelyNoEvent(boolean checked) {
+		if (mChildOnCheckedChangeListener == null) {
+			setCheckedImmediately(checked);
+		} else {
+			super.setOnCheckedChangeListener(null);
+			setCheckedImmediately(checked);
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	public void toggleNoEvent() {
+		if (mChildOnCheckedChangeListener == null) {
+			toggle();
+		} else {
+			super.setOnCheckedChangeListener(null);
+			toggle();
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	public void toggleImmediatelyNoEvent() {
+		if (mChildOnCheckedChangeListener == null) {
+			toggleImmediately();
+		} else {
+			super.setOnCheckedChangeListener(null);
+			toggleImmediately();
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	@Override
+	public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+		super.setOnCheckedChangeListener(onCheckedChangeListener);
+		mChildOnCheckedChangeListener = onCheckedChangeListener;
 	}
 
 	public void setCheckedImmediately(boolean checked) {

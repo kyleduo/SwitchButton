@@ -249,13 +249,31 @@
             android:layout_height="wrap_content"
             android:text="@string/style_disable_opt"/>
 
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/sb_disable_control"
-            style="@style/SwitchButtonStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            />
+            android:orientation="horizontal">
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_disable_control"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                />
+
+            <com.kyleduo.switchbutton.SwitchButton
+                android:id="@+id/sb_disable_control_no_event"
+                style="@style/SwitchButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disable_no_event"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -1,59 +1,65 @@
 <resources>
-	<string name="app_name">SwitchButton Demo</string>
+    <string name="app_name">SwitchButton Demo</string>
 
-	<string name="hello_world">Hello world!</string>
-	<string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
-	<string name="copyright">version&#160;<b>1.4.0</b>\nby&#160;<b>kyleduo</b></string>
-	<string name="license">Apache License 2.0</string>
+    <string name="copyright">version&#160;<b>1.4.0</b>\nby&#160;<b>kyleduo</b></string>
+    <string name="license">Apache License 2.0</string>
 
-	<!-- style title -->
-	<string name="style_default">Default Style</string>
-	<string name="style_text">With Status Text</string>
-	<string name="style_nofade">Default Style without background fade effect.</string>
-	<string name="style_tint_color">Custom by tint color</string>
-	<string name="style_custom">Custom Style</string>
-	<string name="style_flyme">Flyme5 Style</string>
-	<string name="style_miui">MIUI7 Style</string>
-	<string name="style_md_ios">Material Design &#038; iOS Style</string>
-	<string name="style_disable">Disable state</string>
-	<string name="style_disable_opt">Toggle the others\' enable state</string>
-	<string name="enable_title">enable/disable other SwitchButtons</string>
+    <!-- style title -->
+    <string name="style_default">Default Style</string>
+    <string name="style_text">With Status Text</string>
+    <string name="style_nofade">Default Style without background fade effect.</string>
+    <string name="style_tint_color">Custom by tint color</string>
+    <string name="style_custom">Custom Style</string>
+    <string name="style_flyme">Flyme5 Style</string>
+    <string name="style_miui">MIUI7 Style</string>
+    <string name="style_md_ios">Material Design &#038; iOS Style</string>
+    <string name="style_disable">Disable state</string>
+    <string name="style_disable_opt">Toggle the others\' enable state</string>
+    <string name="enable_title">enable/disable other SwitchButtons</string>
 
-	<!-- use title -->
-	<string name="use_listener">Work with listener</string>
-	<string name="use_delay">Work with delay</string>
-	<string name="use_check_in_check">call setChecked(boolean)/setCheckedImmediately(boolean) in OnCheckedChangeListener\nIf the second SwitchButton is checked, the first one was "locked" to checked state.</string>
-	<string name="use_listener_finish">You did it!</string>
-	<string name="use_long">work with stuff takes long</string>
-	<string name="use_long_hint">Click "Start" button to kick it off.</string>
-	<string name="use_long_finish">Click "Start" button to kick it off.</string>
-	<string name="use_toggle">2 ways to TOGGLE</string>
-	<string name="use_checked">2 ways to SET_CHECKED</string>
-	<string name="toggle_animated">toggle();</string>
-	<string name="toggle_not_animated">toggleImmediately();</string>
-	<string name="checked_animated">setChecked(boolean);</string>
-	<string name="checked_not_animated">setCheckedImmediately(boolean);</string>
-	<string name="bt_start">Start</string>
+    <!-- use title -->
+    <string name="use_listener">Work with listener</string>
+    <string name="use_listener_no_event">Same as above, but not trigger listener</string>
+    <string name="use_delay">Work with delay</string>
+    <string name="use_check_in_check">call setChecked(boolean)/setCheckedImmediately(boolean) in OnCheckedChangeListener\nIf the second SwitchButton is checked, the first one was "locked" to checked state.</string>
+    <string name="use_listener_finish">You did it!</string>
+    <string name="use_long">work with stuff takes long</string>
+    <string name="use_long_hint">Click "Start" button to kick it off.</string>
+    <string name="use_long_finish">Click "Start" button to kick it off.</string>
+    <string name="use_toggle">2 ways to TOGGLE</string>
+    <string name="use_checked">2 ways to SET_CHECKED</string>
+    <string name="toggle_animated">toggle();</string>
+    <string name="toggle_animated_no_event">toggleNoEvent();</string>
+    <string name="toggle_not_animated">toggleImmediately();</string>
+    <string name="toggle_not_animated_no_event">toggleImmediatelyNoEvent();</string>
+    <string name="checked_animated">setChecked(boolean);</string>
+    <string name="checked_animated_no_event">setCheckedNoEvent(boolean);</string>
+    <string name="checked_not_animated">setCheckedImmediately(boolean);</string>
+    <string name="checked_not_animated_no_event">setCheckedImmediatelyNoEvent(boolean);</string>
+    <string name="bt_start">Start</string>
 
-	<style name="style_in_code">Change properties in code.</style>
+    <style name="style_in_code">Change properties in code.</style>
 
-	<!-- menu -->
-	<string name="action_github">view in github</string>
-	<string name="action_blog">my blog</string>
+    <!-- menu -->
+    <string name="action_github">view in github</string>
+    <string name="action_blog">my blog</string>
 
-	<!-- contents -->
-	<string-array name="contents">
-		<item>@string/title_activity_style</item>
-		<item>@string/title_activity_style_in_code</item>
-		<item>@string/title_activity_use</item>
-		<item>@string/title_activity_recycler_view</item>
-		<item>@string/copyright</item>
-		<item>@string/license</item>
-	</string-array>
+    <!-- contents -->
+    <string-array name="contents">
+        <item>@string/title_activity_style</item>
+        <item>@string/title_activity_style_in_code</item>
+        <item>@string/title_activity_use</item>
+        <item>@string/title_activity_recycler_view</item>
+        <item>@string/copyright</item>
+        <item>@string/license</item>
+    </string-array>
 
-	<string name="title_activity_style">Style in xml</string>
-	<string name="title_activity_use">Easy to use</string>
-	<string name="title_activity_style_in_code">Style in code</string>
-	<string name="title_activity_recycler_view">Used in RecyclerView</string>
+    <string name="title_activity_style">Style in xml</string>
+    <string name="title_activity_use">Easy to use</string>
+    <string name="title_activity_style_in_code">Style in code</string>
+    <string name="title_activity_recycler_view">Used in RecyclerView</string>
+    <string name="disable_no_event">The right SwitchButton was checked in code using setCheckedImmediatelyNoEvent when first enter, so no effects there.</string>
 </resources>
