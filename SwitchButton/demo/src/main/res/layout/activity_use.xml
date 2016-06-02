@@ -172,6 +172,7 @@
 				android:focusable="false"/>
 
 			<LinearLayout
+                android:id="@+id/toggle_wrapper"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_toLeftOf="@id/sb_use_toggle"
@@ -185,6 +186,14 @@
 					android:textAllCaps="false"
 					android:textSize="12sp"/>
 
+                <Button
+                    android:id="@+id/toggle_ani_no_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/toggle_animated_no_event"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+
 				<Button
 					android:id="@+id/toggle_not_ani"
 					android:layout_width="match_parent"
@@ -192,6 +201,14 @@
 					android:text="@string/toggle_not_animated"
 					android:textAllCaps="false"
 					android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/toggle_not_ani_no_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/toggle_not_animated_no_event"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
 			</LinearLayout>
 		</RelativeLayout>
 
@@ -223,6 +240,7 @@
 				android:focusable="false"/>
 
 			<LinearLayout
+                android:id="@+id/check_wrapper"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_toLeftOf="@id/sb_use_checked"
@@ -236,6 +254,14 @@
 					android:textAllCaps="false"
 					android:textSize="12sp"/>
 
+                <Button
+                    android:id="@+id/checked_ani_no_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checked_animated_no_event"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+
 				<Button
 					android:id="@+id/checked_not_ani"
 					android:layout_width="match_parent"
@@ -243,6 +269,14 @@
 					android:text="@string/checked_not_animated"
 					android:textAllCaps="false"
 					android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/checked_not_ani_no_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checked_not_animated_no_event"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
 			</LinearLayout>
 		</RelativeLayout>
 	</LinearLayout>

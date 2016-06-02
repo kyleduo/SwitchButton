@@ -82,6 +82,8 @@ public class SwitchButton extends CompoundButton {
 	private float mTextHeight;
 	private float mTextMarginH;
 
+	private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
+
 	public SwitchButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(attrs);
@@ -246,7 +248,7 @@ public class SwitchButton extends CompoundButton {
 		int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		int measuredWidth;
 
-		int minWidth = (int) (mThumbSizeF.x * mBackMeasureRatio);
+		int minWidth = ceil(mThumbSizeF.x * mBackMeasureRatio);
 		if (mIsBackUseDrawable) {
 			minWidth = Math.max(minWidth, mBackDrawable.getMinimumWidth());
 		}
@@ -259,7 +261,7 @@ public class SwitchButton extends CompoundButton {
 				minWidth += mTextWidth - left;
 			}
 		}
-		minWidth = Math.max(minWidth, (int) (minWidth + mThumbMargin.left + mThumbMargin.right));
+		minWidth = Math.max(minWidth, ceil(minWidth + mThumbMargin.left + mThumbMargin.right));
 		minWidth = Math.max(minWidth, minWidth + getPaddingLeft() + getPaddingRight());
 		minWidth = Math.max(minWidth, getSuggestedMinimumWidth());
 
@@ -280,12 +282,12 @@ public class SwitchButton extends CompoundButton {
 		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 		int measuredHeight;
 
-		int minHeight = (int) Math.max(mThumbSizeF.y, mThumbSizeF.y + mThumbMargin.top + mThumbMargin.right);
+		int minHeight = ceil(Math.max(mThumbSizeF.y, mThumbSizeF.y + mThumbMargin.top + mThumbMargin.right));
 		float onHeight = mOnLayout != null ? mOnLayout.getHeight() : 0;
 		float offHeight = mOffLayout != null ? mOffLayout.getHeight() : 0;
 		if (onHeight != 0 || offHeight != 0) {
 			mTextHeight = Math.max(onHeight, offHeight);
-			minHeight = (int) Math.max(minHeight, mTextHeight);
+			minHeight = ceil(Math.max(minHeight, mTextHeight));
 		}
 		minHeight = Math.max(minHeight, getSuggestedMinimumHeight());
 		minHeight = Math.max(minHeight, minHeight + getPaddingTop() + getPaddingBottom());
@@ -308,6 +310,10 @@ public class SwitchButton extends CompoundButton {
 		if (w != oldw || h != oldh) {
 			setup();
 		}
+	}
+
+	private int ceil(double dimen) {
+		return (int) Math.ceil(dimen);
 	}
 
 	/**
@@ -346,7 +352,7 @@ public class SwitchButton extends CompoundButton {
 		mBackRadius = Math.min(minBackRadius, mBackRadius);
 
 		if (mBackDrawable != null) {
-			mBackDrawable.setBounds((int) mBackRectF.left, (int) mBackRectF.top, (int) mBackRectF.right, (int) mBackRectF.bottom);
+			mBackDrawable.setBounds((int) mBackRectF.left, (int) mBackRectF.top, ceil(mBackRectF.right), ceil(mBackRectF.bottom));
 		}
 
 		if (mOnLayout != null) {
@@ -424,7 +430,7 @@ public class SwitchButton extends CompoundButton {
 		mPresentThumbRectF.set(mThumbRectF);
 		mPresentThumbRectF.offset(mProcess * mSafeRectF.width(), 0);
 		if (mIsThumbUseDrawable) {
-			mThumbDrawable.setBounds((int) mPresentThumbRectF.left, (int) mPresentThumbRectF.top, (int) mPresentThumbRectF.right, (int) mPresentThumbRectF.bottom);
+			mThumbDrawable.setBounds((int) mPresentThumbRectF.left, (int) mPresentThumbRectF.top, ceil(mPresentThumbRectF.right), ceil(mPresentThumbRectF.bottom));
 			mThumbDrawable.draw(canvas);
 		} else {
 			mPaint.setColor(mCurrThumbColor);
@@ -593,6 +599,52 @@ public class SwitchButton extends CompoundButton {
 			animateToState(checked);
 		}
 		super.setChecked(checked);
+	}
+
+	public void setCheckedNoEvent(final boolean checked) {
+		if (mChildOnCheckedChangeListener == null) {
+			setChecked(checked);
+		} else {
+			super.setOnCheckedChangeListener(null);
+			setChecked(checked);
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	public void setCheckedImmediatelyNoEvent(boolean checked) {
+		if (mChildOnCheckedChangeListener == null) {
+			setCheckedImmediately(checked);
+		} else {
+			super.setOnCheckedChangeListener(null);
+			setCheckedImmediately(checked);
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	public void toggleNoEvent() {
+		if (mChildOnCheckedChangeListener == null) {
+			toggle();
+		} else {
+			super.setOnCheckedChangeListener(null);
+			toggle();
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	public void toggleImmediatelyNoEvent() {
+		if (mChildOnCheckedChangeListener == null) {
+			toggleImmediately();
+		} else {
+			super.setOnCheckedChangeListener(null);
+			toggleImmediately();
+			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+		}
+	}
+
+	@Override
+	public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+		super.setOnCheckedChangeListener(onCheckedChangeListener);
+		mChildOnCheckedChangeListener = onCheckedChangeListener;
 	}
 
 	public void setCheckedImmediately(boolean checked) {
