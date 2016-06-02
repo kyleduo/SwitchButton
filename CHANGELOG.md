@@ -3,7 +3,7 @@ Change Log
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/project/switchbutton/switchbutton_demo_140.apk).**
+**To get a quick preview, you can find Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_141.apk).**
 
 This project provides you a convenient way to use and customise a SwitchButton widget in Android. With just resources changed and attrs set, you can create a lifelike SwitchButton of Android 5.0+, iOS, MIUI, or Flyme and so on.
 
@@ -11,7 +11,13 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 
 
 ***
-update 1.4.0 <font color="#FF684A" size="4">(Latest)</font>
+update 1.4.1 <font color="#FF684A" size="4">(Latest)</font>
+---
+
+* fixed [#49](https://github.com/kyleduo/SwitchButton/issues/49).
+* Support operation without onCheckedChanged callback.
+
+update 1.4.0
 ---
 
 * Add text feature. You can set text for either checked or unchecked status with __kswTextOn__ and __kswTextOff__ attrs. And you can set the margin of text in horizontal direction using __kswTextMarginH__ attr.

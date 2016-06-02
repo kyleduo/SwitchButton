@@ -3,7 +3,7 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-**To get a quick preview, you can find the Demo in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [My Blog](http://kyleduo.com/project/switchbutton/switchbutton_demo_140.apk).**
+**To get a quick preview, you can get Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_141.apk).**
 
 This project provides you a convenient way to use and customise a SwitchButton widget in Android. With just resources changed and attrs set, you can create a lifelike SwitchButton of Android 5.0+, iOS, MIUI, or Flyme and so on.
 
@@ -12,7 +12,7 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 ***
 Change Log
 ---
-[Change Log 1.4.0](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
+[Change Log 1.4.1](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
 Using SwitchButton in your application
 ---
@@ -25,7 +25,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.4.0'
+    	compile 'com.kyleduo.switchbutton:library:1.4.1'
 	}
 ***
 Demo
@@ -38,10 +38,23 @@ I create a new demo apk to show you how to style the cute widget and use it. The
 Usage
 ---
 
-The usage of SwitchButton is just like CheckBox. Since SwitchButton has addition animation when checked status changed, there are two addition methods for disable animation for single operation.
+The usage of SwitchButton is just like CheckBox. The basic control APIs of SwitchButton.
 
-* __setCheckedImmediatelay(boolean)__: like setChecked but NO animation.
+* __setChecked(boolean)__
+* __toggle()__
+
+Since SwitchButton has addition animation when checked status changed, there are two addition methods for disable animation for single operation.
+
+* __setCheckedImmediately(boolean)__: like setChecked but NO animation.
 * __toggleImmediately()__: like toggle but NO animation.
+
+From **version 1.4.1** on, SwitchButton support operation without onCheckedChanged callback. It makes changing state in code more convenient. Using these methods to achieve that feature.
+
+
+* __setCheckedNoEvent(boolean)__
+* __setCheckedImmediatelyNoEvent(boolean)__
+* __toggleNoEvent()__
+* __toggleImmediatelyNoEvent()__
 
 ***
 Style
