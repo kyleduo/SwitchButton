@@ -106,6 +106,13 @@ private String[] opts = new String[]{
 	};
 ```
 
+Beautiful Apps
+---
+
+If you're using SwitchButton in your app, hope you can email me your app's name and link and I'll create a list here. :-) [kyleduo@gmail.com](mailto:kyleduo@gmail.com)
+
+
+
 License
 ---
 
