@@ -109,7 +109,7 @@ private String[] opts = new String[]{
 Beautiful Apps
 ---
 
-If you're using SwitchButton in your app, hope you can email me your app's name and link and I'll create a list here. :-) [kyleduo@gmail.com](mailto:kyleduo@gmail.com)
+If you're using SwitchButton in your app, wish you can email me the name and link of your app and I'll create a list here. And that should be an utmost encouragement to me. :-) [kyleduo@gmail.com](mailto:kyleduo@gmail.com)
 
 
 
