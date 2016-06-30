@@ -110,6 +110,46 @@ private String[] opts = new String[]{
 	};
 ```
 
+Material Design Switch Example
+---
+
+According to [Material Design Guide](https://material.google.com/components/selection-controls.html#selection-controls-checkbox) a SwitchButton must have two states, the following is an example of how to achieve that.
+
+1.- First create a Switch in your xml
+```
+<com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/fieldSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/colorWhite"
+        app:kswBackColor="@color/colorGray"
+        app:kswThumbColor="@color/colorGrayLight"
+        app:kswThumbHeight="26dp"
+        app:kswThumbMargin="-5dp"
+        app:kswThumbWidth="26dp" />
+```
+
+As you can see the button is using colors in the `colors.xml` file. Is also important to notice that `app:kswThumbMargin="-5dp"` is using a negative margin, this will make the background thinner than the thumb.
+
+2.- Then, find the Switch in your JAVA and add a `setOnCheckChangedListener`, this will be use to change the appearance when the user press it:
+```
+fieldSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    fieldSwitch.setThumbColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark)));
+                    fieldSwitch.setBackColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorPrimaryTransparent)));
+                } else {
+                    fieldSwitch.setThumbColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorGrayLight)));
+                    fieldSwitch.setBackColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.colorGray)));
+                }
+            }
+        });
+```
+
+When the Switch is **off** the original apperance will be restore, and if it is **on** then the button will be colored using the theme primary colors.
+
 Beautiful Apps
 ---
 
