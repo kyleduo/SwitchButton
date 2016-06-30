@@ -62,7 +62,11 @@ Style
 
 In 1.3.0, I updated the usage of __SwitchButton__ library. To make it more Android way to use, I've combined the thumb and back style each to StateListColor/StateListDrawable. So you are free to create styles in different states.
 
-In __xml__ layout file, you can configure the face of switch button using these attrs.
+In __xml__ layout file, you can configure the face of switch button using these attrs. Every attrs is allocated in the name space `app`. The next is an example and below you can find a list of all the attrs:
+
+```
+app:kswThumbHeight="26dp"
+```
 
 *   __kswThumbDrawable__: drawable for thumb
 *   __kswThumbColor__: color for thumb
@@ -78,7 +82,7 @@ In __xml__ layout file, you can configure the face of switch button using these 
 *   __kswBackDrawable__: drawable for background
 *   __kswBackColor__: color for background
 *   __kswFadeBack__: fade background color/drawable when drag or animate between on/off status or not
-*   __kswBackMeasureRatio__: decide width of background from thumb's, this is the ratio
+*   __kswBackMeasureRatio__: decide width of background from thumb's in float value ("3.4" by example), this is the ratio
 *   __kswAnimationDuration__: duration of animation between 2 status
 *   __kswTintColor__: change SwitchButton's style just by __one__ property, all relevant color will be generate automatically. Do not support `SwitchButtonMD` or other style created by xml resources.
 *   __kswTextOn__: text for checked status.
