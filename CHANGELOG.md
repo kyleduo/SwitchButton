@@ -9,9 +9,14 @@ This project provides you a convenient way to use and customise a SwitchButton w
 
 Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
 
+***
+update 1.4.2 <font color="#FF684A" size="4">(Latest)</font>
+---
+
+* Support [#49](https://github.com/kyleduo/SwitchButton/issues/60). By default SwitchButton found accentColor of your theme for tintColor. (**accentColor** is used for controls according to [Material Design guideline](https://material.google.com/style/color.html#color-color-schemes). )
 
 ***
-update 1.4.1 <font color="#FF684A" size="4">(Latest)</font>
+update 1.4.1
 ---
 
 * fixed [#49](https://github.com/kyleduo/SwitchButton/issues/49).

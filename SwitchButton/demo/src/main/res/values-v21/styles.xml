@@ -2,7 +2,7 @@
 <resources>
 	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 		<item name="colorPrimary">#327FC2</item>
-		<item name="colorAccent">#F79B14</item>
+		<item name="colorAccent">#FF5449</item>
 		<item name="android:statusBarColor">#154B7A</item>
 	</style>
 </resources>

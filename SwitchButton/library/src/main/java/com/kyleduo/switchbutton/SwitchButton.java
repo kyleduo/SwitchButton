@@ -20,6 +20,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.ViewConfiguration;
@@ -142,7 +143,7 @@ public class SwitchButton extends CompoundButton {
 		float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
 		int animationDuration = DEFAULT_ANIMATION_DURATION;
 		boolean fadeBack = true;
-		int tintColor = Integer.MIN_VALUE;
+		int tintColor = 0;
 		String textOn = null;
 		String textOff = null;
 		float textMarginH = density * DEFAULT_TEXT_MARGIN_DP;
@@ -182,8 +183,14 @@ public class SwitchButton extends CompoundButton {
 		mThumbColor = thumbColor;
 		mIsThumbUseDrawable = mThumbDrawable != null;
 		mTintColor = tintColor;
-		if (mTintColor == Integer.MIN_VALUE) {
-			mTintColor = DEFAULT_TINT_COLOR;
+		if (mTintColor == 0) {
+			TypedValue typedValue = new TypedValue();
+			boolean found = getContext().getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
+			if (found) {
+				mTintColor = typedValue.data;
+			} else {
+				mTintColor = DEFAULT_TINT_COLOR;
+			}
 		}
 		if (!mIsThumbUseDrawable && mThumbColor == null) {
 			mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);

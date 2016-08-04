@@ -3,7 +3,7 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-**To get a quick preview, you can get Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_141.apk).**
+**To get a quick preview, you can get Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_142.apk).**
 
 This project provides you a convenient way to use and customise a SwitchButton widget in Android. With just resources changed and attrs set, you can create a lifelike SwitchButton of Android 5.0+, iOS, MIUI, or Flyme and so on.
 
@@ -12,7 +12,12 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 ***
 Change Log
 ---
-[Change Log 1.4.1](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
+
+Latested Change Log:
+
+> 1. Support [#49](https://github.com/kyleduo/SwitchButton/issues/60). By default SwitchButton found accentColor of your theme for tintColor. (**accentColor** is used for controls according to [Material Design guideline](https://material.google.com/style/color.html#color-color-schemes). )
+
+[Change History.](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
 Using SwitchButton in your application
 ---
@@ -25,7 +30,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.4.1'
+    	compile 'com.kyleduo.switchbutton:library:1.4.2'
 	}
 ***
 Demo

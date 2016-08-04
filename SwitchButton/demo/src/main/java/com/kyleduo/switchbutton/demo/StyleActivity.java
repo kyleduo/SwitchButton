@@ -1,12 +1,12 @@
 package com.kyleduo.switchbutton.demo;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
 
 import com.kyleduo.switchbutton.SwitchButton;
 
-public class StyleActivity extends ActionBarActivity {
+public class StyleActivity extends AppCompatActivity {
 
 	private SwitchButton mFlymeSb, mMiuiSb, mCustomSb, mDefaultSb, mSB;
 
