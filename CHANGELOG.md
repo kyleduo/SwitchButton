@@ -15,7 +15,6 @@ update 1.4.2 <font color="#FF684A" size="4">(Latest)</font>
 
 * Support [#49](https://github.com/kyleduo/SwitchButton/issues/60). By default SwitchButton found accentColor of your theme for tintColor. (**accentColor** is used for controls according to [Material Design guideline](https://material.google.com/style/color.html#color-color-schemes). )
 
-***
 update 1.4.1
 ---
 
