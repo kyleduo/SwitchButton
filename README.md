@@ -15,7 +15,7 @@ Change Log
 
 Latested Change Log:
 
-> 1. Support [#49](https://github.com/kyleduo/SwitchButton/issues/60). By default SwitchButton found accentColor of your theme for tintColor. (**accentColor** is used for controls according to [Material Design guideline](https://material.google.com/style/color.html#color-color-schemes). )
+> 1. Fixed [#64](https://github.com/kyleduo/SwitchButton/issues/64). Respect to clickable and focusable attributes.
 
 [Change History.](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
@@ -30,7 +30,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.4.2'
+    	compile 'com.kyleduo.switchbutton:library:1.4.3'
 	}
 ***
 Demo

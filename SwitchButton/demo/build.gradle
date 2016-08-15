@@ -8,8 +8,8 @@ android {
         applicationId "com.kyleduo.switchbutton.demo"
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 19
-        versionName "1.4.2"
+        versionCode 20
+        versionName "1.4.3"
     }
     buildTypes {
         release {

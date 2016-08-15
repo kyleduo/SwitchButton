@@ -1,6 +1,7 @@
 package com.kyleduo.switchbutton;
 
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -12,6 +13,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +22,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
@@ -173,6 +176,17 @@ public class SwitchButton extends CompoundButton {
 			ta.recycle();
 		}
 
+		// click
+		ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, new int[]{android.R.attr.focusable, android.R.attr.clickable});
+		if (ta != null) {
+			boolean focusable = ta.getBoolean(0, true);
+			//noinspection ResourceType
+			boolean clickable = ta.getBoolean(1, focusable);
+			setFocusable(focusable);
+			setClickable(clickable);
+			ta.recycle();
+		}
+
 		// text
 		mTextOn = textOn;
 		mTextOff = textOff;
@@ -224,9 +238,6 @@ public class SwitchButton extends CompoundButton {
 		mFadeBack = fadeBack;
 
 		mProcessAnimator.setDuration(mAnimationDuration);
-
-		setFocusable(true);
-		setClickable(true);
 
 		// sync checked status
 		if (isChecked()) {
@@ -491,7 +502,7 @@ public class SwitchButton extends CompoundButton {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		if (!isEnabled() || !isClickable()) {
+		if (!isEnabled() || !isClickable() || !isFocusable()) {
 			return false;
 		}
 
