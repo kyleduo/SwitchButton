@@ -85,6 +85,7 @@ public class SwitchButton extends CompoundButton {
 	private float mTextWidth;
 	private float mTextHeight;
 	private float mTextMarginH;
+	private boolean mAutoAdjustTextPosition = true;
 
 	private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
 
@@ -150,6 +151,7 @@ public class SwitchButton extends CompoundButton {
 		String textOn = null;
 		String textOff = null;
 		float textMarginH = density * DEFAULT_TEXT_MARGIN_DP;
+		boolean autoAdjustTextPosition = true;
 
 		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
 		if (ta != null) {
@@ -172,7 +174,9 @@ public class SwitchButton extends CompoundButton {
 			tintColor = ta.getColor(R.styleable.SwitchButton_kswTintColor, tintColor);
 			textOn = ta.getString(R.styleable.SwitchButton_kswTextOn);
 			textOff = ta.getString(R.styleable.SwitchButton_kswTextOff);
+			textMarginH = Math.max(textMarginH, backRadius / 2);
 			textMarginH = ta.getDimension(R.styleable.SwitchButton_kswTextMarginH, textMarginH);
+			autoAdjustTextPosition = ta.getBoolean(R.styleable.SwitchButton_kswAutoAdjustTextPosition, autoAdjustTextPosition);
 			ta.recycle();
 		}
 
@@ -191,6 +195,7 @@ public class SwitchButton extends CompoundButton {
 		mTextOn = textOn;
 		mTextOff = textOff;
 		mTextMarginH = textMarginH;
+		mAutoAdjustTextPosition = autoAdjustTextPosition;
 
 		// thumb drawable and color
 		mThumbDrawable = thumbDrawable;
@@ -278,6 +283,8 @@ public class SwitchButton extends CompoundButton {
 			if (left < mTextWidth) {
 				minWidth += mTextWidth - left;
 			}
+		} else {
+			mTextWidth = 0;
 		}
 		minWidth = Math.max(minWidth, ceil(minWidth + mThumbMargin.left + mThumbMargin.right));
 		minWidth = Math.max(minWidth, minWidth + getPaddingLeft() + getPaddingRight());
@@ -306,6 +313,8 @@ public class SwitchButton extends CompoundButton {
 		if (onHeight != 0 || offHeight != 0) {
 			mTextHeight = Math.max(onHeight, offHeight);
 			minHeight = ceil(Math.max(minHeight, mTextHeight));
+		} else {
+			mTextHeight = 0;
 		}
 		minHeight = Math.max(minHeight, getSuggestedMinimumHeight());
 		minHeight = Math.max(minHeight, minHeight + getPaddingTop() + getPaddingBottom());
@@ -374,13 +383,19 @@ public class SwitchButton extends CompoundButton {
 		}
 
 		if (mOnLayout != null) {
-			float marginOnX = mBackRectF.left + (mBackRectF.width() - mThumbRectF.width() - mOnLayout.getWidth()) / 2 - mThumbMargin.left + mTextMarginH * (mThumbMargin.left > 0 ? 1 : -1);
+			float marginOnX = mBackRectF.left + (mBackRectF.width() - mThumbRectF.width() - mThumbMargin.right - mOnLayout.getWidth()) / 2 + (mThumbMargin.left < 0 ? mThumbMargin.left * -0.5f : 0);
+			if (!mIsBackUseDrawable && mAutoAdjustTextPosition) {
+				marginOnX += mBackRadius / 4;
+			}
 			float marginOnY = mBackRectF.top + (mBackRectF.height() - mOnLayout.getHeight()) / 2;
 			mTextOnRectF.set(marginOnX, marginOnY, marginOnX + mOnLayout.getWidth(), marginOnY + mOnLayout.getHeight());
 		}
 
 		if (mOffLayout != null) {
-			float marginOffX = mBackRectF.right - (mBackRectF.width() - mThumbRectF.width() - mOffLayout.getWidth()) / 2 + mThumbMargin.right - mOffLayout.getWidth() - mTextMarginH * (mThumbMargin.right > 0 ? 1 : -1);
+			float marginOffX = mBackRectF.right - (mBackRectF.width() - mThumbRectF.width() - mThumbMargin.left - mOffLayout.getWidth()) / 2 - mOffLayout.getWidth() + (mThumbMargin.right < 0 ? mThumbMargin.right * 0.5f : 0);
+			if (!mIsBackUseDrawable && mAutoAdjustTextPosition) {
+				marginOffX -= mBackRadius / 4;
+			}
 			float marginOffY = mBackRectF.top + (mBackRectF.height() - mOffLayout.getHeight()) / 2;
 			mTextOffRectF.set(marginOffX, marginOffY, marginOffX + mOffLayout.getWidth(), marginOffY + mOffLayout.getHeight());
 		}
@@ -878,6 +893,7 @@ public class SwitchButton extends CompoundButton {
 		mOffLayout = null;
 
 		requestLayout();
+		invalidate();
 	}
 
 
