@@ -15,7 +15,8 @@ Change Log
 
 Latested Change Log:
 
-> 1. Fixed [#64](https://github.com/kyleduo/SwitchButton/issues/64). Respect to clickable and focusable attributes.
+> 1. Fixed [#65](https://github.com/kyleduo/SwitchButton/issues/65). 
+> 2. Update text layout, tests looks like center.
 
 [Change History.](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
