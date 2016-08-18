@@ -31,7 +31,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.4.3'
+    	compile 'com.kyleduo.switchbutton:library:1.4.4'
 	}
 ***
 Demo
