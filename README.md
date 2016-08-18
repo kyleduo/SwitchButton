@@ -84,12 +84,13 @@ In __xml__ layout file, you can configure the face of switch button using these 
 *   __kswBackDrawable__: drawable for background
 *   __kswBackColor__: color for background
 *   __kswFadeBack__: fade background color/drawable when drag or animate between on/off status or not
-*   __kswBackMeasureRatio__: decide width of background from thumb's, this is the ratio
+*   __kswBackMeasureRatio__: (background's width / thumb's width). float value.
 *   __kswAnimationDuration__: duration of animation between 2 status
 *   __kswTintColor__: change SwitchButton's style just by __one__ property, all relevant color will be generate automatically. Do not support `SwitchButtonMD` or other style created by xml resources.
 *   __kswTextOn__: text for checked status.
 *   __kswTextOff__: text for unchecked status.
 *   __kswTextMarginH__: horizontal margin of text.
+*   __kswAutoAdjustTextPosition__: **(Since 1.4.4)** whether auto adjust text position to make them looks centered (NOT really centered) when there are round corners. You should set this to false when you don't need this feature.
 
 You can alse change the configuration of SwitchButton ___in code___. You can find the api from Demo apk. There's a glance.
 
