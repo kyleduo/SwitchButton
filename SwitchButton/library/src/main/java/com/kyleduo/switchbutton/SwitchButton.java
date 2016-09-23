@@ -263,6 +263,7 @@ public class SwitchButton extends CompoundButton {
 		if (mOffLayout == null && mTextOff != null) {
 			mOffLayout = makeLayout(mTextOff);
 		}
+      setupText();
 		setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
 	}
 
@@ -382,6 +383,13 @@ public class SwitchButton extends CompoundButton {
 			mBackDrawable.setBounds((int) mBackRectF.left, (int) mBackRectF.top, ceil(mBackRectF.right), ceil(mBackRectF.bottom));
 		}
 
+		setupText();
+	}
+
+	/**
+	 * Computes the margin of the text within the layout to center the text.
+	 */
+	protected void setupText() {
 		if (mOnLayout != null) {
 			float marginOnX = mBackRectF.left + (mBackRectF.width() - mThumbRectF.width() - mThumbMargin.right - mOnLayout.getWidth()) / 2 + (mThumbMargin.left < 0 ? mThumbMargin.left * -0.5f : 0);
 			if (!mIsBackUseDrawable && mAutoAdjustTextPosition) {
