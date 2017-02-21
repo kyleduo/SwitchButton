@@ -1,7 +1,6 @@
 package com.kyleduo.switchbutton;
 
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -13,7 +12,6 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
@@ -22,7 +20,6 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
@@ -86,6 +83,9 @@ public class SwitchButton extends CompoundButton {
 	private float mTextHeight;
 	private float mTextMarginH;
 	private boolean mAutoAdjustTextPosition = true;
+	// FIX #78,#85 : When restoring saved states, setChecked() called by super. So disable
+	// animation and event listening when restoring.
+	private boolean mRestoring = false;
 
 	private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
 
@@ -631,7 +631,11 @@ public class SwitchButton extends CompoundButton {
 		if (isChecked() != checked) {
 			animateToState(checked);
 		}
-		super.setChecked(checked);
+		if (mRestoring) {
+			setCheckedImmediatelyNoEvent(checked);
+		} else {
+			super.setChecked(checked);
+		}
 	}
 
 	public void setCheckedNoEvent(final boolean checked) {
@@ -640,7 +644,7 @@ public class SwitchButton extends CompoundButton {
 		} else {
 			super.setOnCheckedChangeListener(null);
 			setChecked(checked);
-			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+			super.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
 		}
 	}
 
@@ -650,7 +654,7 @@ public class SwitchButton extends CompoundButton {
 		} else {
 			super.setOnCheckedChangeListener(null);
 			setCheckedImmediately(checked);
-			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+			super.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
 		}
 	}
 
@@ -660,7 +664,7 @@ public class SwitchButton extends CompoundButton {
 		} else {
 			super.setOnCheckedChangeListener(null);
 			toggle();
-			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+			super.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
 		}
 	}
 
@@ -670,7 +674,7 @@ public class SwitchButton extends CompoundButton {
 		} else {
 			super.setOnCheckedChangeListener(null);
 			toggleImmediately();
-			setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+			super.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
 		}
 	}
 
@@ -910,7 +914,9 @@ public class SwitchButton extends CompoundButton {
 	public void onRestoreInstanceState(Parcelable state) {
 		SavedState ss = (SavedState) state;
 		setText(ss.onText, ss.offText);
+		mRestoring = true;
 		super.onRestoreInstanceState(ss.getSuperState());
+		mRestoring = false;
 	}
 
 	static class SavedState extends BaseSavedState {
