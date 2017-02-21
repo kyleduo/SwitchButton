@@ -10,30 +10,32 @@ This project provides you a convenient way to use and customise a SwitchButton w
 Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
 
 ***
+
 Change Log
 ---
 
 Latested Change Log:
 
-> 1. Fixed [#65](https://github.com/kyleduo/SwitchButton/issues/65). 
-> 2. Update text layout, tests looks like center.
+> 1. Fixed [#75](https://github.com/kyleduo/SwitchButton/issues/75) [#78](https://github.com/kyleduo/SwitchButton/issues/78) [#85](https://github.com/kyleduo/SwitchButton/issues/85). 
 
 [Change History.](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
+
 
 Using SwitchButton in your application
 ---
 ~~ADT~~
 
 	No more support
-	
+
 __Gradle__
-	
+​	
 Add dependencies in build.gradle of your module
 
 	dependencies {
-    	compile 'com.kyleduo.switchbutton:library:1.4.4'
+		compile 'com.kyleduo.switchbutton:library:1.4.5'
 	}
 ***
+
 Demo
 ---
 I create a new demo apk to show you how to style the cute widget and use it. There's some screenshots of the new demo.
@@ -41,6 +43,7 @@ I create a new demo apk to show you how to style the cute widget and use it. The
 ![demo_preview](./preview/demo_140.jpg)
 
 ***
+
 Usage
 ---
 
@@ -63,6 +66,7 @@ From **version 1.4.1** on, SwitchButton support operation without onCheckedChang
 * __toggleImmediatelyNoEvent()__
 
 ***
+
 Style
 ---
 
@@ -113,10 +117,12 @@ private String[] opts = new String[]{
 	};
 ```
 
+
 Beautiful Apps
 ---
 
 If you're using SwitchButton in your app, wish you can email me the name and link of your app and I'll create a list here. And that should be an utmost encouragement to me. :-) [kyleduo@gmail.com](mailto:kyleduo@gmail.com)
+
 
 
 
@@ -126,9 +132,9 @@ License
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-
+	
 	   http://www.apache.org/licenses/LICENSE-2.0
-
+	
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
