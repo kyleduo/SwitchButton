@@ -408,12 +408,17 @@ public class SwitchButton extends CompoundButton {
 		// fade back
 		if (mIsBackUseDrawable) {
 			if (mFadeBack && mCurrentBackDrawable != null && mNextBackDrawable != null) {
-				int alpha = (int) (255 * (isChecked() ? getProcess() : (1 - getProcess())));
-				mCurrentBackDrawable.setAlpha(alpha);
-				mCurrentBackDrawable.draw(canvas);
+				// fix #75, 70%A + 30%B != 30%B + 70%A, order matters when mix two layer of different alpha.
+				// So make sure the order of on/off layers never change during slide from one endpoint to another.
+				Drawable below = isChecked() ? mCurrentBackDrawable : mNextBackDrawable;
+				Drawable above = isChecked() ? mNextBackDrawable : mCurrentBackDrawable;
+
+				int alpha = (int) (255 * getProcess());
+				below.setAlpha(alpha);
+				below.draw(canvas);
 				alpha = 255 - alpha;
-				mNextBackDrawable.setAlpha(alpha);
-				mNextBackDrawable.draw(canvas);
+				above.setAlpha(alpha);
+				above.draw(canvas);
 			} else {
 				mBackDrawable.setAlpha(255);
 				mBackDrawable.draw(canvas);
@@ -423,18 +428,22 @@ public class SwitchButton extends CompoundButton {
 				int alpha;
 				int colorAlpha;
 
+				// fix #75
+				int belowColor = isChecked() ? mCurrBackColor : mNextBackColor;
+				int aboveColor = isChecked() ? mNextBackColor : mCurrBackColor;
+
 				// curr back
-				alpha = (int) (255 * (isChecked() ? getProcess() : (1 - getProcess())));
-				colorAlpha = Color.alpha(mCurrBackColor);
+				alpha = (int) (255 * getProcess());
+				colorAlpha = Color.alpha(belowColor);
 				colorAlpha = colorAlpha * alpha / 255;
-				mPaint.setARGB(colorAlpha, Color.red(mCurrBackColor), Color.green(mCurrBackColor), Color.blue(mCurrBackColor));
+				mPaint.setARGB(colorAlpha, Color.red(belowColor), Color.green(belowColor), Color.blue(belowColor));
 				canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
 
 				// next back
 				alpha = 255 - alpha;
-				colorAlpha = Color.alpha(mNextBackColor);
+				colorAlpha = Color.alpha(aboveColor);
 				colorAlpha = colorAlpha * alpha / 255;
-				mPaint.setARGB(colorAlpha, Color.red(mNextBackColor), Color.green(mNextBackColor), Color.blue(mNextBackColor));
+				mPaint.setARGB(colorAlpha, Color.red(aboveColor), Color.green(aboveColor), Color.blue(aboveColor));
 				canvas.drawRoundRect(mBackRectF, mBackRadius, mBackRadius, mPaint);
 
 				mPaint.setAlpha(255);
