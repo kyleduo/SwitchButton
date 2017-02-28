@@ -1,3 +1,4 @@
+
 SwitchButton
 ============
 
@@ -10,6 +11,7 @@ This project provides you a convenient way to use and customise a SwitchButton w
 Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
 
 ***
+
 
 Change Log
 ---
@@ -36,6 +38,7 @@ Add dependencies in build.gradle of your module
 	}
 ***
 
+
 Demo
 ---
 I create a new demo apk to show you how to style the cute widget and use it. There's some screenshots of the new demo.
@@ -43,6 +46,7 @@ I create a new demo apk to show you how to style the cute widget and use it. The
 ![demo_preview](./preview/demo_140.jpg)
 
 ***
+
 
 Usage
 ---
@@ -66,6 +70,7 @@ From **version 1.4.1** on, SwitchButton support operation without onCheckedChang
 * __toggleImmediatelyNoEvent()__
 
 ***
+
 
 Style
 ---
@@ -121,9 +126,12 @@ private String[] opts = new String[]{
 Beautiful Apps
 ---
 
-If you're using SwitchButton in your app, wish you can email me the name and link of your app and I'll create a list here. And that should be an utmost encouragement to me. :-) [kyleduo@gmail.com](mailto:kyleduo@gmail.com)
+If you're using SwitchButton in your app, wish you can email me these infomation of your app and I'll create a list here. And that should be an utmost encouragement to me. :-) [kyleduo@gmail.com](mailto:kyleduo@gmail.com)
 
-
+| App                                      | Name      | Description                              | Markets                                  | Developer                                |
+| ---------------------------------------- | --------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| ![headlines.png](https://static.kyleduo.com/headlines.png?imageView/2/w/80/) | Headlines | Headlines is a news dashboard for your smart TV. | [![market_logo_google_play.png](https://static.kyleduo.com/market_logo_google_play.png?imageView/2/w/80)](https://play.google.com/store/apps/details?id=com.mystraldesign.headlines)[![amazon-underground-app-us-black.png](https://static.kyleduo.com/amazon-underground-app-us-black.png?imageView/2/w/80)](https://www.amazon.com/Headlines-news-your-big-screen/dp/B01G93GRGC/ref=sr_1_1?ie=UTF8&qid=1487843182&sr=8-1&keywords=mystral+design) | [MYSTRAL](http://www.mystraldesign.com/) |
+| ![lantouzi.png](https://static.kyleduo.com/lantouzi.png?imageView/2/w/80) | 懒投资       | 专业安全的投资理财平台                              | [官方网站](https://lantouzi.com/mobile/download) | [懒投资](https://lantouzi.com)              |
 
 
 License
