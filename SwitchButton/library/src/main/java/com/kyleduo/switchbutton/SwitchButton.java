@@ -189,7 +189,10 @@ public class SwitchButton extends CompoundButton {
 			setFocusable(focusable);
 			setClickable(clickable);
 			ta.recycle();
-		}
+		} else {
+            setFocusable(true);
+            setClickable(true);
+        }
 
 		// text
 		mTextOn = textOn;
