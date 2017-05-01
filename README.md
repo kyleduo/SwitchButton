@@ -18,7 +18,7 @@ Change Log
 
 Latested Change Log:
 
-> 1. Fixed [#75](https://github.com/kyleduo/SwitchButton/issues/75) [#78](https://github.com/kyleduo/SwitchButton/issues/78) [#85](https://github.com/kyleduo/SwitchButton/issues/85). 
+> 1. Fixed [#89](https://github.com/kyleduo/SwitchButton/issues/89).
 
 [Change History.](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
 
@@ -34,7 +34,7 @@ __Gradle__
 Add dependencies in build.gradle of your module
 
 	dependencies {
-		compile 'com.kyleduo.switchbutton:library:1.4.5'
+		compile 'com.kyleduo.switchbutton:library:1.4.6'
 	}
 ***
 

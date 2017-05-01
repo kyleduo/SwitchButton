@@ -12,8 +12,11 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 
 ***
 
+## update 1.4.6 <font color="#FF684A" size="4">(Latest)</font>
 
-## update 1.4.5 <font color="#FF684A" size="4">(Latest)</font>
+- Fixed [#89](https://github.com/kyleduo/SwitchButton/issues/89) .
+
+## update 1.4.5
 
 - Fixed [#75](https://github.com/kyleduo/SwitchButton/issues/75) [#78](https://github.com/kyleduo/SwitchButton/issues/78) [#85](https://github.com/kyleduo/SwitchButton/issues/85). 
 
@@ -88,8 +91,8 @@ update 1.3.0
 *	Reconstructe the whole library.
    * More convenient customization way by __tintColor__.
    * New design demo. All APIs in ONE.
-*	Fix issue [#23](https://github.com/kyleduo/SwitchButton/issues/23) [#25](https://github.com/kyleduo/SwitchButton/issues/25) [#26](https://github.com/kyleduo/SwitchButton/issues/26)
-*	Just exciting!!!
+     *Fix issue [#23](https://github.com/kyleduo/SwitchButton/issues/23) [#25](https://github.com/kyleduo/SwitchButton/issues/25) [#26](https://github.com/kyleduo/SwitchButton/issues/26)
+     *Just exciting!!!
 
 ***
 
