@@ -79,22 +79,22 @@ In 1.3.0, I updated the usage of __SwitchButton__ library. To make it more Andro
 
 In __xml__ layout file, you can configure the face of switch button using these attrs.
 
-*   __kswThumbDrawable__: drawable for thumb
-*   __kswThumbColor__: color for thumb
-*   __kswThumbMargin__: margin from thumb to back, can be negative. maybe cover by single direction margins
-*   __kswThumbMarginTop__: same to __kswThumbMargin__, just top
-*   __kswThumbMarginBottom__: same to __kswThumbMargin__, just bottom
-*   __kswThumbMarginLeft__: same to __kswThumbMargin__, just left
-*   __kswThumbMarginRight__: same to __kswThumbMargin__, just right
-*   __kswThumbWidth__: width of thumb
-*   __kswThumbHeight__: height of thumb
-*   __kswThumbRadius__: radius of thumb rect, only work with __kswThumbColor__
-*   __kswBackRadius__: radius of background rect, only work with __kswBackColor__
-*   __kswBackDrawable__: drawable for background
-*   __kswBackColor__: color for background
-*   __kswFadeBack__: fade background color/drawable when drag or animate between on/off status or not
+*   __kswThumbDrawable__: drawable for thumb.
+*   __kswThumbColor__: color for thumb.
+*   __kswThumbMargin__: margin from thumb to back, can be negative. maybe cover by single direction margins.
+*   __kswThumbMarginTop__: same to __kswThumbMargin__, just top.
+*   __kswThumbMarginBottom__: same to __kswThumbMargin__, just bottom.
+*   __kswThumbMarginLeft__: same to __kswThumbMargin__, just left.
+*   __kswThumbMarginRight__: same to __kswThumbMargin__, just right.
+*   __kswThumbWidth__: width of thumb.
+*   __kswThumbHeight__: height of thumb.
+*   __kswThumbRadius__: radius of thumb rect, only work with __kswThumbColor__.
+*   __kswBackRadius__: radius of background rect, only work with __kswBackColor__.
+*   __kswBackDrawable__: drawable for background.
+*   __kswBackColor__: color for background.
+*   __kswFadeBack__: fade background color/drawable when drag or animate between on/off status.
 *   __kswBackMeasureRatio__: (background's width / thumb's width). float value.
-*   __kswAnimationDuration__: duration of animation between 2 status
+*   __kswAnimationDuration__: duration of animation between 2 status.
 *   __kswTintColor__: change SwitchButton's style just by __one__ property, all relevant color will be generate automatically. Do not support `SwitchButtonMD` or other style created by xml resources.
 *   __kswTextOn__: text for checked status.
 *   __kswTextOff__: text for unchecked status.
@@ -103,7 +103,7 @@ In __xml__ layout file, you can configure the face of switch button using these 
 
 You can alse change the configuration of SwitchButton ___in code___. You can find the api from Demo apk. There's a glance.
 
-```
+```java
 private String[] opts = new String[]{
 			"setThumbColorRes/setThumbColor",
 			"setThumbDrawableRes/setThumbDrawable",
