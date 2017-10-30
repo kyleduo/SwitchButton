@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <declare-styleable name="SwitchButton">
+    <declare-styleable name="SwitchButton" tools:ignore="ResourceName">
         <attr name="kswThumbDrawable" format="reference"/>
         <attr name="kswThumbColor" format="color|reference"/>
         <attr name="kswThumbMargin" format="dimension|reference"/>
