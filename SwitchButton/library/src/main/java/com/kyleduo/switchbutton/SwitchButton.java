@@ -311,10 +311,10 @@ public class SwitchButton extends CompoundButton {
     /**
      * textWidth = max(onWidth, offWidth) + textMarginInside + textMarginOutside
      *
-     * moveRange = thumbWidth * rangeRatio
-     * textExtra = textWidth + textExtra - (moveRange - thumbWidth + max(thumbMargin.left, thumbMargin.right) + textThumbInset)
-     * backWidth = moveRange + thumbMargin.left + thumbMargin.right + max(textExtra, 0)
-     * contentSize = moveRange + max(thumbMargin.left, 0) + max(thumbMargin.right, 0) + max(textExtra, 0)
+     * thumbRange = thumbWidth * rangeRatio
+     * textExtraSpace = textWidth + textExtra - (moveRange - thumbWidth + max(thumbMargin.left, thumbMargin.right) + textThumbInset)
+     * backWidth = thumbRange + thumbMargin.left + thumbMargin.right + max(textExtraSpace, 0)
+     * contentSize = thumbRange + max(thumbMargin.left, 0) + max(thumbMargin.right, 0) + max(textExtraSpace, 0)
      *
      * @param widthMeasureSpec widthMeasureSpec
      * @return measuredWidth
