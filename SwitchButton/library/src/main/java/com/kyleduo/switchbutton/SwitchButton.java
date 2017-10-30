@@ -1,6 +1,7 @@
 package com.kyleduo.switchbutton;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -20,6 +21,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
@@ -36,8 +38,11 @@ import android.widget.CompoundButton;
  * @since 2014-09-24
  */
 
+@SuppressWarnings("unused")
 public class SwitchButton extends CompoundButton {
-    public static final float DEFAULT_BACK_MEASURE_RATIO = 1.8f;
+    public static final String TAG = "SwitchButton";
+
+    public static final float DEFAULT_THUMB_RANGE_RATIO = 1.8f;
     public static final int DEFAULT_THUMB_SIZE_DP = 20;
     public static final int DEFAULT_THUMB_MARGIN_DP = 2;
     public static final int DEFAULT_TEXT_MARGIN_DP = 2;
@@ -51,12 +56,15 @@ public class SwitchButton extends CompoundButton {
     private ColorStateList mBackColor, mThumbColor;
     private float mThumbRadius, mBackRadius;
     private RectF mThumbMargin;
-    private float mBackMeasureRatio;
+    private float mThumbRangeRatio;
     private long mAnimationDuration;
     // fade back drawable or color when dragging or animating
     private boolean mFadeBack;
     private int mTintColor;
-    private PointF mThumbSizeF;
+    private int mThumbWidth;
+    private int mThumbHeight;
+    private int mBackWidth;
+    private int mBackHeight;
 
     private int mCurrThumbColor, mCurrBackColor, mNextBackColor, mOnTextColor, mOffTextColor;
     private Drawable mCurrentBackDrawable, mNextBackDrawable;
@@ -65,9 +73,9 @@ public class SwitchButton extends CompoundButton {
     // whether using Drawable for thumb or back
     private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
     private boolean mDrawDebugRect = false;
-    private ObjectAnimator mProcessAnimator;
+    private ObjectAnimator mProgressAnimator;
     // animation control
-    private float mProcess;
+    private float mProgress;
     // temp position of thumb when dragging or animating
     private RectF mPresentThumbRectF;
     private float mStartX, mStartY, mLastX;
@@ -81,11 +89,13 @@ public class SwitchButton extends CompoundButton {
     private Layout mOffLayout;
     private float mTextWidth;
     private float mTextHeight;
-    private float mTextMarginH;
-    private boolean mAutoAdjustTextPosition = true;
+    private int mTextThumbInset;
+    private int mTextExtra;
+    private int mTextAdjust;
     // FIX #78,#85 : When restoring saved states, setChecked() called by super. So disable
     // animation and event listening when restoring.
     private boolean mRestoring = false;
+    private boolean mReady = false;
 
     private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
 
@@ -118,13 +128,12 @@ public class SwitchButton extends CompoundButton {
         mThumbRectF = new RectF();
         mBackRectF = new RectF();
         mSafeRectF = new RectF();
-        mThumbSizeF = new PointF();
         mThumbMargin = new RectF();
         mTextOnRectF = new RectF();
         mTextOffRectF = new RectF();
 
-        mProcessAnimator = ObjectAnimator.ofFloat(this, "process", 0, 0).setDuration(DEFAULT_ANIMATION_DURATION);
-        mProcessAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        mProgressAnimator = ObjectAnimator.ofFloat(this, "progress", 0, 0).setDuration(DEFAULT_ANIMATION_DURATION);
+        mProgressAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
         mPresentThumbRectF = new RectF();
 
@@ -138,20 +147,22 @@ public class SwitchButton extends CompoundButton {
         float marginRight = 0;
         float marginTop = 0;
         float marginBottom = 0;
-        float thumbWidth = density * DEFAULT_THUMB_SIZE_DP;
-        float thumbHeight = density * DEFAULT_THUMB_SIZE_DP;
-        float thumbRadius = density * DEFAULT_THUMB_SIZE_DP / 2;
-        float backRadius = thumbRadius;
+        float thumbWidth = 0;
+        float thumbHeight = 0;
+        float thumbRadius = -1;
+        float backRadius = -1;
         Drawable backDrawable = null;
         ColorStateList backColor = null;
-        float backMeasureRatio = DEFAULT_BACK_MEASURE_RATIO;
+        float thumbRangeRatio = DEFAULT_THUMB_RANGE_RATIO;
         int animationDuration = DEFAULT_ANIMATION_DURATION;
         boolean fadeBack = true;
         int tintColor = 0;
         String textOn = null;
         String textOff = null;
-        float textMarginH = density * DEFAULT_TEXT_MARGIN_DP;
-        boolean autoAdjustTextPosition = true;
+        int textThumbInset = 0;
+        int textExtra = 0;
+        int textAdjust = 0;
+        boolean hasMargin = false;
 
         TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
         if (ta != null) {
@@ -164,19 +175,19 @@ public class SwitchButton extends CompoundButton {
             marginBottom = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
             thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, thumbWidth);
             thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, thumbHeight);
-            thumbRadius = ta.getDimension(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
-            backRadius = ta.getDimension(R.styleable.SwitchButton_kswBackRadius, thumbRadius + density * 2f);
+            thumbRadius = ta.getDimension(R.styleable.SwitchButton_kswThumbRadius, thumbRadius);
+            backRadius = ta.getDimension(R.styleable.SwitchButton_kswBackRadius, backRadius);
             backDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
             backColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
-            backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
+            thumbRangeRatio = ta.getFloat(R.styleable.SwitchButton_kswThumbRangeRatio, thumbRangeRatio);
             animationDuration = ta.getInteger(R.styleable.SwitchButton_kswAnimationDuration, animationDuration);
             fadeBack = ta.getBoolean(R.styleable.SwitchButton_kswFadeBack, true);
             tintColor = ta.getColor(R.styleable.SwitchButton_kswTintColor, tintColor);
             textOn = ta.getString(R.styleable.SwitchButton_kswTextOn);
             textOff = ta.getString(R.styleable.SwitchButton_kswTextOff);
-            textMarginH = Math.max(textMarginH, backRadius / 2);
-            textMarginH = ta.getDimension(R.styleable.SwitchButton_kswTextMarginH, textMarginH);
-            autoAdjustTextPosition = ta.getBoolean(R.styleable.SwitchButton_kswAutoAdjustTextPosition, autoAdjustTextPosition);
+            textThumbInset = ta.getDimensionPixelSize(R.styleable.SwitchButton_kswTextThumbInset, 0);
+            textExtra = ta.getDimensionPixelSize(R.styleable.SwitchButton_kswTextExtra, 0);
+            textAdjust = ta.getDimensionPixelSize(R.styleable.SwitchButton_kswTextAdjust, 0);
             ta.recycle();
         }
 
@@ -185,7 +196,7 @@ public class SwitchButton extends CompoundButton {
         if (ta != null) {
             boolean focusable = ta.getBoolean(0, true);
             //noinspection ResourceType
-            boolean clickable = ta.getBoolean(1, focusable);
+            @SuppressLint("ResourceType") boolean clickable = ta.getBoolean(1, focusable);
             setFocusable(focusable);
             setClickable(clickable);
             ta.recycle();
@@ -197,8 +208,9 @@ public class SwitchButton extends CompoundButton {
         // text
         mTextOn = textOn;
         mTextOff = textOff;
-        mTextMarginH = textMarginH;
-        mAutoAdjustTextPosition = autoAdjustTextPosition;
+        mTextThumbInset = textThumbInset;
+        mTextExtra = textExtra;
+        mTextAdjust = textAdjust;
 
         // thumb drawable and color
         mThumbDrawable = thumbDrawable;
@@ -218,11 +230,10 @@ public class SwitchButton extends CompoundButton {
             mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
             mCurrThumbColor = mThumbColor.getDefaultColor();
         }
-        if (mIsThumbUseDrawable) {
-            thumbWidth = Math.max(thumbWidth, mThumbDrawable.getMinimumWidth());
-            thumbHeight = Math.max(thumbHeight, mThumbDrawable.getMinimumHeight());
-        }
-        mThumbSizeF.set(thumbWidth, thumbHeight);
+
+        // thumbSize
+        mThumbWidth = ceil(thumbWidth);
+        mThumbHeight = ceil(thumbHeight);
 
         // back drawable and color
         mBackDrawable = backDrawable;
@@ -238,18 +249,18 @@ public class SwitchButton extends CompoundButton {
         mThumbMargin.set(marginLeft, marginTop, marginRight, marginBottom);
 
         // size & measure params must larger than 1
-        mBackMeasureRatio = mThumbMargin.width() >= 0 ? Math.max(backMeasureRatio, 1) : backMeasureRatio;
+        mThumbRangeRatio = mThumbMargin.width() >= 0 ? Math.max(thumbRangeRatio, 1) : thumbRangeRatio;
 
         mThumbRadius = thumbRadius;
         mBackRadius = backRadius;
         mAnimationDuration = animationDuration;
         mFadeBack = fadeBack;
 
-        mProcessAnimator.setDuration(mAnimationDuration);
+        mProgressAnimator.setDuration(mAnimationDuration);
 
         // sync checked status
         if (isChecked()) {
-            setProcess(1);
+            setProgress(1);
         }
     }
 
@@ -258,77 +269,201 @@ public class SwitchButton extends CompoundButton {
         return new StaticLayout(text, mTextPaint, (int) Math.ceil(Layout.getDesiredWidth(text, mTextPaint)), Layout.Alignment.ALIGN_CENTER, 1.f, 0, false);
     }
 
+    /**
+     * If both width and height are set to EXACTLY, I assume that you want SwitchButton has
+     * exact size as it has been set. So SwitchButton may ignore some properties like
+     * kswThumbWidth, kswThumbHeight, kswBackMeasureRatio, while kswThumbMargin was kept to
+     * calculate the size of thumb and back.
+     * If the height or width size is too small to place the thumb or there are no room for
+     * thumb to move, an IllegalStateException will be thrown.
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mOnLayout == null && mTextOn != null) {
+        /*
+         * ensure textLayout
+         */
+        if (mOnLayout == null && !TextUtils.isEmpty(mTextOn)) {
             mOnLayout = makeLayout(mTextOn);
         }
-        if (mOffLayout == null && mTextOff != null) {
+        if (mOffLayout == null && !TextUtils.isEmpty(mTextOff)) {
             mOffLayout = makeLayout(mTextOff);
         }
-        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
-    }
 
-    private int measureWidth(int widthMeasureSpec) {
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int measuredWidth;
-
-        int minWidth = ceil(mThumbSizeF.x * mBackMeasureRatio);
-        if (mIsBackUseDrawable) {
-            minWidth = Math.max(minWidth, mBackDrawable.getMinimumWidth());
-        }
         float onWidth = mOnLayout != null ? mOnLayout.getWidth() : 0;
         float offWidth = mOffLayout != null ? mOffLayout.getWidth() : 0;
         if (onWidth != 0 || offWidth != 0) {
-            mTextWidth = Math.max(onWidth, offWidth) + mTextMarginH * 2;
-            float left = minWidth - mThumbSizeF.x;
-            if (left < mTextWidth) {
-                minWidth += mTextWidth - left;
-            }
+            mTextWidth = Math.max(onWidth, offWidth);
         } else {
             mTextWidth = 0;
         }
-        minWidth = Math.max(minWidth, ceil(minWidth + mThumbMargin.left + mThumbMargin.right));
-        minWidth = Math.max(minWidth, minWidth + getPaddingLeft() + getPaddingRight());
-        minWidth = Math.max(minWidth, getSuggestedMinimumWidth());
 
-        if (widthMode == MeasureSpec.EXACTLY) {
-            measuredWidth = Math.max(minWidth, widthSize);
-        } else {
-            measuredWidth = minWidth;
-            if (widthMode == MeasureSpec.AT_MOST) {
-                measuredWidth = Math.min(measuredWidth, widthSize);
-            }
-        }
-
-        return measuredWidth;
-    }
-
-    private int measureHeight(int heightMeasureSpec) {
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int measuredHeight;
-
-        int minHeight = ceil(Math.max(mThumbSizeF.y, mThumbSizeF.y + mThumbMargin.top + mThumbMargin.right));
         float onHeight = mOnLayout != null ? mOnLayout.getHeight() : 0;
         float offHeight = mOffLayout != null ? mOffLayout.getHeight() : 0;
         if (onHeight != 0 || offHeight != 0) {
             mTextHeight = Math.max(onHeight, offHeight);
-            minHeight = ceil(Math.max(minHeight, mTextHeight));
         } else {
             mTextHeight = 0;
         }
-        minHeight = Math.max(minHeight, getSuggestedMinimumHeight());
-        minHeight = Math.max(minHeight, minHeight + getPaddingTop() + getPaddingBottom());
 
-        if (heightMode == MeasureSpec.EXACTLY) {
-            measuredHeight = Math.max(minHeight, heightSize);
-        } else {
-            measuredHeight = minHeight;
-            if (heightMode == MeasureSpec.AT_MOST) {
-                measuredHeight = Math.min(measuredHeight, heightSize);
+        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
+    }
+
+    /**
+     * textWidth = max(onWidth, offWidth) + textMarginInside + textMarginOutside
+     *
+     * moveRange = thumbWidth * rangeRatio
+     * textExtra = textWidth + textExtra - (moveRange - thumbWidth + max(thumbMargin.left, thumbMargin.right) + textThumbInset)
+     * backWidth = moveRange + thumbMargin.left + thumbMargin.right + max(textExtra, 0)
+     * contentSize = moveRange + max(thumbMargin.left, 0) + max(thumbMargin.right, 0) + max(textExtra, 0)
+     *
+     * @param widthMeasureSpec widthMeasureSpec
+     * @return measuredWidth
+     */
+    private int measureWidth(int widthMeasureSpec) {
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int measuredWidth = widthSize;
+
+        if (mThumbWidth == 0 && mIsThumbUseDrawable) {
+            mThumbWidth = mThumbDrawable.getIntrinsicWidth();
+        }
+
+        int moveRange;
+        int textWidth = ceil(mTextWidth);
+        // how much the background should extend to fit text.
+        int textExtraSpace;
+        int contentSize;
+
+        if (mThumbRangeRatio == 0) {
+            mThumbRangeRatio = DEFAULT_THUMB_RANGE_RATIO;
+        }
+
+        if (widthMode == MeasureSpec.EXACTLY) {
+            contentSize = widthSize - getPaddingLeft() - getPaddingRight();
+
+            if (mThumbWidth != 0) {
+                moveRange = ceil(mThumbWidth * mThumbRangeRatio);
+                textExtraSpace = textWidth + mTextExtra - (moveRange - mThumbWidth - ceil(Math.max(mThumbMargin.left, mThumbMargin.right)));
+                mBackWidth = ceil(moveRange + mThumbMargin.left + mThumbMargin.right + Math.max(textExtraSpace, 0));
+                if (mBackWidth < 0) {
+                    mThumbWidth = 0;
+                }
+                if (moveRange + Math.max(mThumbMargin.left, 0) + Math.max(mThumbMargin.right, 0) + Math.max(textExtraSpace, 0) > contentSize) {
+                    mThumbWidth = 0;
+                }
             }
+
+            if (mThumbWidth == 0) {
+                contentSize = widthSize - getPaddingLeft() - getPaddingRight();
+                moveRange = ceil(contentSize - Math.max(mThumbMargin.left, 0) - Math.max(mThumbMargin.right, 0));
+                if (moveRange < 0) {
+                    mThumbWidth = 0;
+                    mBackWidth = 0;
+                    return measuredWidth;
+                }
+                mThumbWidth = ceil(moveRange / mThumbRangeRatio);
+                mBackWidth = ceil(moveRange + mThumbMargin.left + mThumbMargin.right);
+                if (mBackWidth < 0) {
+                    mThumbWidth = 0;
+                    mBackWidth = 0;
+                    return measuredWidth;
+                }
+                textExtraSpace = textWidth + mTextExtra - (moveRange - mThumbWidth - ceil(Math.max(mThumbMargin.left, mThumbMargin.right)));
+                if (textExtraSpace > 0) {
+                    // since backWidth is determined by view width, so we can only reduce thumbSize.
+                    mThumbWidth = mThumbWidth - textExtraSpace;
+                }
+                if (mThumbWidth < 0) {
+                    mThumbWidth = 0;
+                    mBackWidth = 0;
+                    return measuredWidth;
+                }
+            }
+        } else {
+            /*
+            If parent view want SwitchButton to determine it's size itself, we calculate the minimal
+            size of it's content. Further more, we ignore the limitation of widthSize since we want
+            to display SwitchButton in its actual size rather than compress the shape.
+             */
+            if (mThumbWidth == 0) {
+                /*
+                If thumbWidth is not set, use the default one.
+                 */
+                mThumbWidth = ceil(getResources().getDisplayMetrics().density * DEFAULT_THUMB_SIZE_DP);
+            }
+            if (mThumbRangeRatio == 0) {
+                mThumbRangeRatio = DEFAULT_THUMB_RANGE_RATIO;
+            }
+
+            moveRange = ceil(mThumbWidth * mThumbRangeRatio);
+            textExtraSpace = ceil(textWidth + mTextExtra - (moveRange - mThumbWidth + Math.max(mThumbMargin.left, mThumbMargin.right) + mTextThumbInset));
+            mBackWidth = ceil(moveRange + mThumbMargin.left + mThumbMargin.right + Math.max(0, textExtraSpace));
+            contentSize = ceil(moveRange + Math.max(0, mThumbMargin.left) + Math.max(0, mThumbMargin.right) + Math.max(0, textExtraSpace));
+
+            measuredWidth = Math.max(contentSize, contentSize + getPaddingLeft() + getPaddingRight());
+        }
+        return measuredWidth;
+    }
+
+    private int measureHeight(int heightMeasureSpec) {
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int measuredHeight = heightSize;
+
+        if (mThumbHeight == 0 && mIsThumbUseDrawable) {
+            mThumbHeight = mThumbDrawable.getIntrinsicHeight();
+        }
+        if (heightMode == MeasureSpec.EXACTLY) {
+            if (mThumbHeight != 0) {
+                /*
+                If thumbHeight has been set, we calculate backHeight and check if there is enough room.
+                 */
+                mBackHeight = ceil(mThumbHeight + mThumbMargin.top + mThumbMargin.bottom);
+                mBackHeight = ceil(Math.max(mBackHeight, mTextHeight));
+                if (mBackHeight + getPaddingTop() + getPaddingBottom() - Math.min(0, mThumbMargin.top) - Math.min(0, mThumbMargin.bottom) > heightSize) {
+                    // No enough room, we set thumbHeight to zero to calculate these value again.
+                    mThumbHeight = 0;
+                }
+            }
+
+            if (mThumbHeight == 0) {
+                mBackHeight = ceil(heightSize - getPaddingTop() - getPaddingBottom() + Math.min(0, mThumbMargin.top) + Math.min(0, mThumbMargin.bottom));
+                if (mBackHeight < 0) {
+//                    throw new IllegalStateException(ERROR_SMALL_SIZE);
+                    mBackHeight = 0;
+                    mThumbHeight = 0;
+                    return measuredHeight;
+                }
+                mThumbHeight = ceil(mBackHeight - mThumbMargin.top - mThumbMargin.bottom);
+            }
+            if (mThumbHeight < 0) {
+//                throw new IllegalStateException(ERROR_SMALL_SIZE);
+                mBackHeight = 0;
+                mThumbHeight = 0;
+                return measuredHeight;
+            }
+        } else {
+            if (mThumbHeight == 0) {
+                mThumbHeight = ceil(getResources().getDisplayMetrics().density * DEFAULT_THUMB_SIZE_DP);
+            }
+            measuredHeight = ceil(Math.max(mThumbHeight, mThumbHeight + mThumbMargin.top + mThumbMargin.bottom));
+            measuredHeight = ceil(Math.max(measuredHeight, mTextHeight));
+            measuredHeight = Math.max(measuredHeight, getSuggestedMinimumHeight());
+            measuredHeight = Math.max(measuredHeight, measuredHeight + getPaddingTop() + getPaddingBottom());
+            mBackHeight = measuredHeight - getPaddingTop() - getPaddingBottom();
+            if (mThumbMargin.top < 0) {
+                mBackHeight += mThumbMargin.top;
+            }
+            if (mThumbMargin.bottom < 0) {
+                mBackHeight += mThumbMargin.bottom;
+            }
+            if (mBackHeight < 0) {
+//                throw new IllegalStateException(ERROR_SMALL_SIZE);
+                mBackHeight = 0;
+                mThumbHeight = 0;
+                return measuredHeight;
+            }
+            mBackHeight = ceil(Math.max(mBackHeight, mTextHeight));
         }
 
         return measuredHeight;
@@ -350,31 +485,50 @@ public class SwitchButton extends CompoundButton {
      * set up the rect of back and thumb
      */
     private void setup() {
-        float thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top);
-        float thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left);
-
-        if (mOnLayout != null && mOffLayout != null) {
-            if (mThumbMargin.top + mThumbMargin.bottom > 0) {
-                // back is higher than thumb
-                float addition = (getMeasuredHeight() - getPaddingBottom() - getPaddingTop() - mThumbSizeF.y - mThumbMargin.top - mThumbMargin.bottom) / 2;
-                thumbTop += addition;
-            }
+        if (mThumbWidth == 0 || mThumbHeight == 0 || mBackWidth == 0 || mBackHeight == 0) {
+//            throw new IllegalStateException("Error size.");
+            return;
         }
 
-        if (mIsThumbUseDrawable) {
-            mThumbSizeF.x = Math.max(mThumbSizeF.x, mThumbDrawable.getMinimumWidth());
-            mThumbSizeF.y = Math.max(mThumbSizeF.y, mThumbDrawable.getMinimumHeight());
+        if (mThumbRadius == -1) {
+            mThumbRadius = Math.min(mThumbWidth, mThumbHeight) / 2;
+        }
+        if (mBackRadius == -1) {
+            mBackRadius = Math.min(mBackWidth, mBackHeight) / 2;
         }
 
-        mThumbRectF.set(thumbLeft, thumbTop, thumbLeft + mThumbSizeF.x, thumbTop + mThumbSizeF.y);
+        int contentWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+        int contentHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+        Log.d(TAG, "contentHeight: " + contentHeight);
+
+        // max range of drawing content, when thumbMargin is negative, drawing range is larger than backWidth
+        int drawingWidth = ceil(mBackWidth - Math.min(0, mThumbMargin.left) - Math.min(0, mThumbMargin.right));
+        int drawingHeight = ceil(mBackHeight - Math.min(0, mThumbMargin.top) - Math.min(0, mThumbMargin.bottom));
+        Log.d(TAG, "mBackHeight: " + mBackHeight);
+        Log.d(TAG, "drawingHeight: " + drawingHeight);
+
+        float thumbTop;
+        if (contentHeight <= drawingHeight) {
+            thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top);
+        } else {
+            // center vertical in content area
+            thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top) + (contentHeight - drawingHeight + 1) / 2;
+        }
+
+        float thumbLeft;
+        if (contentWidth <= mBackWidth) {
+            thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left);
+        } else {
+            thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left) + (contentWidth - drawingWidth + 1) / 2;
+        }
+
+        mThumbRectF.set(thumbLeft, thumbTop, thumbLeft + mThumbWidth, thumbTop + mThumbHeight);
 
         float backLeft = mThumbRectF.left - mThumbMargin.left;
-        float textDiffWidth = Math.min(0, (Math.max(mThumbSizeF.x * mBackMeasureRatio, mThumbSizeF.x + mTextWidth) - mThumbRectF.width() - mTextWidth) / 2);
-        float textDiffHeight = Math.min(0, (mThumbRectF.height() + mThumbMargin.top + mThumbMargin.bottom - mTextHeight) / 2);
-        mBackRectF.set(backLeft + textDiffWidth,
-                mThumbRectF.top - mThumbMargin.top + textDiffHeight,
-                backLeft + mThumbMargin.left + Math.max(mThumbSizeF.x * mBackMeasureRatio, mThumbSizeF.x + mTextWidth) + mThumbMargin.right - textDiffWidth,
-                mThumbRectF.bottom + mThumbMargin.bottom - textDiffHeight);
+        mBackRectF.set(backLeft,
+                mThumbRectF.top - mThumbMargin.top,
+                backLeft + mBackWidth,
+                mThumbRectF.top - mThumbMargin.top + mBackHeight);
 
         mSafeRectF.set(mThumbRectF.left, 0, mBackRectF.right - mThumbMargin.right - mThumbRectF.width(), 0);
 
@@ -386,27 +540,30 @@ public class SwitchButton extends CompoundButton {
         }
 
         if (mOnLayout != null) {
-            float marginOnX = mBackRectF.left + (mBackRectF.width() - mThumbRectF.width() - mThumbMargin.right - mOnLayout.getWidth()) / 2 + (mThumbMargin.left < 0 ? mThumbMargin.left * -0.5f : 0);
-            if (!mIsBackUseDrawable && mAutoAdjustTextPosition) {
-                marginOnX += mBackRadius / 4;
-            }
-            float marginOnY = mBackRectF.top + (mBackRectF.height() - mOnLayout.getHeight()) / 2;
-            mTextOnRectF.set(marginOnX, marginOnY, marginOnX + mOnLayout.getWidth(), marginOnY + mOnLayout.getHeight());
+            float onLeft = mBackRectF.left + (mBackRectF.width() + mTextThumbInset - mThumbWidth - mThumbMargin.right - mOnLayout.getWidth()) / 2f - mTextAdjust;
+            float onTop = mBackRectF.top + (mBackRectF.height() - mOnLayout.getHeight()) / 2;
+            mTextOnRectF.set(onLeft, onTop, onLeft + mOnLayout.getWidth(), onTop + mOnLayout.getHeight());
         }
 
         if (mOffLayout != null) {
-            float marginOffX = mBackRectF.right - (mBackRectF.width() - mThumbRectF.width() - mThumbMargin.left - mOffLayout.getWidth()) / 2 - mOffLayout.getWidth() + (mThumbMargin.right < 0 ? mThumbMargin.right * 0.5f : 0);
-            if (!mIsBackUseDrawable && mAutoAdjustTextPosition) {
-                marginOffX -= mBackRadius / 4;
-            }
-            float marginOffY = mBackRectF.top + (mBackRectF.height() - mOffLayout.getHeight()) / 2;
-            mTextOffRectF.set(marginOffX, marginOffY, marginOffX + mOffLayout.getWidth(), marginOffY + mOffLayout.getHeight());
+            float offLeft = mBackRectF.right - (mBackRectF.width() + mTextThumbInset - mThumbWidth - mThumbMargin.left - mOffLayout.getWidth()) / 2f - mOffLayout.getWidth() + mTextAdjust;
+            float offTop = mBackRectF.top + (mBackRectF.height() - mOffLayout.getHeight()) / 2;
+            mTextOffRectF.set(offLeft, offTop, offLeft + mOffLayout.getWidth(), offTop + mOffLayout.getHeight());
         }
+
+        mReady = true;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        if (!mReady) {
+            setup();
+        }
+        if (!mReady) {
+            return;
+        }
 
         // fade back
         if (mIsBackUseDrawable) {
@@ -416,7 +573,7 @@ public class SwitchButton extends CompoundButton {
                 Drawable below = isChecked() ? mCurrentBackDrawable : mNextBackDrawable;
                 Drawable above = isChecked() ? mNextBackDrawable : mCurrentBackDrawable;
 
-                int alpha = (int) (255 * getProcess());
+                int alpha = (int) (255 * getProgress());
                 below.setAlpha(alpha);
                 below.draw(canvas);
                 alpha = 255 - alpha;
@@ -436,7 +593,7 @@ public class SwitchButton extends CompoundButton {
                 int aboveColor = isChecked() ? mNextBackColor : mCurrBackColor;
 
                 // curr back
-                alpha = (int) (255 * getProcess());
+                alpha = (int) (255 * getProgress());
                 colorAlpha = Color.alpha(belowColor);
                 colorAlpha = colorAlpha * alpha / 255;
                 mPaint.setARGB(colorAlpha, Color.red(belowColor), Color.green(belowColor), Color.blue(belowColor));
@@ -457,11 +614,11 @@ public class SwitchButton extends CompoundButton {
         }
 
         // text
-        Layout switchText = getProcess() > 0.5 ? mOnLayout : mOffLayout;
-        RectF textRectF = getProcess() > 0.5 ? mTextOnRectF : mTextOffRectF;
+        Layout switchText = getProgress() > 0.5 ? mOnLayout : mOffLayout;
+        RectF textRectF = getProgress() > 0.5 ? mTextOnRectF : mTextOffRectF;
         if (switchText != null && textRectF != null) {
-            int alpha = (int) (255 * (getProcess() >= 0.75 ? getProcess() * 4 - 3 : (getProcess() < 0.25 ? 1 - getProcess() * 4 : 0)));
-            int textColor = getProcess() > 0.5 ? mOnTextColor : mOffTextColor;
+            int alpha = (int) (255 * (getProgress() >= 0.75 ? getProgress() * 4 - 3 : (getProgress() < 0.25 ? 1 - getProgress() * 4 : 0)));
+            int textColor = getProgress() > 0.5 ? mOnTextColor : mOffTextColor;
             int colorAlpha = Color.alpha(textColor);
             colorAlpha = colorAlpha * alpha / 255;
             switchText.getPaint().setARGB(colorAlpha, Color.red(textColor), Color.green(textColor), Color.blue(textColor));
@@ -473,7 +630,7 @@ public class SwitchButton extends CompoundButton {
 
         // thumb
         mPresentThumbRectF.set(mThumbRectF);
-        mPresentThumbRectF.offset(mProcess * mSafeRectF.width(), 0);
+        mPresentThumbRectF.offset(mProgress * mSafeRectF.width(), 0);
         if (mIsThumbUseDrawable) {
             mThumbDrawable.setBounds((int) mPresentThumbRectF.left, (int) mPresentThumbRectF.top, ceil(mPresentThumbRectF.right), ceil(mPresentThumbRectF.bottom));
             mThumbDrawable.draw(canvas);
@@ -487,8 +644,10 @@ public class SwitchButton extends CompoundButton {
             canvas.drawRect(mBackRectF, mRectPaint);
             mRectPaint.setColor(Color.parseColor("#0000FF"));
             canvas.drawRect(mPresentThumbRectF, mRectPaint);
+            mRectPaint.setColor(Color.parseColor("#000000"));
+            canvas.drawLine(mSafeRectF.left, mThumbRectF.top, mSafeRectF.right, mThumbRectF.top, mRectPaint);
             mRectPaint.setColor(Color.parseColor("#00CC00"));
-            canvas.drawRect(getProcess() > 0.5 ? mTextOnRectF : mTextOffRectF, mRectPaint);
+            canvas.drawRect(getProgress() > 0.5 ? mTextOnRectF : mTextOffRectF, mRectPaint);
         }
     }
 
@@ -552,7 +711,7 @@ public class SwitchButton extends CompoundButton {
 
             case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
-                setProcess(getProcess() + (x - mLastX) / mSafeRectF.width());
+                setProgress(getProgress() + (x - mLastX) / mSafeRectF.width());
                 mLastX = x;
                 break;
 
@@ -583,24 +742,24 @@ public class SwitchButton extends CompoundButton {
     /**
      * return the status based on position of thumb
      *
-     * @return
+     * @return whether checked or not
      */
     private boolean getStatusBasedOnPos() {
-        return getProcess() > 0.5f;
+        return getProgress() > 0.5f;
     }
 
-    public final float getProcess() {
-        return mProcess;
+    public final float getProgress() {
+        return mProgress;
     }
 
-    public final void setProcess(final float process) {
-        float tp = process;
+    public final void setProgress(final float progress) {
+        float tp = progress;
         if (tp > 1) {
             tp = 1;
         } else if (tp < 0) {
             tp = 0;
         }
-        this.mProcess = tp;
+        this.mProgress = tp;
         invalidate();
     }
 
@@ -615,19 +774,19 @@ public class SwitchButton extends CompoundButton {
      * @param checked checked or unChecked
      */
     protected void animateToState(boolean checked) {
-        if (mProcessAnimator == null) {
+        if (mProgressAnimator == null) {
             return;
         }
-        if (mProcessAnimator.isRunning()) {
-            mProcessAnimator.cancel();
+        if (mProgressAnimator.isRunning()) {
+            mProgressAnimator.cancel();
         }
-        mProcessAnimator.setDuration(mAnimationDuration);
+        mProgressAnimator.setDuration(mAnimationDuration);
         if (checked) {
-            mProcessAnimator.setFloatValues(mProcess, 1f);
+            mProgressAnimator.setFloatValues(mProgress, 1f);
         } else {
-            mProcessAnimator.setFloatValues(mProcess, 0);
+            mProgressAnimator.setFloatValues(mProgress, 0);
         }
-        mProcessAnimator.start();
+        mProgressAnimator.start();
     }
 
     private void catchView() {
@@ -698,10 +857,10 @@ public class SwitchButton extends CompoundButton {
 
     public void setCheckedImmediately(boolean checked) {
         super.setChecked(checked);
-        if (mProcessAnimator != null && mProcessAnimator.isRunning()) {
-            mProcessAnimator.cancel();
+        if (mProgressAnimator != null && mProgressAnimator.isRunning()) {
+            mProgressAnimator.cancel();
         }
-        setProcess(checked ? 1 : 0);
+        setProgress(checked ? 1 : 0);
         invalidate();
     }
 
@@ -741,8 +900,8 @@ public class SwitchButton extends CompoundButton {
     public void setThumbDrawable(Drawable thumbDrawable) {
         mThumbDrawable = thumbDrawable;
         mIsThumbUseDrawable = mThumbDrawable != null;
-        setup();
         refreshDrawableState();
+        mReady = false;
         requestLayout();
         invalidate();
     }
@@ -758,8 +917,8 @@ public class SwitchButton extends CompoundButton {
     public void setBackDrawable(Drawable backDrawable) {
         mBackDrawable = backDrawable;
         mIsBackUseDrawable = mBackDrawable != null;
-        setup();
         refreshDrawableState();
+        mReady = false;
         requestLayout();
         invalidate();
     }
@@ -793,18 +952,21 @@ public class SwitchButton extends CompoundButton {
         if (mThumbColor != null) {
             setThumbDrawable(null);
         }
+        invalidate();
     }
 
     public void setThumbColorRes(int thumbColorRes) {
         setThumbColor(ContextCompat.getColorStateList(getContext(), thumbColorRes));
     }
 
-    public float getBackMeasureRatio() {
-        return mBackMeasureRatio;
+    public float getThumbRangeRatio() {
+        return mThumbRangeRatio;
     }
 
-    public void setBackMeasureRatio(float backMeasureRatio) {
-        mBackMeasureRatio = backMeasureRatio;
+    public void setThumbRangeRatio(float thumbRangeRatio) {
+        mThumbRangeRatio = thumbRangeRatio;
+        // We need to mark "ready" to false since requestLayout may not cause size changed.
+        mReady = false;
         requestLayout();
     }
 
@@ -822,34 +984,23 @@ public class SwitchButton extends CompoundButton {
 
     public void setThumbMargin(float left, float top, float right, float bottom) {
         mThumbMargin.set(left, top, right, bottom);
+        mReady = false;
         requestLayout();
     }
 
-    public void setThumbSize(float width, float height) {
-        mThumbSizeF.set(width, height);
-        setup();
+    public void setThumbSize(int width, int height) {
+        mThumbWidth = width;
+        mThumbHeight = height;
+        mReady = false;
         requestLayout();
     }
 
     public float getThumbWidth() {
-        return mThumbSizeF.x;
+        return mThumbWidth;
     }
 
     public float getThumbHeight() {
-        return mThumbSizeF.y;
-    }
-
-    public void setThumbSize(PointF size) {
-        if (size == null) {
-            float defaultSize = getResources().getDisplayMetrics().density * DEFAULT_THUMB_SIZE_DP;
-            setThumbSize(defaultSize, defaultSize);
-        } else {
-            setThumbSize(size.x, size.y);
-        }
-    }
-
-    public PointF getThumbSizeF() {
-        return mThumbSizeF;
+        return mThumbHeight;
     }
 
     public float getThumbRadius() {
@@ -890,7 +1041,7 @@ public class SwitchButton extends CompoundButton {
         return mTintColor;
     }
 
-    public void setTintColor(int tintColor) {
+    public void setTintColor(@SuppressWarnings("SameParameterValue") int tintColor) {
         mTintColor = tintColor;
         mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
         mBackColor = ColorUtils.generateBackColorWithTintColor(mTintColor);
@@ -908,10 +1059,39 @@ public class SwitchButton extends CompoundButton {
         mOnLayout = null;
         mOffLayout = null;
 
+        mReady = false;
         requestLayout();
         invalidate();
     }
 
+    public CharSequence getTextOn() {
+        return mTextOn;
+    }
+
+    public CharSequence getTextOff() {
+        return mTextOff;
+    }
+
+    public void setTextThumbInset(int textThumbInset) {
+        mTextThumbInset = textThumbInset;
+        mReady = false;
+        requestLayout();
+        invalidate();
+    }
+
+    public void setTextExtra(int textExtra) {
+        mTextExtra = textExtra;
+        mReady = false;
+        requestLayout();
+        invalidate();
+    }
+
+    public void setTextAdjust(int textAdjust) {
+        mTextAdjust = textAdjust;
+        mReady = false;
+        requestLayout();
+        invalidate();
+    }
 
     @Override
     public Parcelable onSaveInstanceState() {
