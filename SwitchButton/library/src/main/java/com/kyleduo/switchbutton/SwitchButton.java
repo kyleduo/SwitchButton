@@ -96,6 +96,7 @@ public class SwitchButton extends CompoundButton {
     // animation and event listening when restoring.
     private boolean mRestoring = false;
     private boolean mReady = false;
+    private boolean mCatch = false;
 
     private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
 
@@ -310,7 +311,7 @@ public class SwitchButton extends CompoundButton {
 
     /**
      * textWidth = max(onWidth, offWidth) + textMarginInside + textMarginOutside
-     *
+     * <p>
      * thumbRange = thumbWidth * rangeRatio
      * textExtraSpace = textWidth + textExtra - (moveRange - thumbWidth + max(thumbMargin.left, thumbMargin.right) + textThumbInset)
      * backWidth = thumbRange + thumbMargin.left + thumbMargin.right + max(textExtraSpace, 0)
@@ -343,7 +344,7 @@ public class SwitchButton extends CompoundButton {
 
             if (mThumbWidth != 0) {
                 moveRange = ceil(mThumbWidth * mThumbRangeRatio);
-                textExtraSpace = textWidth + mTextExtra - (moveRange - mThumbWidth - ceil(Math.max(mThumbMargin.left, mThumbMargin.right)));
+                textExtraSpace = textWidth + mTextExtra - (moveRange - mThumbWidth + ceil(Math.max(mThumbMargin.left, mThumbMargin.right)));
                 mBackWidth = ceil(moveRange + mThumbMargin.left + mThumbMargin.right + Math.max(textExtraSpace, 0));
                 if (mBackWidth < 0) {
                     mThumbWidth = 0;
@@ -368,7 +369,7 @@ public class SwitchButton extends CompoundButton {
                     mBackWidth = 0;
                     return measuredWidth;
                 }
-                textExtraSpace = textWidth + mTextExtra - (moveRange - mThumbWidth - ceil(Math.max(mThumbMargin.left, mThumbMargin.right)));
+                textExtraSpace = textWidth + mTextExtra - (moveRange - mThumbWidth + ceil(Math.max(mThumbMargin.left, mThumbMargin.right)));
                 if (textExtraSpace > 0) {
                     // since backWidth is determined by view width, so we can only reduce thumbSize.
                     mThumbWidth = mThumbWidth - textExtraSpace;
@@ -398,6 +399,11 @@ public class SwitchButton extends CompoundButton {
             moveRange = ceil(mThumbWidth * mThumbRangeRatio);
             textExtraSpace = ceil(textWidth + mTextExtra - (moveRange - mThumbWidth + Math.max(mThumbMargin.left, mThumbMargin.right) + mTextThumbInset));
             mBackWidth = ceil(moveRange + mThumbMargin.left + mThumbMargin.right + Math.max(0, textExtraSpace));
+            if (mBackWidth < 0) {
+                mThumbWidth = 0;
+                mBackWidth = 0;
+                return measuredWidth;
+            }
             contentSize = ceil(moveRange + Math.max(0, mThumbMargin.left) + Math.max(0, mThumbMargin.right) + Math.max(0, textExtraSpace));
 
             measuredWidth = Math.max(contentSize, contentSize + getPaddingLeft() + getPaddingRight());
@@ -413,6 +419,8 @@ public class SwitchButton extends CompoundButton {
         if (mThumbHeight == 0 && mIsThumbUseDrawable) {
             mThumbHeight = mThumbDrawable.getIntrinsicHeight();
         }
+        int contentSize;
+        int textExtraSpace;
         if (heightMode == MeasureSpec.EXACTLY) {
             if (mThumbHeight != 0) {
                 /*
@@ -429,7 +437,6 @@ public class SwitchButton extends CompoundButton {
             if (mThumbHeight == 0) {
                 mBackHeight = ceil(heightSize - getPaddingTop() - getPaddingBottom() + Math.min(0, mThumbMargin.top) + Math.min(0, mThumbMargin.bottom));
                 if (mBackHeight < 0) {
-//                    throw new IllegalStateException(ERROR_SMALL_SIZE);
                     mBackHeight = 0;
                     mThumbHeight = 0;
                     return measuredHeight;
@@ -437,7 +444,6 @@ public class SwitchButton extends CompoundButton {
                 mThumbHeight = ceil(mBackHeight - mThumbMargin.top - mThumbMargin.bottom);
             }
             if (mThumbHeight < 0) {
-//                throw new IllegalStateException(ERROR_SMALL_SIZE);
                 mBackHeight = 0;
                 mThumbHeight = 0;
                 return measuredHeight;
@@ -446,24 +452,21 @@ public class SwitchButton extends CompoundButton {
             if (mThumbHeight == 0) {
                 mThumbHeight = ceil(getResources().getDisplayMetrics().density * DEFAULT_THUMB_SIZE_DP);
             }
-            measuredHeight = ceil(Math.max(mThumbHeight, mThumbHeight + mThumbMargin.top + mThumbMargin.bottom));
-            measuredHeight = ceil(Math.max(measuredHeight, mTextHeight));
-            measuredHeight = Math.max(measuredHeight, getSuggestedMinimumHeight());
-            measuredHeight = Math.max(measuredHeight, measuredHeight + getPaddingTop() + getPaddingBottom());
-            mBackHeight = measuredHeight - getPaddingTop() - getPaddingBottom();
-            if (mThumbMargin.top < 0) {
-                mBackHeight += mThumbMargin.top;
-            }
-            if (mThumbMargin.bottom < 0) {
-                mBackHeight += mThumbMargin.bottom;
-            }
+            mBackHeight = ceil(mThumbHeight + mThumbMargin.top + mThumbMargin.bottom);
             if (mBackHeight < 0) {
-//                throw new IllegalStateException(ERROR_SMALL_SIZE);
                 mBackHeight = 0;
                 mThumbHeight = 0;
                 return measuredHeight;
             }
-            mBackHeight = ceil(Math.max(mBackHeight, mTextHeight));
+            textExtraSpace = ceil(mTextHeight - mBackHeight);
+            if (textExtraSpace > 0) {
+                mBackHeight += textExtraSpace;
+                mThumbHeight += textExtraSpace;
+            }
+            contentSize = Math.max(mThumbHeight, mBackHeight);
+
+            measuredHeight = Math.max(contentSize, contentSize + getPaddingTop() + getPaddingBottom());
+            measuredHeight = Math.max(measuredHeight, getSuggestedMinimumHeight());
         }
 
         return measuredHeight;
@@ -688,7 +691,7 @@ public class SwitchButton extends CompoundButton {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        if (!isEnabled() || !isClickable() || !isFocusable()) {
+        if (!isEnabled() || !isClickable() || !isFocusable() || !mReady) {
             return false;
         }
 
@@ -697,12 +700,8 @@ public class SwitchButton extends CompoundButton {
         float deltaX = event.getX() - mStartX;
         float deltaY = event.getY() - mStartY;
 
-        // status the view going to change to when finger released
-        boolean nextStatus;
-
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                catchView();
                 mStartX = event.getX();
                 mStartY = event.getY();
                 mLastX = mStartX;
@@ -712,17 +711,26 @@ public class SwitchButton extends CompoundButton {
             case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
                 setProgress(getProgress() + (x - mLastX) / mSafeRectF.width());
+                Log.d(TAG, "dx: " + deltaX + ",  dy: " + deltaY + ",  slop: " + mTouchSlop / 2);
+                if (!mCatch && (Math.abs(deltaX) > mTouchSlop / 2 || Math.abs(deltaY) > mTouchSlop / 2)) {
+                    if (deltaY == 0 || Math.abs(deltaX) > Math.abs(deltaY)) {
+                        catchView();
+                    } else if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                        return false;
+                    }
+                }
                 mLastX = x;
                 break;
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+                mCatch = false;
                 setPressed(false);
-                nextStatus = getStatusBasedOnPos();
                 float time = event.getEventTime() - event.getDownTime();
-                if (deltaX < mTouchSlop && deltaY < mTouchSlop && time < mClickTimeout) {
+                if (Math.abs(deltaX) < mTouchSlop && Math.abs(deltaY) < mTouchSlop && time < mClickTimeout) {
                     performClick();
                 } else {
+                    boolean nextStatus = getStatusBasedOnPos();
                     if (nextStatus != isChecked()) {
                         playSoundEffect(SoundEffectConstants.CLICK);
                         setChecked(nextStatus);
@@ -794,6 +802,7 @@ public class SwitchButton extends CompoundButton {
         if (parent != null) {
             parent.requestDisallowInterceptTouchEvent(true);
         }
+        mCatch = true;
     }
 
     @Override
