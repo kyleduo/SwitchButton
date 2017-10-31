@@ -10,7 +10,7 @@ group = "com.kyleduo.switchbutton"
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion '26.0.2'
     resourcePrefix "ksw"
 
     defaultConfig {

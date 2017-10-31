@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <declare-styleable name="SwitchButton">
+    <declare-styleable name="SwitchButton" tools:ignore="ResourceName">
         <attr name="kswThumbDrawable" format="reference"/>
         <attr name="kswThumbColor" format="color|reference"/>
         <attr name="kswThumbMargin" format="dimension|reference"/>
@@ -16,13 +16,14 @@
         <attr name="kswBackDrawable" format="reference"/>
         <attr name="kswBackColor" format="color|reference"/>
         <attr name="kswFadeBack" format="boolean"/>
-        <attr name="kswBackMeasureRatio" format="float"/>
+        <attr name="kswThumbRangeRatio" format="float"/>
         <attr name="kswAnimationDuration" format="integer"/>
         <attr name="kswTintColor" format="color|reference"/>
         <attr name="kswTextOn" format="string"/>
         <attr name="kswTextOff" format="string"/>
-        <attr name="kswTextMarginH" format="dimension"/>
-        <attr name="kswAutoAdjustTextPosition" format="boolean"/>
+        <attr name="kswTextThumbInset" format="dimension"/>
+        <attr name="kswTextExtra" format="dimension"/>
+        <attr name="kswTextAdjust" format="dimension"/>
     </declare-styleable>
 
 </resources>
