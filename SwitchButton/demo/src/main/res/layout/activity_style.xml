@@ -13,34 +13,6 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-
-        <!--
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/sb_md"
-                    style="@style/SwitchButtonStyleMD"
-                    android:layout_width="wrap_content"
-                    app:kswTextOn="ON"
-                    app:kswTextOff="OFF"
-                    android:textColor="@android:color/white"
-                    app:kswTextThumbInset="11dp"
-                    app:kswTextExtra="8dp"
-                    app:kswTextAdjust="-2dp"
-                    android:layout_height="wrap_content"/>
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/sb_text"
-                    style="@style/SwitchButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16dp"
-                    app:kswTextExtra="8dp"
-                    app:kswTextAdjust="-2dp"
-                    app:kswTextOff="Off"
-                    app:kswTextOn="On"
-                    />
-        -->
-
         <TextView
             style="@style/StyleTitleText"
             android:layout_width="wrap_content"

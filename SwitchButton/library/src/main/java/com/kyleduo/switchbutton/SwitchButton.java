@@ -740,11 +740,11 @@ public class SwitchButton extends CompoundButton {
         return getProgress() > 0.5f;
     }
 
-    public final float getProgress() {
+    private float getProgress() {
         return mProgress;
     }
 
-    public final void setProgress(final float progress) {
+    private void setProgress(final float progress) {
         float tp = progress;
         if (tp > 1) {
             tp = 1;
