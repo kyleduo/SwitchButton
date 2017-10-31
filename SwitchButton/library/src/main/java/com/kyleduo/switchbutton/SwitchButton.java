@@ -21,7 +21,6 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
@@ -40,8 +39,6 @@ import android.widget.CompoundButton;
 
 @SuppressWarnings("unused")
 public class SwitchButton extends CompoundButton {
-    public static final String TAG = "SwitchButton";
-
     public static final float DEFAULT_THUMB_RANGE_RATIO = 1.8f;
     public static final int DEFAULT_THUMB_SIZE_DP = 20;
     public static final int DEFAULT_THUMB_MARGIN_DP = 2;
@@ -162,7 +159,6 @@ public class SwitchButton extends CompoundButton {
         int textThumbInset = 0;
         int textExtra = 0;
         int textAdjust = 0;
-        boolean hasMargin = false;
 
         TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
         if (ta != null) {
@@ -494,13 +490,10 @@ public class SwitchButton extends CompoundButton {
 
         int contentWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
         int contentHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
-        Log.d(TAG, "contentHeight: " + contentHeight);
 
         // max range of drawing content, when thumbMargin is negative, drawing range is larger than backWidth
         int drawingWidth = ceil(mBackWidth - Math.min(0, mThumbMargin.left) - Math.min(0, mThumbMargin.right));
         int drawingHeight = ceil(mBackHeight - Math.min(0, mThumbMargin.top) - Math.min(0, mThumbMargin.bottom));
-        Log.d(TAG, "mBackHeight: " + mBackHeight);
-        Log.d(TAG, "drawingHeight: " + drawingHeight);
 
         float thumbTop;
         if (contentHeight <= drawingHeight) {
@@ -703,7 +696,6 @@ public class SwitchButton extends CompoundButton {
             case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
                 setProgress(getProgress() + (x - mLastX) / mSafeRectF.width());
-                Log.d(TAG, "dx: " + deltaX + ",  dy: " + deltaY + ",  slop: " + mTouchSlop / 2);
                 if (!mCatch && (Math.abs(deltaX) > mTouchSlop / 2 || Math.abs(deltaY) > mTouchSlop / 2)) {
                     if (deltaY == 0 || Math.abs(deltaX) > Math.abs(deltaY)) {
                         catchView();
