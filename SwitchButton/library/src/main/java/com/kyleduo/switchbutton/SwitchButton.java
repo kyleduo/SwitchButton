@@ -196,7 +196,8 @@ public class SwitchButton extends CompoundButton {
         if (ta != null) {
             boolean focusable = ta.getBoolean(0, true);
             //noinspection ResourceType
-            @SuppressLint("ResourceType") boolean clickable = ta.getBoolean(1, focusable);
+            @SuppressLint("ResourceType")
+            boolean clickable = ta.getBoolean(1, focusable);
             setFocusable(focusable);
             setClickable(clickable);
             ta.recycle();
@@ -269,14 +270,6 @@ public class SwitchButton extends CompoundButton {
         return new StaticLayout(text, mTextPaint, (int) Math.ceil(Layout.getDesiredWidth(text, mTextPaint)), Layout.Alignment.ALIGN_CENTER, 1.f, 0, false);
     }
 
-    /**
-     * If both width and height are set to EXACTLY, I assume that you want SwitchButton has
-     * exact size as it has been set. So SwitchButton may ignore some properties like
-     * kswThumbWidth, kswThumbHeight, kswBackMeasureRatio, while kswThumbMargin was kept to
-     * calculate the size of thumb and back.
-     * If the height or width size is too small to place the thumb or there are no room for
-     * thumb to move, an IllegalStateException will be thrown.
-     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         /*
@@ -309,8 +302,9 @@ public class SwitchButton extends CompoundButton {
     }
 
     /**
-     * textWidth = max(onWidth, offWidth) + textMarginInside + textMarginOutside
-     * <p>
+     * SwitchButton use this formula to determine the final size of thumb, background and itself.
+     *
+     * textWidth = max(onWidth, offWidth)
      * thumbRange = thumbWidth * rangeRatio
      * textExtraSpace = textWidth + textExtra - (moveRange - thumbWidth + max(thumbMargin.left, thumbMargin.right) + textThumbInset)
      * backWidth = thumbRange + thumbMargin.left + thumbMargin.right + max(textExtraSpace, 0)
@@ -488,7 +482,6 @@ public class SwitchButton extends CompoundButton {
      */
     private void setup() {
         if (mThumbWidth == 0 || mThumbHeight == 0 || mBackWidth == 0 || mBackHeight == 0) {
-//            throw new IllegalStateException("Error size.");
             return;
         }
 
