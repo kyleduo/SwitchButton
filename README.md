@@ -4,11 +4,9 @@ SwitchButton
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchButton-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1119)
 
-**To get a quick preview, you can get Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_142.apk).**
+**To get a quick preview, you can get Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_200.apk).**
 
-This project provides you a convenient way to use and customise a SwitchButton widget in Android. With just resources changed and attrs set, you can create a lifelike SwitchButton of Android 5.0+, iOS, MIUI, or Flyme and so on.
-
-Now we get the biggest movement since SwitchButton published. v1.3.0 comes with totally reconsitution and more convenient API. A wholly new demo can give you a tour in it.
+This project provides you a convenient way to use and customise a SwitchButton widget in Android.
 
 ***
 
@@ -16,26 +14,61 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 Change Log
 ---
 
-Latested Change Log:
+Latested Change Log: (**2.0.0**)
 
-> 1. Fixed [#89](https://github.com/kyleduo/SwitchButton/issues/89).
+**Some attributes are changed and you need to update them to the new ones, since the measurement logic has been totally changed. (Default behavior and style does not change.)**
 
-[Change History.](https://github.com/kyleduo/SwitchButton/blob/master/CHANGELOG.md)
+**因为测量逻辑的改变，部分属性已经做了修改，请更新到新的属性。（默认行为和样式并没有变化）**
+
+> 1.  Re-clarify the meaning of some params.
+> 2.  Update the measurement of SwitchButton and the logic becomes more clear, especially the text part.
+> 3.  Support config SwitchButton's size by setting a exact width and height. There are now TWO mainly method to control it's size.
+> 4.  When use SwitchButon in a scrollable view, SwitchButton consume scroll gestures only horizontal. This means the when you want to scroll the scrollable view vertically and start your touch on a SwitchButton, it will not stop you now.
+> 5.  Bug fix.
+
+>1.  重新明确了参数的含义。
+>2.  更新了SwitchButton的测量机制，逻辑更加清晰；尤其是文字部分。
+>3.  支持设置确定的宽高，来确定SwitchButton的View大小。现在有两种方式可以控制SwitchButton的大小了。
+>4.  可滚动的View中的SwitchButton只会消费横向滚动事件。这意味着你可以从SwitchButton开始按下并纵向滚动可滚动View，SwitchButton现在不会阻止你滚动了。
+>5.  Bug 修复。
+
+[All Change Log](./CHANGELOG.md)
 
 
 Using SwitchButton in your application
 ---
-~~ADT~~
 
-	No more support
-
-__Gradle__
+**In Gradle**
 ​	
 Add dependencies in build.gradle of your module
 
 	dependencies {
-		compile 'com.kyleduo.switchbutton:library:1.4.6'
+		compile 'com.kyleduo.switchbutton:library:2.0.0'
 	}
+#### Migrate to 2.0.0 (迁移到2.0.0)
+
+**ENG**
+
+**There is a big diagram below to show how SwitchButton measure it self in 2.0.0. It is strongly recommended that you should check it out.**
+
+1.  **kswBackMeasureRatio** has been removed from SwitchButton attributes since it has an ambiguous meaning. I've add the new **kswThumbRangeRatio** attribute to represent how much multiple the scroll range of thumb than the width of thumb.
+2.  **kswTextMarginH** and **kswAutoAdjustTextPosition** have been removed from SwitchButton attributes since I updated the measurement logic of text part. And these two attributes do not represent the back meaning well. **kswTextThumbInset**, **kswTextExtra** and **kswTextAdjust** was introduced to represent "how much the text go under thumb", "how much extra space do you want around the text" and "how much to move the text from the center of text area to adjust the text's position". There are all shown on the diagram.
+3.  Setters and getters are also changed due to the change of attributes.
+
+**CHN**
+
+下面有一张图表来解释SwitchButton在2.0.0版本中是如何进行测量的，非常建议你看一看。
+
+1.  **kswBackMeasureRatio** 属性被移除了，因为名称有歧义。新增加的 **kswThumbRangeRatio** 属性表示thumb移动区域和thumb宽度的比值。
+2.  **kswTextMarginH** 和 **kswAutoAdjustTextPosition** 属性被移除了，因为我更新了对文字的测量逻辑，而且这两个属性名称表意不明确。我增加了**kswTextThumbInset**, **kswTextExtra** 和 **kswTextAdjust** 这三个新属性来分别表示“文字在thumb下面的距离”，“额外文字空间”和”文字调节距离“。这些都在图表中有所体现。
+3.  setter和getter都跟随属性名称的改变而进行了改变。
+
+### Diagram: How SwitchButton Measure
+
+This diagram shows how SwitchButton measure itself and what does those nouns mean. To measure width is much complex than the height, so if you know how to measure width, you know how to measure height. And text measurement and location increase the complexity.
+
+![demo_preview](./images/how_switchbutton_measure.png)
+
 ***
 
 
@@ -43,7 +76,7 @@ Demo
 ---
 I create a new demo apk to show you how to style the cute widget and use it. There's some screenshots of the new demo.
 
-![demo_preview](./preview/demo_140.jpg)
+![demo_preview](./images/demo_preview.png)
 
 ***
 
@@ -93,13 +126,17 @@ In __xml__ layout file, you can configure the face of switch button using these 
 *   __kswBackDrawable__: drawable for background
 *   __kswBackColor__: color for background
 *   __kswFadeBack__: fade background color/drawable when drag or animate between on/off status or not
-*   __kswBackMeasureRatio__: (background's width / thumb's width). float value.
 *   __kswAnimationDuration__: duration of animation between 2 status
 *   __kswTintColor__: change SwitchButton's style just by __one__ property, all relevant color will be generate automatically. Do not support `SwitchButtonMD` or other style created by xml resources.
 *   __kswTextOn__: text for checked status.
 *   __kswTextOff__: text for unchecked status.
-*   __kswTextMarginH__: horizontal margin of text.
-*   __kswAutoAdjustTextPosition__: **(Since 1.4.4)** whether auto adjust text position to make them looks centered (NOT really centered) when there are round corners. You should set this to false when you don't need this feature.
+*   __kswTextThumbInset (since 2.0.0)__: length of the part of text under the thumb.
+*   __kswTextExtra (since 2.0.0)__: extra space needed by background besides the actual text width.
+*   __kswTextAdjust (since 2.0.0)__: move the text after position text on the center of text area.
+*   **kswThumbRangeRatio (since 2.0.0)**: (thumb move range width / thumb's width). float value. *see measure diagram*
+*   ~~__kswBackMeasureRatio__: (background's width / thumb's width). float value.~~ *Removed since 2.0.0*
+*   ~~**kswTextMarginH**: horizontal margin of text.~~ *Removed since 2.0.0*
+*   ~~__kswAutoAdjustTextPosition__: **(since 1.4.4)** whether auto adjust text position to make them looks centered (NOT really centered) when there are round corners. You should set this to false when you don't need this feature.~~ *Removed since 2.0.0*
 
 You can alse change the configuration of SwitchButton ___in code___. You can find the api from Demo apk. There's a glance.
 

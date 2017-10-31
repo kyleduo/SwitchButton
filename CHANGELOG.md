@@ -12,43 +12,60 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 
 ***
 
-## update 1.4.6 <font color="#FF684A" size="4">(Latest)</font>
+## 2.0.0 <font color="#FF684A" size="4">(Latest)</font>
+
+**ENG**
+
+1.  Re-clarify the meaning of some params.
+2.  Update the measurement of SwitchButton and the logic becomes more clear, especially the text part.
+3.  Support config SwitchButton's size by setting a exact width and height. There are now TWO mainly method to control it's size.
+
+
+**CHN**
+
+1.  重新明确了参数的含义。
+2.  更新了SwitchButton的测量机制，逻辑更加清晰；尤其是文字部分。
+3.  支持设置确定的宽高，来确定SwitchButton的View大小。现在有两种方式可以控制SwitchButton的大小了。
+
+
+
+## 1.4.6
 
 - Fixed [#89](https://github.com/kyleduo/SwitchButton/issues/89) .
 
-## update 1.4.5
+## 1.4.5
 
 - Fixed [#75](https://github.com/kyleduo/SwitchButton/issues/75) [#78](https://github.com/kyleduo/SwitchButton/issues/78) [#85](https://github.com/kyleduo/SwitchButton/issues/85). 
 
 
 
-update 1.4.4 
+1.4.4 
 ---
 
 * Fixed [#65](https://github.com/kyleduo/SwitchButton/issues/65). 
 * Update text layout, tests looks like center.
 
 
-update 1.4.3
+1.4.3
 ---
 
 * Fixed [#64](https://github.com/kyleduo/SwitchButton/issues/64). Respect to clickable and focusable attributes.
 
 
-update 1.4.2
+1.4.2
 ---
 
 * Support [#49](https://github.com/kyleduo/SwitchButton/issues/60). By default SwitchButton found accentColor of your theme for tintColor. (**accentColor** is used for controls according to [Material Design guideline](https://material.google.com/style/color.html#color-color-schemes). )
 
 
-update 1.4.1
+1.4.1
 ---
 
 * fixed [#49](https://github.com/kyleduo/SwitchButton/issues/49).
 * Support operation without onCheckedChanged callback.
 
 
-update 1.4.0
+1.4.0
 ---
 
 * Add text feature. You can set text for either checked or unchecked status with __kswTextOn__ and __kswTextOff__ attrs. And you can set the margin of text in horizontal direction using __kswTextMarginH__ attr.
@@ -57,14 +74,14 @@ update 1.4.0
 
 ***
 
-update 1.3.4 
+1.3.4 
 ---
 
 * Fix [#40](https://github.com/kyleduo/SwitchButton/issues/40)
 
 ***
 
-update 1.3.3
+1.3.3
 ---
 
 *	Fix SwitchButtonMD style bug in RecyclerView and add page for test. 
@@ -72,7 +89,7 @@ update 1.3.3
 
 ***
 
-update 1.3.2
+1.3.2
 ---
 
 *	**setClickable(boolean)** support.
@@ -80,13 +97,13 @@ update 1.3.2
 
 ***
 
-update 1.3.1
+1.3.1
 ---
 *	Remove shadow of MD style to support under 5.0.
 
 ***
 
-update 1.3.0
+1.3.0
 ---
 *	Reconstructe the whole library.
    * More convenient customization way by __tintColor__.
@@ -97,21 +114,21 @@ update 1.3.0
 ***
 
 
-update 1.2.10
+1.2.10
 ---
 *	Fix issue [#22](https://github.com/kyleduo/SwitchButton/issues/22) by change the attributes' name to prevent conflict;
 
 ***
 
 
-update 1.2.9
+1.2.9
 ---
 *	Fix issue [#19](https://github.com/kyleduo/SwitchButton/issues/19).
 
 ***
 
 
-update 1.2.8
+1.2.8
 ---
 *	Fix stretch bug while using higher API.
    *Add Gradle support.
@@ -120,7 +137,7 @@ update 1.2.8
 ***
 
 
-update 1.2.7
+1.2.7
 ---
 *	Fix rendering bug on some devices.
    *Fix states bug.
@@ -128,14 +145,14 @@ update 1.2.7
 ***
 
 
-update 1.2.6
+1.2.6
 ---
 *   With calling the method ___setChecked(boolean, false);___, you can change the status without invoking the listener.
 
 ***
 
 
-update 1.2.5
+1.2.5
 ---
 *	Fix shrink bug in Android 5.0 (the problem is same like it is in Android 4.4, which has been fixed in 1.2.4).
    *More available to setup Material Design style SwitchButton using ___@style/MD___ in xml layout.
@@ -144,7 +161,7 @@ update 1.2.5
 ***
 
 
-update 1.2.4
+1.2.4
 ---
 *   fix shrink bug(that will cause the content out of bounds not disapper, on Android 4.4)
 *   upload .pad resource, whitch I forgot to upload before.(My fault.)
@@ -152,7 +169,7 @@ update 1.2.4
 ***
 
 
-update 1.2.3
+1.2.3
 ---
 *   bug fix
 *   upgrade demo apk
@@ -171,7 +188,7 @@ When toggle, call ___toggle();___ with change the status immediately and ___togg
 
 ***
 
-update 1.2
+1.2
 ---
 (11/08/2014)
 
@@ -193,7 +210,7 @@ To use shrink feature, you can easily add these attributes in your xml file. It 
 ***
 
 
-update 1.1
+1.1
 ---
 (10/08/2014)
 
@@ -213,6 +230,6 @@ new default style and demo apk looks like this:
 ***
 
 
-Update 1.0
+1.0
 ---
 Add an attr of radius, now you can change the radius when configure the button's face!

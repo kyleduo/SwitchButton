@@ -2,7 +2,7 @@ package com.kyleduo.switchbutton.demo;
 
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import com.kyleduo.switchbutton.SwitchButton;
 
-public class StyleInCodeActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class StyleInCodeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private SwitchButton mChangeSb;
     private boolean mThumbMarginFlag, mThumbSizeFlag, mThumbRadiusFlag, mBackRadiusFlag, mBackMeasureRatioFlag, mAnimationDurationFlag;
