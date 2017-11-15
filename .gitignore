@@ -18,5 +18,3 @@ hs_err_pid*
 bin/
 gen/
 .DS_Store
-
-SwitchButton/gradle.properties
