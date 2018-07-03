@@ -43,7 +43,7 @@ Using SwitchButton in your application
 Add dependencies in build.gradle of your module
 
 	dependencies {
-		compile 'com.kyleduo.switchbutton:library:2.0.0'
+		implementation 'com.kyleduo.switchbutton:library:2.0.0'
 	}
 #### Migrate to 2.0.0 (迁移到2.0.0)
 
