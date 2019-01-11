@@ -1,7 +1,7 @@
 package com.kyleduo.switchbutton.demo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.CompoundButton;
 
 import com.kyleduo.switchbutton.SwitchButton;
