@@ -1,27 +1,27 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+  compileSdkVersion 28
+  buildToolsVersion '28.0.3'
 
-    defaultConfig {
-        applicationId "com.kyleduo.switchbutton.demo"
-        minSdkVersion 14
-        targetSdkVersion 26
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
+  defaultConfig {
+    applicationId "com.kyleduo.switchbutton.demo"
+    minSdkVersion 14
+    targetSdkVersion 28
+    versionCode Integer.parseInt(VERSION_CODE)
+    versionName VERSION_NAME
+  }
+  buildTypes {
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation project(':library')
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+  implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+  implementation project(':library')
 }
