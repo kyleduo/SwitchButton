@@ -1,6 +1,6 @@
 package com.kyleduo.switchbutton;
 
-import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -69,7 +69,7 @@ public class SwitchButton extends CompoundButton {
     // whether using Drawable for thumb or back
     private boolean mIsThumbUseDrawable, mIsBackUseDrawable;
     private boolean mDrawDebugRect = false;
-    private ObjectAnimator mProgressAnimator;
+    private ValueAnimator mProgressAnimator;
     // animation control
     private float mProgress;
     // temp position of thumb when dragging or animating
@@ -129,8 +129,14 @@ public class SwitchButton extends CompoundButton {
         mTextOnRectF = new RectF();
         mTextOffRectF = new RectF();
 
-        mProgressAnimator = ObjectAnimator.ofFloat(this, "progress", 0, 0).setDuration(DEFAULT_ANIMATION_DURATION);
+        mProgressAnimator = ValueAnimator.ofFloat(0, 0).setDuration(DEFAULT_ANIMATION_DURATION);
         mProgressAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        mProgressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setProgress((float) valueAnimator.getAnimatedValue());
+            }
+        });
 
         mPresentThumbRectF = new RectF();
 
@@ -299,7 +305,7 @@ public class SwitchButton extends CompoundButton {
 
     /**
      * SwitchButton use this formula to determine the final size of thumb, background and itself.
-     *
+     * <p>
      * textWidth = max(onWidth, offWidth)
      * thumbRange = thumbWidth * rangeRatio
      * textExtraSpace = textWidth + textExtra - (moveRange - thumbWidth + max(thumbMargin.left, thumbMargin.right) + textThumbInset)
@@ -482,10 +488,10 @@ public class SwitchButton extends CompoundButton {
         }
 
         if (mThumbRadius == -1) {
-            mThumbRadius = Math.min(mThumbWidth, mThumbHeight) / 2;
+            mThumbRadius = Math.min(mThumbWidth, mThumbHeight) / 2f;
         }
         if (mBackRadius == -1) {
-            mBackRadius = Math.min(mBackWidth, mBackHeight) / 2;
+            mBackRadius = Math.min(mBackWidth, mBackHeight) / 2f;
         }
 
         int contentWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
@@ -500,14 +506,14 @@ public class SwitchButton extends CompoundButton {
             thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top);
         } else {
             // center vertical in content area
-            thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top) + (contentHeight - drawingHeight + 1) / 2;
+            thumbTop = getPaddingTop() + Math.max(0, mThumbMargin.top) + (contentHeight - drawingHeight + 1) / 2f;
         }
 
         float thumbLeft;
         if (contentWidth <= mBackWidth) {
             thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left);
         } else {
-            thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left) + (contentWidth - drawingWidth + 1) / 2;
+            thumbLeft = getPaddingLeft() + Math.max(0, mThumbMargin.left) + (contentWidth - drawingWidth + 1) / 2f;
         }
 
         mThumbRectF.set(thumbLeft, thumbTop, thumbLeft + mThumbWidth, thumbTop + mThumbHeight);
@@ -696,14 +702,14 @@ public class SwitchButton extends CompoundButton {
             case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
                 setProgress(getProgress() + (x - mLastX) / mSafeRectF.width());
-                if (!mCatch && (Math.abs(deltaX) > mTouchSlop / 2 || Math.abs(deltaY) > mTouchSlop / 2)) {
+                mLastX = x;
+                if (!mCatch && (Math.abs(deltaX) > mTouchSlop / 2f || Math.abs(deltaY) > mTouchSlop / 2f)) {
                     if (deltaY == 0 || Math.abs(deltaX) > Math.abs(deltaY)) {
                         catchView();
                     } else if (Math.abs(deltaY) > Math.abs(deltaX)) {
                         return false;
                     }
                 }
-                mLastX = x;
                 break;
 
             case MotionEvent.ACTION_CANCEL:
@@ -745,13 +751,13 @@ public class SwitchButton extends CompoundButton {
     }
 
     private void setProgress(final float progress) {
-        float tp = progress;
-        if (tp > 1) {
-            tp = 1;
-        } else if (tp < 0) {
-            tp = 0;
+        float tempProgress = progress;
+        if (tempProgress > 1) {
+            tempProgress = 1;
+        } else if (tempProgress < 0) {
+            tempProgress = 0;
         }
-        this.mProgress = tp;
+        this.mProgress = tempProgress;
         invalidate();
     }
 
