@@ -13,9 +13,9 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -221,13 +221,7 @@ public class SwitchButton extends CompoundButton {
         mIsThumbUseDrawable = mThumbDrawable != null;
         mTintColor = tintColor;
         if (mTintColor == 0) {
-            TypedValue typedValue = new TypedValue();
-            boolean found = getContext().getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
-            if (found) {
-                mTintColor = typedValue.data;
-            } else {
-                mTintColor = DEFAULT_TINT_COLOR;
-            }
+            mTintColor = getThemeAccentColorOrDefault(getContext(), DEFAULT_TINT_COLOR);
         }
         if (!mIsThumbUseDrawable && mThumbColor == null) {
             mThumbColor = ColorUtils.generateThumbColorWithTintColor(mTintColor);
@@ -267,6 +261,18 @@ public class SwitchButton extends CompoundButton {
         }
     }
 
+    private static int getThemeAccentColorOrDefault(Context context, @SuppressWarnings("SameParameterValue") int defaultColor) {
+        int colorAttr;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            colorAttr = android.R.attr.colorAccent;
+        } else {
+            //Get colorAccent defined for AppCompat
+            colorAttr = context.getResources().getIdentifier("colorAccent", "attr", context.getPackageName());
+        }
+        TypedValue outValue = new TypedValue();
+        boolean resolved = context.getTheme().resolveAttribute(colorAttr, outValue, true);
+        return resolved ? outValue.data : defaultColor;
+    }
 
     private Layout makeLayout(CharSequence text) {
         return new StaticLayout(text, mTextPaint, (int) Math.ceil(Layout.getDesiredWidth(text, mTextPaint)), Layout.Alignment.ALIGN_CENTER, 1.f, 0, false);
@@ -906,7 +912,7 @@ public class SwitchButton extends CompoundButton {
     }
 
     public void setThumbDrawableRes(int thumbDrawableRes) {
-        setThumbDrawable(ContextCompat.getDrawable(getContext(), thumbDrawableRes));
+        setThumbDrawable(getDrawableCompat(getContext(), thumbDrawableRes));
     }
 
     public Drawable getBackDrawable() {
@@ -923,7 +929,7 @@ public class SwitchButton extends CompoundButton {
     }
 
     public void setBackDrawableRes(int backDrawableRes) {
-        setBackDrawable(ContextCompat.getDrawable(getContext(), backDrawableRes));
+        setBackDrawable(getDrawableCompat(getContext(), backDrawableRes));
     }
 
     public ColorStateList getBackColor() {
@@ -939,7 +945,7 @@ public class SwitchButton extends CompoundButton {
     }
 
     public void setBackColorRes(int backColorRes) {
-        setBackColor(ContextCompat.getColorStateList(getContext(), backColorRes));
+        setBackColor(getColorStateListCompat(getContext(), backColorRes));
     }
 
     public ColorStateList getThumbColor() {
@@ -955,7 +961,7 @@ public class SwitchButton extends CompoundButton {
     }
 
     public void setThumbColorRes(int thumbColorRes) {
-        setThumbColor(ContextCompat.getColorStateList(getContext(), thumbColorRes));
+        setThumbColor(getColorStateListCompat(getContext(), thumbColorRes));
     }
 
     public float getThumbRangeRatio() {
@@ -1108,6 +1114,40 @@ public class SwitchButton extends CompoundButton {
         mRestoring = true;
         super.onRestoreInstanceState(ss.getSuperState());
         mRestoring = false;
+    }
+
+    /**
+     * Copied from compat library
+     *
+     * @param context context
+     * @param id      id
+     * @return Drawable
+     */
+    private Drawable getDrawableCompat(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 21) {
+            return context.getDrawable(id);
+        } else {
+            //noinspection deprecation
+            return context.getResources().getDrawable(id);
+        }
+    }
+
+    /**
+     * Copied from compat library
+     *
+     * @param context context
+     * @param id      id
+     * @return ColorStateList
+     */
+    private ColorStateList getColorStateListCompat(Context context, int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 23) {
+            return context.getColorStateList(id);
+        } else {
+            //noinspection deprecation
+            return context.getResources().getColorStateList(id);
+        }
     }
 
     static class SavedState extends BaseSavedState {
