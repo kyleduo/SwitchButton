@@ -12,7 +12,23 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 
 ***
 
-## 2.0.0 <font color="#FF684A" size="4">(Latest)</font>
+## 2.0.2 <font color="#FF684A" size="4">(Latest)</font>
+
+**ENG**
+
+1.  Fix [#122](https://github.com/kyleduo/SwitchButton/issues/122). Support sub-class extending from SwitchButton.
+2.  Fix bug which move faster than expected while touch and move vertically.
+3.  Remove dependency of AppCompat library.
+
+
+**CHN**
+
+1.  修复 [#122](https://github.com/kyleduo/SwitchButton/issues/122)。支持从SwitchButton集成子类。
+2.  修复纵向滑动导致移动过快的Bug。
+3.  移除对AppCompat库的依赖。
+
+
+## 2.0.0
 
 **ENG**
 

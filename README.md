@@ -42,9 +42,12 @@ Using SwitchButton in your application
 ​	
 Add dependencies in build.gradle of your module
 
+```groovy
 	dependencies {
-		implementation 'com.kyleduo.switchbutton:library:2.0.0'
+		implementation 'com.kyleduo.switchbutton:library:2.0.2'
 	}
+```
+
 #### Migrate to 2.0.0 (迁移到2.0.0)
 
 **ENG**
@@ -140,7 +143,7 @@ In __xml__ layout file, you can configure the face of switch button using these 
 
 You can alse change the configuration of SwitchButton ___in code___. You can find the api from Demo apk. There's a glance.
 
-```
+```java
 private String[] opts = new String[]{
 			"setThumbColorRes/setThumbColor",
 			"setThumbDrawableRes/setThumbDrawable",
