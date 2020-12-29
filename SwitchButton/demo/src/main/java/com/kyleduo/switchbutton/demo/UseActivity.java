@@ -16,10 +16,11 @@ import com.kyleduo.switchbutton.SwitchButton;
 
 public class UseActivity extends AppCompatActivity implements View.OnClickListener {
 
-	private SwitchButton mListenerSb, mLongSb, mToggleSb, mCheckedSb, mDelaySb, mForceOpenSb, mForceOpenControlSb;
+	private SwitchButton mListenerSb, mListenerDistinguishSb, mLongSb, mToggleSb, mCheckedSb, mDelaySb, mForceOpenSb, mForceOpenControlSb;
 	private ProgressBar mPb;
 	private Button mStartBt;
 	private TextView mListenerFinish;
+	private TextView mTriggerTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,20 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				mListenerFinish.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
+				if (mListenerDistinguishSb.isChecked() != isChecked) {
+					mListenerDistinguishSb.setChecked(isChecked);
+				}
+			}
+		});
+
+		// listener with distinguish
+		mListenerDistinguishSb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				mTriggerTv.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+				if (isChecked) {
+					mTriggerTv.setText(buttonView.isPressed() ? R.string.use_trigger_manually : R.string.use_trigger_by_code);
+				}
 			}
 		});
 
@@ -110,6 +125,7 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 
 	private void findView() {
 		mListenerSb = (SwitchButton) findViewById(R.id.sb_use_listener);
+		mListenerDistinguishSb = (SwitchButton) findViewById(R.id.sb_listener_distinguish);
 		mLongSb = (SwitchButton) findViewById(R.id.sb_use_long);
 		mToggleSb = (SwitchButton) findViewById(R.id.sb_use_toggle);
 		mCheckedSb = (SwitchButton) findViewById(R.id.sb_use_checked);
@@ -123,6 +139,7 @@ public class UseActivity extends AppCompatActivity implements View.OnClickListen
 
 		mListenerFinish = (TextView) findViewById(R.id.listener_finish);
 		mListenerFinish.setVisibility(mListenerSb.isChecked() ? View.VISIBLE : View.INVISIBLE);
+		mTriggerTv = (TextView) findViewById(R.id.listener_trigger);
 
 		mForceOpenSb = (SwitchButton) findViewById(R.id.use_focus_open);
 		mForceOpenControlSb = (SwitchButton) findViewById(R.id.use_focus_open_control);
