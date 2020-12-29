@@ -14,11 +14,11 @@ This project provides you a convenient way to use and customise a SwitchButton w
 Change Log
 ---
 
-Latested Change Log: (**2.0.0**)
+[All Change Log](./CHANGELOG.md)
 
-**Some attributes are changed and you need to update them to the new ones, since the measurement logic has been totally changed. (Default behavior and style does not change.)**
+**Some attributes are changed in 2.0.0 and you need to update them to the new ones, since the measurement logic has been totally changed. (Default behavior and style does not change.)**
 
-**因为测量逻辑的改变，部分属性已经做了修改，请更新到新的属性。（默认行为和样式并没有变化）**
+**因为2.0.0测量逻辑的改变，部分属性已经做了修改，请更新到新的属性。（默认行为和样式并没有变化）**
 
 > 1.  Re-clarify the meaning of some params.
 > 2.  Update the measurement of SwitchButton and the logic becomes more clear, especially the text part.
@@ -32,8 +32,6 @@ Latested Change Log: (**2.0.0**)
 >4.  可滚动的View中的SwitchButton只会消费横向滚动事件。这意味着你可以从SwitchButton开始按下并纵向滚动可滚动View，SwitchButton现在不会阻止你滚动了。
 >5.  Bug 修复。
 
-[All Change Log](./CHANGELOG.md)
-
 
 Using SwitchButton in your application
 ---
@@ -44,7 +42,7 @@ Add dependencies in build.gradle of your module
 
 ```groovy
 	dependencies {
-		implementation 'com.kyleduo.switchbutton:library:2.0.2'
+		implementation 'com.kyleduo.switchbutton:library:2.0.3'
 	}
 ```
 

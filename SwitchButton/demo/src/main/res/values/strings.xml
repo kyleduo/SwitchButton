@@ -4,7 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="copyright">version&#160;<b>2.0.0</b>\nby&#160;<b>kyleduo</b></string>
+    <string name="copyright">version&#160;<b>2.0.3</b>\nby&#160;<b>kyleduo</b></string>
     <string name="license">Apache License 2.0</string>
 
     <!-- style title -->
@@ -23,10 +23,13 @@
 
     <!-- use title -->
     <string name="use_listener">Work with listener</string>
-    <string name="use_listener_no_event">Same as above, but not trigger listener</string>
+    <string name="use_listener_distinguish_manually">Distinguish between manually and by code</string>
+    <string name="use_listener_distinguish_manually_hint">Use the SwitchButton above to control this one.</string>
     <string name="use_delay">Work with delay</string>
     <string name="use_check_in_check">call setChecked(boolean)/setCheckedImmediately(boolean) in OnCheckedChangeListener\nIf the second SwitchButton is checked, the first one was "locked" to checked state.</string>
     <string name="use_listener_finish">You did it!</string>
+    <string name="use_trigger_manually">Manually</string>
+    <string name="use_trigger_by_code">By Code</string>
     <string name="use_long">work with stuff takes long</string>
     <string name="use_long_hint">Click "Start" button to kick it off.</string>
     <string name="use_long_finish">Click "Start" button to kick it off.</string>

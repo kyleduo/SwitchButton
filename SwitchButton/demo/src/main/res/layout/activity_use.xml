@@ -52,6 +52,49 @@
 			style="@style/StyleTitleText"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:text="@string/use_listener_distinguish_manually"/>
+
+		<TextView
+			style="@style/StyleTitleText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/use_listener_distinguish_manually_hint"
+			android:textSize="12sp"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<com.kyleduo.switchbutton.SwitchButton
+				android:id="@+id/sb_listener_distinguish"
+				style="@style/SwitchButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+
+			<TextView
+				android:id="@+id/listener_trigger"
+				style="@style/StyleTitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="16dp"
+				android:visibility="gone"
+				tools:visibility="visible"
+				tools:text="@string/use_trigger_manually"/>
+		</LinearLayout>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginBottom="8dp"
+			android:layout_marginTop="8dp"
+			android:background="#cccccc"/>
+
+		<TextView
+			style="@style/StyleTitleText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
 			android:text="@string/use_delay"/>
 
 		<com.kyleduo.switchbutton.SwitchButton

@@ -1,13 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
     resourcePrefix "ksw"
 
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 23
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
     }

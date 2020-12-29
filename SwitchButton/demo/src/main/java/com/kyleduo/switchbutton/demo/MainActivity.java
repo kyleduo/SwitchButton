@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				startActivity(intent);
 				return true;
 			case R.id.action_blog:
-				intent.setData(Uri.parse("http://kyleduo.com"));
+				intent.setData(Uri.parse("https://kyleduo.com"));
 				startActivity(intent);
 				return true;
 			default:
@@ -63,15 +64,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		startActivity(new Intent(this, RecyclerActivity.class));
 	}
 
-	private void gotoWeibo() {
+	private void gotoBlog() {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse("http://kyleduo.com"));
+		intent.setData(Uri.parse("https://kyleduo.com"));
 		startActivity(intent);
 	}
 
 	private void gotoLicense() {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse("http://www.apache.org/licenses/LICENSE-2.0"));
+		intent.setData(Uri.parse("https://www.apache.org/licenses/LICENSE-2.0"));
 		startActivity(intent);
 	}
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				jumpToRecycler();
 				break;
 			case 4:
-				gotoWeibo();
+				gotoBlog();
 				break;
 			case 5:
 				gotoLicense();
