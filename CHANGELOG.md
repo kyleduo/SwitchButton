@@ -12,7 +12,21 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 
 ***
 
-## 2.0.2 <font color="#FF684A" size="4">(Latest)</font>
+## 2.0.3 <font color="#FF684A" size="4">(Latest)</font>
+
+**ENG**
+
+1.  Fix [#103](https://github.com/kyleduo/SwitchButton/issues/103). Determin whether state change is triggered manully using `isPressed` in OnCheckedChangeListener is supported.
+2.  Remove targetSdkVersion declaration.
+3.  Upgrate compileSdkVersion to 29.
+
+**CHN**
+
+1.  修复 [#103](https://github.com/kyleduo/SwitchButton/issues/103)。支持在OnCheckedChangeListener中使用`isPressed`判断是否是手动触发。
+2.  移除targetSdkVersion声明
+3.  更新compileSdkVersion到29
+
+## 2.0.2
 
 **ENG**
 
