@@ -45,8 +45,8 @@ public class SwitchButton extends CompoundButton {
     public static final int DEFAULT_ANIMATION_DURATION = 250;
     public static final int DEFAULT_TINT_COLOR = 0x327FC2;
 
-    private static int[] CHECKED_PRESSED_STATE = new int[]{android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
-    private static int[] UNCHECKED_PRESSED_STATE = new int[]{-android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
+    private static final int[] CHECKED_PRESSED_STATE = new int[]{android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
+    private static final int[] UNCHECKED_PRESSED_STATE = new int[]{-android.R.attr.state_checked, android.R.attr.state_enabled, android.R.attr.state_pressed};
 
     private Drawable mThumbDrawable, mBackDrawable;
     private ColorStateList mBackColor, mThumbColor;
@@ -93,6 +93,7 @@ public class SwitchButton extends CompoundButton {
     private boolean mRestoring = false;
     private boolean mReady = false;
     private boolean mCatch = false;
+    private UnsetPressedState mUnsetPressedState;
 
     private CompoundButton.OnCheckedChangeListener mChildOnCheckedChangeListener;
 
@@ -721,7 +722,6 @@ public class SwitchButton extends CompoundButton {
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 mCatch = false;
-                setPressed(false);
                 float time = event.getEventTime() - event.getDownTime();
                 if (Math.abs(deltaX) < mTouchSlop && Math.abs(deltaY) < mTouchSlop && time < mClickTimeout) {
                     performClick();
@@ -732,6 +732,14 @@ public class SwitchButton extends CompoundButton {
                         setChecked(nextStatus);
                     } else {
                         animateToState(nextStatus);
+                    }
+                }
+                if (isPressed()) {
+                    if (mUnsetPressedState == null) {
+                        mUnsetPressedState = new UnsetPressedState();
+                    }
+                    if (!post(mUnsetPressedState)) {
+                        mUnsetPressedState.run();
                     }
                 }
                 break;
@@ -1181,5 +1189,12 @@ public class SwitchButton extends CompoundButton {
                 return new SavedState[size];
             }
         };
+    }
+
+    private final class UnsetPressedState implements Runnable {
+        @Override
+        public void run() {
+            setPressed(false);
+        }
     }
 }
