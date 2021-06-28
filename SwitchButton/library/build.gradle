@@ -22,10 +22,4 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-ext {
-    POM_ARTIFACT_ID = 'library'
-    POM_NAME = 'SwitchButton'
-    POM_PACKAGING = 'aar'
-}
-
-apply from: rootProject.file('gradle/gradle-bintray-upload.gradle')
+apply from: rootProject.file('gradle/gradle-maven-publish.gradle')
