@@ -3,7 +3,6 @@ package com.kyleduo.switchbutton.demo;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class UseActivity extends AppCompatActivity implements View.OnClickListener {
 

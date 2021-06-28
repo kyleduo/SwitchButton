@@ -2,7 +2,6 @@ package com.kyleduo.switchbutton.demo;
 
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -13,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.kyleduo.switchbutton.SwitchButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class StyleInCodeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
