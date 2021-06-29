@@ -12,7 +12,18 @@ Now we get the biggest movement since SwitchButton published. v1.3.0 comes with 
 
 ***
 
-## 2.0.3 <font color="#FF684A" size="4">(Latest)</font>
+## 2.1.0 <font color="#FF684A" size="4">(Latest)</font>
+
+**ENG**
+
+1.  Migrate to maven central
+
+
+**CHN**
+
+1.  迁移到 maven central
+
+## 2.0.3
 
 **ENG**
 
