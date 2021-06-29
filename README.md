@@ -41,10 +41,12 @@ Using SwitchButton in your application
 Add dependencies in build.gradle of your module
 
 ```groovy
-	dependencies {
-		implementation 'com.kyleduo.switchbutton:library:2.0.3'
-	}
+dependencies {
+    implementation 'com.kyleduo.switchbutton:library:2.1.0'
+}
 ```
+
+> Version 2.1.0 can be pulled from `mavenCentral()`
 
 #### Migrate to 2.0.0 (迁移到2.0.0)
 
