@@ -33,17 +33,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		int id = item.getItemId();
-		switch (id) {
-			case R.id.action_github:
-				intent.setData(Uri.parse("https://github.com/kyleduo/SwitchButton"));
-				startActivity(intent);
-				return true;
-			case R.id.action_blog:
-				intent.setData(Uri.parse("https://kyleduo.com"));
-				startActivity(intent);
-				return true;
-			default:
-				break;
+		if (id == R.id.action_github) {
+			intent.setData(Uri.parse("https://github.com/kyleduo/SwitchButton"));
+			startActivity(intent);
+			return true;
+		} else if (id == R.id.action_blog) {
+			intent.setData(Uri.parse("https://kyleduo.com"));
+			startActivity(intent);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

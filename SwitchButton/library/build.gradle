@@ -1,25 +1,16 @@
-apply plugin: 'com.android.library'
+plugins {
+    id("com.android.library")
+    id("com.vanniktech.maven.publish")
+}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdk 33
+
+    namespace "com.kyleduo.switchbutton"
+
     resourcePrefix "ksw"
 
     defaultConfig {
         minSdkVersion 11
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
 }
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-}
-
-apply from: rootProject.file('gradle/gradle-maven-publish.gradle')
