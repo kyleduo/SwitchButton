@@ -6,7 +6,7 @@ SwitchButton
 
 **To get a quick preview, you can get Demo apk in [Google Play](https://play.google.com/store/apps/details?id=com.kyleduo.switchbutton.demo) or [Directly download](./demo/switchbutton_demo_200.apk).**
 
-This project provides you a convenient way to use and customise a SwitchButton widget in Android.
+This project provides you a convenient way to use and customize a SwitchButton widget in Android.
 
 ***
 
